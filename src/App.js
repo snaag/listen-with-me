@@ -12,6 +12,7 @@ import ListenPage from './components/pages/listen/ListenPage';
 import MusicPage from './components/pages/music/MusicPage';
 import PlayListPage from './components/pages/playlist/PlayListPage';
 import ProfilePage from './components/pages/profile/ProfilePage';
+import './css/Reset.css';
 
 function App() {
   return (
