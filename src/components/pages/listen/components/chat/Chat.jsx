@@ -2,7 +2,7 @@ import React from 'react';
 
 const Chat = () => {
   return (
-    <div style={{ backgroundColor: 'skyblue', height: '200px' }}>Chat</div>
+    <div style={{ backgroundColor: 'indianred', height: '200px' }}>Chat</div>
   );
 };
 

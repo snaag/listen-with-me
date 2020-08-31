@@ -1,7 +1,14 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Audience = () => {
-  return <div>Audience</div>;
+  return (
+    <>
+      <button>
+        <FontAwesomeIcon icon={['fas', 'users']} />
+      </button>
+    </>
+  );
 };
 
 export default Audience;

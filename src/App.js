@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Navigation from './components/navigation/Navigation';
 import MainPage from './components/pages/main/MainPage';
-import ListenPage from './components/pages/listen/ListenPage';
+import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
 import MusicPage from './components/pages/music/MusicPage';
 import PlayListPage from './components/pages/playlist/PlayListPage';
 import ProfilePage from './components/pages/profile/ProfilePage';
@@ -32,7 +32,7 @@ function App() {
           <MainPage />
         </Route>
         <Route path="/listen">
-          <ListenPage />
+          <ListenPageContainer />
         </Route>
         <Route path="/music">
           <MusicPage />

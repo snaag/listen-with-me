@@ -2,11 +2,11 @@ import React from 'react';
 
 import Audience from './Audience';
 import Like from './Like';
-import SyncTransition from './SyncTransition';
+import AlongContainer from '../containers/AlongContainer';
 
 const Menu = () => {
   return (
-    <div style={{ backgroundColor: 'green' }} className="container-fluid">
+    <div style={{ backgroundColor: 'lightcoral' }} className="container-fluid">
       <div className="row">
         <div className="col">
           <div className="row">
@@ -16,7 +16,7 @@ const Menu = () => {
         </div>
         <div className="col">
           <div className="float-right">
-            <SyncTransition />
+            <AlongContainer />
           </div>
         </div>
       </div>

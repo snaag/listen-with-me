@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import Menu from './components/Menu';
 import VideoView from './components/VideoView';
-import Chat from './components/Chat';
+import Chat from './components/chat/Chat';
+import PlayList from './components/playlist/PlayList';
 
-class ListenPage extends Component {
-  render() {
-    return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col">
-            <Menu />
-            <VideoView />
-          </div>
-          <div className="col">
-            <Chat />
-          </div>
+const ListenPage = ({ isAlong }) => {
+  return (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col">
+          <Menu />
+          <VideoView />
+        </div>
+        <div className="col">
+          {isAlong && <Chat />}
+          {!isAlong && <PlayList />}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ListenPage;
