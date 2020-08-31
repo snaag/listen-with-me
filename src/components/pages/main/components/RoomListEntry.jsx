@@ -11,10 +11,21 @@ class RoomListEntry extends Component {
 
     return (
       <div className="renderListMain_content_entry">
-        <img onClick={() => this.clickListEntry()} src={thumbnails} alt="" />
-        {title}
-        {nickname}
-        {likeAmount}
+        <img
+          className="renderListMain_content_entry-thumbnails"
+          onClick={() => this.clickListEntry()}
+          src={thumbnails}
+          alt=""
+        />
+        <div className="renderListMain_content_entry-title">
+          타이틀: {title}
+        </div>
+        <div className="renderListMain_content_entry-nickname">
+          닉네임: {nickname}
+        </div>
+        <div className="renderListMain_content_entry-liked">
+          좋아요: {likeAmount}
+        </div>
       </div>
     );
   }

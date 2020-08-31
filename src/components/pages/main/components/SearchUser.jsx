@@ -18,7 +18,7 @@ class SearchUser extends Component {
   }
 
   listenAlong() {
-    // fetch('http://listenwithme.com/along', {
+    // fetch('/along', {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ class SearchUser extends Component {
   }
 
   listenRandom() {
-    // fetch('http://listenwithme.com/randomentry', {
+    // fetch('/randomentry', {
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ class RoomList extends Component {
   };
 
   componentDidMount() {
-    // fetch(`http://listenwithme.com/lists?limit=${6}`, {
+    // fetch(`/lists?limit=${6}`, {
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json',
