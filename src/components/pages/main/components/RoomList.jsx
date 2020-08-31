@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomListEntry from './RoomListEntry';
 
+// fadata roomid 추가
 let fakeData = [
   {
     id: 1,

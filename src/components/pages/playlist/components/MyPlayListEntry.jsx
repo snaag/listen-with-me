@@ -55,7 +55,7 @@ class MyPlayListEntry extends Component {
 
   createRoom() {
     // fetch('/room', {
-    //   method: 'DELETE',
+    //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
     //   },
@@ -67,8 +67,7 @@ class MyPlayListEntry extends Component {
     //   .then(res => res.json())
     //   .then(room => {
     //     // room = {"id": integer, "roomURL": "string"} 이렇게 옴
-    //     // id와 url을 listen page로 전달
-    //     // url로 라우팅
+    //     // 라우팅 하면서 roomid만 보내면 됨
     //   })
     //   .catch(err => console.log(err));
   }
