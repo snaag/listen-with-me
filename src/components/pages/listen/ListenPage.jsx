@@ -8,11 +8,17 @@ import Chat from './components/Chat';
 class ListenPage extends Component {
   render() {
     return (
-      <>
-        <Menu />
-        <VideoView />
-        <Chat />
-      </>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <Menu />
+            <VideoView />
+          </div>
+          <div className="col">
+            <Chat />
+          </div>
+        </div>
+      </div>
     );
   }
 }
