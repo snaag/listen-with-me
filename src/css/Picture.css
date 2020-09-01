@@ -1,0 +1,55 @@
+.picture {
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  float: right;
+  border: 0.01rem solid #919191;
+}
+.picture__content {
+  display: inline;
+  margin: 0 auto;
+  margin-left: -50%;
+  height: 100%;
+  width: auto;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 0.7rem 0.7rem;
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: black;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #212121;
+}
+
+.filebox label:active {
+  background-color: #404040;
+}
+
+.filebox {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+}
+
+.filebox input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
