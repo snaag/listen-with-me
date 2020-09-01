@@ -11,7 +11,7 @@ import MainPage from './components/pages/main/MainPage';
 import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
 import MusicPage from './components/pages/music/MusicPage';
 import PlayListPage from './components/pages/playlist/PlayListPage';
-import ProfilePage from './components/pages/profile/ProfilePage';
+import ProfilePageContainer from './components/pages/profile/containers/ProfilePageContainer';
 import './css/Reset.css';
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
           <PlayListPage />
         </Route>
         <Route path="/profile">
-          <ProfilePage />
+          <ProfilePageContainer />
         </Route>
       </Switch>
     </Router>
