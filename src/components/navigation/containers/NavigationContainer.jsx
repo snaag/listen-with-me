@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import useActions from '../../../lib/useActions';
 
 import Navigation from '../Navigation';
+import { signIn, signOut } from '../../../modules/user';
 import {
   setSignInActive,
   setSignInInactive,
@@ -20,8 +21,17 @@ const NavigationContainer = () => {
     onSetSignInInactive,
     onSetSignUpActive,
     onSetSignUpInactive,
+    onSignIn,
+    onSignOut,
   ] = useActions(
-    [setSignInActive, setSignInInactive, setSignUpActive, setSignUpInactive],
+    [
+      setSignInActive,
+      setSignInInactive,
+      setSignUpActive,
+      setSignUpInactive,
+      signIn,
+      signOut,
+    ],
     []
   );
 
@@ -35,6 +45,8 @@ const NavigationContainer = () => {
       setSignInInactive={onSetSignInInactive}
       setSignUpActive={onSetSignUpActive}
       setSignUpInactive={onSetSignUpInactive}
+      signIn={onSignIn}
+      signOut={onSignOut}
     />
   );
 };

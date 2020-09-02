@@ -24,6 +24,11 @@ const SIGNIN_REQUEST = 'user/SIGNIN_REQUEST';
 const SIGNIN_SUCCESS = 'user/SIGNIN_SUCCESS';
 const SIGNIN_FAILURE = 'user/SIGNIN_FAILURE';
 
+//.. signout
+const SIGNOUT_REQUEST = 'user/SIGNOUT_REQUEST';
+const SIGNOUT_SUCCESS = 'user/SIGNOUT_SUCCESS';
+const SIGNOUT_FAILURE = 'user/SIGNOUT_FAILURE';
+
 //.. audience
 const AUDIENCE_AMOUNT_REQUEST = 'user/info/AUDIENCE_AMOUNT_REQUEST';
 const AUDIENCE_AMOUNT_SUCCESS = 'user/info/AUDIENCE_AMOUNT_SUCCESS';
@@ -57,6 +62,11 @@ const UPDATE_DESCRIPTION_FAILURE = 'user/info/UPDATE_DESCRIPTION_FAILURE';
 const signInRequest = createAction(SIGNIN_REQUEST);
 const signInSuccess = createAction(SIGNIN_SUCCESS, data => data);
 const signInFailure = createAction(SIGNIN_FAILURE);
+
+//.. signout
+const signOutRequest = createAction(SIGNOUT_REQUEST);
+const signOutSuccess = createAction(SIGNOUT_SUCCESS);
+const signOutFailure = createAction(SIGNOUT_FAILURE);
 
 //.. audience
 const audienceAmountRequest = createAction(AUDIENCE_AMOUNT_REQUEST);
@@ -100,6 +110,7 @@ const updateDescriptionSuccess = createAction(
 const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 
 // action creator (async)
+//.. signin
 const signIn = signInData => {
   return (dispatch, getState) => {
     dispatch(signInRequest());
@@ -143,6 +154,16 @@ const signIn = signInData => {
   //     console.log(error);
   //   }
   // };
+};
+
+//.. signout
+const signOut = () => {
+  return (dispatch, getState) => {
+    dispatch(signOutRequest());
+    setTimeout(() => {
+      dispatch(signOutSuccess());
+    }, 1000);
+  };
 };
 
 const getLikeAmount = authentication => {
@@ -284,6 +305,7 @@ const updateDescription = (description, authentication) => {
 
 export {
   signIn,
+  signOut,
   getLikeAmount,
   getAudienceAmount,
   updateProfilePicture,
@@ -294,6 +316,7 @@ export {
 // reducer
 const userReducer = handleActions(
   {
+    //.. signin
     [SIGNIN_REQUEST]: prevState => ({
       ...prevState,
       status: {
@@ -322,6 +345,29 @@ const userReducer = handleActions(
         isLoading: false,
       },
     }),
+    //.. signout
+    [SIGNOUT_REQUEST]: prevState => ({
+      ...prevState,
+    }),
+    [SIGNOUT_SUCCESS]: (prevState, action) => ({
+      ...prevState,
+      status: {
+        isSignIn: false,
+        isLoading: false,
+      },
+      info: {
+        email: '',
+        nickname: '',
+        profileURL: '',
+        description: '',
+        audienceAmount: 0,
+        likeAmount: 0,
+      },
+    }),
+    [SIGNOUT_FAILURE]: prevState => ({
+      ...prevState,
+    }),
+    //.. audience amount
     [AUDIENCE_AMOUNT_REQUEST]: prevState => ({
       ...prevState,
     }),

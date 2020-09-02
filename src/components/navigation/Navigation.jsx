@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,6 +19,8 @@ const Navigation = ({
   setSignInInactive,
   setSignUpActive,
   setSignUpInactive,
+  signIn,
+  signOut,
   history,
 }) => {
   const { signInModalActive, signUpModalActive } = modalsStatus;
@@ -40,10 +42,8 @@ const Navigation = ({
           <div className="row float-right">
             {isSignIn && (
               <>
-                <button>로그아웃</button>
-                <button onClick={() => history.push('/profile')}>
-                  마이페이지
-                </button>
+                <SignOut signOut={signOut} />
+                <MyPage />
               </>
             )}
             {!isSignIn &&
@@ -59,7 +59,11 @@ const Navigation = ({
         </div>
       </div>
       {signInModalActive && (
-        <SignIn isActive={signInModalActive} handleClose={setSignInInactive} />
+        <SignIn
+          isActive={signInModalActive}
+          handleClose={setSignInInactive}
+          signIn={signIn}
+        />
       )}
       {signUpModalActive && (
         <SignUp isActive={signUpModalActive} handleClose={setSignUpInactive} />
