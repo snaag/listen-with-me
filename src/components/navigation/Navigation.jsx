@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -10,7 +10,19 @@ import SignUp from './components/SignUp'; // 회원가입
 import SignOut from './components/SignOut'; // 로그아웃
 import MyPage from './components/MyPage'; // 마이페이지
 
-const Navigation = ({ isSignIn, isLoading, nickname }) => {
+const Navigation = ({
+  isSignIn,
+  isLoading,
+  nickname,
+  modalsStatus,
+  setSignInActive,
+  setSignInInactive,
+  setSignUpActive,
+  setSignUpInactive,
+  history,
+}) => {
+  const { signInModalActive, signUpModalActive } = modalsStatus;
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
@@ -28,8 +40,10 @@ const Navigation = ({ isSignIn, isLoading, nickname }) => {
           <div className="row float-right">
             {isSignIn && (
               <>
-                <SignOut />
-                <MyPage />
+                <button>로그아웃</button>
+                <button onClick={() => history.push('/profile')}>
+                  마이페이지
+                </button>
               </>
             )}
             {!isSignIn &&
@@ -37,13 +51,19 @@ const Navigation = ({ isSignIn, isLoading, nickname }) => {
                 <FontAwesomeIcon icon={['fa', 'spinner']} pulse />
               ) : (
                 <>
-                  <SignIn />
-                  <SignUp />
+                  <button onClick={() => setSignInActive()}>로그인</button>
+                  <button onClick={() => setSignUpActive()}>회원 가입</button>
                 </>
               ))}
           </div>
         </div>
       </div>
+      {signInModalActive && (
+        <SignIn isActive={signInModalActive} handleClose={setSignInInactive} />
+      )}
+      {signUpModalActive && (
+        <SignUp isActive={signUpModalActive} handleClose={setSignUpInactive} />
+      )}
     </div>
   );
 };
