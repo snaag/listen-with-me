@@ -10,7 +10,7 @@ import Navigation from './components/navigation/Navigation';
 import MainPage from './components/pages/main/MainPage';
 import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
 import MusicPage from './components/pages/music/MusicPage';
-import PlayListPage from './components/pages/playlist/PlayListPage';
+import PlayListPage from './components/pages/playlist/containers/PlayListPage';
 import ProfilePageContainer from './components/pages/profile/containers/ProfilePageContainer';
 import './css/Reset.css';
 

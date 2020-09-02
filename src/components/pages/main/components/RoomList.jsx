@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
 import RoomListEntry from './RoomListEntry';
 
-// fadata roomid 추가
-let fakeData = [
-  {
-    id: 1,
-    thumbnails: 'img1',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-  },
-  {
-    id: 2,
-    thumbnails: 'img2',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-  },
-];
-
 class RoomList extends Component {
-  state = {
-    likedList: fakeData,
-  };
-
   componentDidMount() {
     // fetch(`/lists?limit=${6}`, {
     //   method: 'GET',
@@ -34,9 +12,7 @@ class RoomList extends Component {
     // })
     //   .then(res => res.json())
     //   .then(likedList => {
-    //     this.setState({
-    //       likedList: likedList,
-    //     });
+    //     this.props.handleLikedList(likedList);
     //   })
     //   .catch(err => console.log(err));
   }
@@ -44,7 +20,7 @@ class RoomList extends Component {
   render() {
     return (
       <div className="renderListMain_content">
-        {this.state.likedList.map(listEntry => (
+        {this.props.likedList.map(listEntry => (
           <RoomListEntry key={listEntry.id} listEntry={listEntry} />
         ))}
       </div>

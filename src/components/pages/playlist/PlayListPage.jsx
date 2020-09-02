@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
-import MyPlayList from './components/MyPlayList';
-import CreateListModal from '../../modals/CreateListModal/CreateListModal';
+import MyPlayList from './containers/MyPlayList';
+import CreateListModal from '../../modals/CreateListModal/containers/CreateListModal';
 
 class PlayListPage extends Component {
-  state = {
-    isModalOpen: false,
-  };
-
-  handleModalOpen() {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen,
-    });
-  }
-
   render() {
+    const { isModalOpen, handleModalOpen } = this.props;
     return (
       <div>
         <div className="myPlayList">
           <MyPlayList />
         </div>
-        <button onClick={() => this.handleModalOpen()}>모달</button>
+        <button onClick={() => handleModalOpen(!isModalOpen)}>모달</button>
         <div className="createListModal">
-          <CreateListModal
-            isOpen={this.state.isModalOpen}
-            handleModalOpen={this.handleModalOpen.bind(this)}
-          />
+          <CreateListModal />
         </div>
       </div>
     );

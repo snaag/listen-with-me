@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SearchUser from './components/SearchUser';
-import RoomList from './components/RoomList';
+import SearchUser from './containers/SearchUser';
+import RoomList from './containers/RoomList';
 
 class MainPage extends Component {
   render() {

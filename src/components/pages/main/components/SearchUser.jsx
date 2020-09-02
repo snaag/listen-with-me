@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
 class SearchUser extends Component {
-  state = {
-    nickname: '',
-  };
-
-  handleNickname(value) {
-    this.setState({
-      nickname: value,
-    });
-  }
-
   handlePressEnter(key) {
     if (key === 'Enter') {
       this.listenAlong();
@@ -18,44 +8,44 @@ class SearchUser extends Component {
   }
 
   listenAlong() {
-    // fetch('/along', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     nickname: this.state.nickname,
-    //   }),
-    //   credentials: 'include',
-    // })
-    //   .then(res => {
-    //     if (res.status === 200) {
-    //       // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
-    //     } else if (res.status === 202) {
-    //       alert('해당 유저가 방을 열지 않았습니다.');
-    //     } else {
-    //       alert('해당 유저를 찾을 수 없습니다.');
-    //     }
-    //   })
-    //   .catch(err => console.log(err));
+    fetch('/along', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nickname: this.props.nickname,
+      }),
+      credentials: 'include',
+    })
+      .then(res => {
+        if (res.status === 200) {
+          // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
+        } else if (res.status === 202) {
+          alert('해당 유저가 방을 열지 않았습니다.');
+        } else {
+          alert('해당 유저를 찾을 수 없습니다.');
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   listenRandom() {
-    // fetch('/randomentry', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   credentials: 'include',
-    // })
-    //   .then(res => {
-    //     if (res.status === 200) {
-    //       // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
-    //     } else {
-    //       alert('열려있는 방이 없습니다.');
-    //     }
-    //   })
-    //   .catch(err => console.log(err));
+    fetch('/randomentry', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+      .then(res => {
+        if (res.status === 200) {
+          // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
+        } else {
+          alert('열려있는 방이 없습니다.');
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -63,7 +53,7 @@ class SearchUser extends Component {
       <div className="searchMain_content">
         <input
           className="searchMain_content_input"
-          onChange={e => this.handleNickname(e.target.value)}
+          onChange={e => this.props.handleNickname(e.target.value)}
           onKeyPress={e => this.handlePressEnter(e.key)}
         ></input>
         <button
