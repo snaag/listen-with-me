@@ -1,48 +1,23 @@
 import React, { Component } from 'react';
 import searchYoutube from './SearchYoutube';
-import SearchMusicEntry from './SearchMusicEntry';
+import SearchMusicEntry from '../containers/SearchMusicEntry';
 
 class SearchMusic extends Component {
-  state = {
-    music: [],
-    searchInfo: {
-      query: '',
-      max: 3,
-      key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
-    },
-  };
-
-  handleQuery(value) {
-    const searchInfo = this.state.searchInfo;
-    searchInfo.query = value;
-    this.setState({
-      searchInfo: searchInfo,
-    });
-  }
-
-  handleMusic(value) {
-    this.setState({
-      music: value,
-    });
-  }
-
   searchMusic() {
-    searchYoutube(this.state.searchInfo, data => {
-      this.handleMusic(data);
+    const { searchInfo, handleMusic } = this.props;
+    searchYoutube(searchInfo, data => {
+      handleMusic(data);
     });
   }
 
   render() {
+    const { music, handleQuery } = this.props;
     return (
       <div>
-        <input onChange={e => this.handleQuery(e.target.value)}></input>
-        <button onClick={e => this.searchMusic()}>검색</button>
-        {this.state.music.map(entry => (
-          <SearchMusicEntry
-            key={entry.id.videoId}
-            entry={entry}
-            addEntry={this.props.addEntry}
-          />
+        <input onChange={e => handleQuery(e.target.value)}></input>
+        <button onClick={() => this.searchMusic()}>검색</button>
+        {music.map(entry => (
+          <SearchMusicEntry key={entry.id.videoId} entry={entry} />
         ))}
       </div>
     );

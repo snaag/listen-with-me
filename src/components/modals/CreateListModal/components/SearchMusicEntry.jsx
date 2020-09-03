@@ -10,8 +10,15 @@ class SearchMusicEntry extends Component {
     },
   };
 
+  addEntry(value) {
+    const { entries, handleEntries } = this.props;
+    const newEntries = entries.slice();
+    value.id = entries.length ? entries[entries.length - 1].id + 1 : 1;
+    newEntries.push(value);
+    handleEntries(newEntries);
+  }
+
   componentDidMount() {
-    console.log(this.props.entry);
     const {
       id: { videoId },
       snippet: {
@@ -38,9 +45,7 @@ class SearchMusicEntry extends Component {
       <div>
         <img src={this.state.entry.thumbnail} alt="" />
         <div>{this.state.entry.title}</div>
-        <button onClick={() => this.props.addEntry(this.state.entry)}>
-          추가
-        </button>
+        <button onClick={() => this.addEntry(this.state.entry)}>추가</button>
       </div>
     );
   }

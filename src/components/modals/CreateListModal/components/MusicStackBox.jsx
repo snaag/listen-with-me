@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import StackBoxEntry from './StackBoxEntry';
+import StackBoxEntry from '../containers/StackBoxEntry';
 
 class MusicStackBox extends Component {
   render() {
-    const { entries, deleteEntry } = this.props;
+    const { entries } = this.props;
     return (
       <div>
         {entries.map(entry => (
-          <StackBoxEntry
-            key={entry.id}
-            entry={entry}
-            deleteEntry={deleteEntry}
-          />
+          <StackBoxEntry key={entry.id} entry={entry} />
         ))}
       </div>
     );
