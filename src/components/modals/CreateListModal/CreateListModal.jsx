@@ -32,6 +32,11 @@ class CreateListModal extends Component {
     //   handleEntries,
     //   handleModalOpen,
     // } = this.props;
+    // if (!list_title) {
+    //   alert('제목을 입력해주세요.');
+    // } else if (!entries.length) {
+    //   alert('음악을 추가해주세요.');
+    // } else {
     // fetch('/playlist', {
     //   method: 'POST',
     //   headers: {
@@ -51,10 +56,11 @@ class CreateListModal extends Component {
     //     }
     //   })
     //   .catch(err => console.log(err));
+    // }
   }
 
   render() {
-    const { isModalOpen, handleModalOpen } = this.props;
+    const { isModalOpen } = this.props;
     return (
       <React.Fragment>
         {isModalOpen ? (
@@ -64,12 +70,21 @@ class CreateListModal extends Component {
               onClick={() => this.closeModal()}
             />
             <div className="createListModal_content">
-              <TitleInputBox />
-              <MusicStackBox />
-              <SearchMusic />
-              <div>
-                <button onClick={() => this.createList()}> 확인 </button>
+              <div className="createListModal_content_titleInputBox">
+                <TitleInputBox />
               </div>
+              <div className="createListModal_content_musicStackBox">
+                <MusicStackBox />
+              </div>
+              <div className="createListModal_content_searchMusic">
+                <SearchMusic />
+              </div>
+              <button
+                className="createListModal_content_createListButton"
+                onClick={() => this.createList()}
+              >
+                확인
+              </button>
             </div>
           </React.Fragment>
         ) : null}

@@ -54,22 +54,7 @@ class MyPlayListEntry extends Component {
   }
 
   createRoom() {
-    // fetch('/room', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     playlist_id: this.props.listEntry.id,
-    //   }),
-    //   credentials: 'include',
-    // })
-    //   .then(res => res.json())
-    //   .then(room => {
-    //     // room = {"id": integer, "roomURL": "string"} 이렇게 옴
-    //     // 라우팅 하면서 roomid만 보내면 됨
-    //   })
-    //   .catch(err => console.log(err));
+    // 라우팅 하면서 roomid만 보내면 됨
   }
 
   componentDidMount() {
@@ -81,17 +66,20 @@ class MyPlayListEntry extends Component {
 
     return (
       <div className="myPlayList_content_entry">
-        <button
-          className="myPlayList_content_entry-deleteButton"
-          onClick={() => this.deleteRoom()}
-        >
-          삭제
-        </button>
+        <div className="임시">
+          <button
+            className="myPlayList_content_entry-deleteButton"
+            onClick={() => this.deleteRoom()}
+          >
+            삭제
+          </button>
+        </div>
         <img
           className="myPlayList_content_entry-thumbnails"
           onClick={() => this.createRoom()}
           src={thumbnails}
           alt=""
+          width="100px"
         ></img>
         <div className="myPlayList_content_entry-title">
           <div

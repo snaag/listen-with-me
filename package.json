@@ -49,5 +49,5 @@
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
   },
-  "proxy": "https://listenwithme.com"
+  "proxy": "http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/"
 }

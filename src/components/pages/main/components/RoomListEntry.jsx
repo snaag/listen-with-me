@@ -13,8 +13,9 @@ class RoomListEntry extends Component {
         <img
           className="renderListMain_content_entry-thumbnails"
           onClick={() => this.clickListEntry()}
-          // src={thumbnails}
+          src={thumbnails}
           alt=""
+          width="100px"
         />
         <div className="renderListMain_content_entry-title">
           타이틀: {title}

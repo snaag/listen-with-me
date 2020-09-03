@@ -10,16 +10,31 @@ class SearchMusic extends Component {
     });
   }
 
+  handlePressEnter(key) {
+    if (key === 'Enter') {
+      this.searchMusic();
+    }
+  }
+
   render() {
     const { music, handleQuery } = this.props;
     return (
-      <div>
-        <input onChange={e => handleQuery(e.target.value)}></input>
-        <button onClick={() => this.searchMusic()}>검색</button>
+      <>
+        <input
+          className="createListModal_content_searchMusic-inputBox"
+          onChange={e => handleQuery(e.target.value)}
+          onKeyPress={e => this.handlePressEnter(e.key)}
+        ></input>
+        <button
+          className="createListModal_content_searchMusic-searchButton"
+          onClick={() => this.searchMusic()}
+        >
+          검색
+        </button>
         {music.map(entry => (
           <SearchMusicEntry key={entry.id.videoId} entry={entry} />
         ))}
-      </div>
+      </>
     );
   }
 }
