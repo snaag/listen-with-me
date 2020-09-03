@@ -2,7 +2,8 @@ let fakeData = [
   {
     id: 1,
     room_id: 12,
-    thumbnails: 'img1',
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
@@ -10,7 +11,8 @@ let fakeData = [
   {
     id: 2,
     room_id: 14,
-    thumbnails: 'img2',
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,

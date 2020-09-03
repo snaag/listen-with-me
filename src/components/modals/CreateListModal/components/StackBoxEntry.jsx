@@ -14,10 +14,17 @@ class StackBoxEntry extends Component {
   render() {
     const { entry } = this.props;
     return (
-      <div>
-        <div>{entry.title}</div>
-        <button onClick={() => this.deleteEntry(entry.id)}>삭제</button>
-      </div>
+      <>
+        <div className="createListModal_content_musicStackBox-entry-title">
+          {entry.title}
+        </div>
+        <button
+          className="createListModal_content_musicStackBox-entry-deleteEntryButton"
+          onClick={() => this.deleteEntry(entry.id)}
+        >
+          삭제
+        </button>
+      </>
     );
   }
 }

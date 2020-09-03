@@ -42,10 +42,21 @@ class SearchMusicEntry extends Component {
 
   render() {
     return (
-      <div>
-        <img src={this.state.entry.thumbnail} alt="" />
-        <div>{this.state.entry.title}</div>
-        <button onClick={() => this.addEntry(this.state.entry)}>추가</button>
+      <div className="createListModal_content_searchMusic-entry">
+        <img
+          className="createListModal_content_searchMusic-entry-thumbnail"
+          src={this.state.entry.thumbnail}
+          alt=""
+        />
+        <div className="createListModal_content_searchMusic-entry-title">
+          {this.state.entry.title}
+        </div>
+        <button
+          className="createListModal_content_searchMusic-entry-addEntryButton"
+          onClick={() => this.addEntry(this.state.entry)}
+        >
+          추가
+        </button>
       </div>
     );
   }
