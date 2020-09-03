@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Title = () => {
-  return <div>같이 들을래?</div>;
+  return (
+    <div className="title__inner">
+      <h1 className="title__text">같이 들을래?</h1>
+    </div>
+  );
 };
 
 export default Title;

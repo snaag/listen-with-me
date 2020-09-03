@@ -10,7 +10,7 @@ const SignIn = ({ isActive, signIn, handleClose }) => {
   const changeInfo = e => {
     setInfo({
       ...info,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     });
   };
   const onSignInSubmit = e => {

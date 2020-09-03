@@ -15,7 +15,7 @@ const ListenPage = ({ isAlong }) => {
           <VideoView />
         </div>
         <div className="col">
-          {isAlong && <ChatContainer />}
+          {/* {isAlong && <ChatContainer />} */}
           {!isAlong && <PlayList />}
         </div>
       </div>
