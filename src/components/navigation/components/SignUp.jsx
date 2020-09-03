@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-const SignUp = ({ isActive, handleClose }) => {
+const SignUp = ({ isActive, signUp, handleClose }) => {
   const [info, setInfo] = useState({
     nickname: '',
     email: '',
@@ -31,7 +31,13 @@ const SignUp = ({ isActive, handleClose }) => {
   }, [info]);
 
   const onSignUpSubmit = e => {
+    const { email, password, nickname } = info;
     e.preventDefault();
+    signUp({
+      email,
+      password,
+      nickname,
+    });
     handleClose();
   };
 

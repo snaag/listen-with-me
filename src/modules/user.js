@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 const axios = require('axios');
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://localhost:4000';
 
 const initialState = {
   status: {
@@ -23,6 +23,11 @@ const initialState = {
 const SIGNIN_REQUEST = 'user/SIGNIN_REQUEST';
 const SIGNIN_SUCCESS = 'user/SIGNIN_SUCCESS';
 const SIGNIN_FAILURE = 'user/SIGNIN_FAILURE';
+
+//.. signup
+const SIGNUP_REQUEST = 'user/SIGNUP_REQUEST';
+const SIGNUP_SUCCESS = 'user/SIGNUP_SUCCESS';
+const SIGNUP_FAILURE = 'user/SIGNUP_FAILURE';
 
 //.. signout
 const SIGNOUT_REQUEST = 'user/SIGNOUT_REQUEST';
@@ -62,6 +67,11 @@ const UPDATE_DESCRIPTION_FAILURE = 'user/info/UPDATE_DESCRIPTION_FAILURE';
 const signInRequest = createAction(SIGNIN_REQUEST);
 const signInSuccess = createAction(SIGNIN_SUCCESS, data => data);
 const signInFailure = createAction(SIGNIN_FAILURE);
+
+//.. signup
+const signUpRequest = createAction(SIGNUP_REQUEST);
+const signUpSuccess = createAction(SIGNUP_SUCCESS, data => data);
+const signUpFailure = createAction(SIGNUP_FAILURE);
 
 //.. signout
 const signOutRequest = createAction(SIGNOUT_REQUEST);
@@ -112,48 +122,62 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 // action creator (async)
 //.. signin
 const signIn = signInData => {
-  return (dispatch, getState) => {
+  console.log('signInData:', signInData);
+  return async (dispatch, getState) => {
     dispatch(signInRequest());
-    setTimeout(() => {
-      dispatch(
-        signInSuccess({
-          email: 'snaag.dev@gmail.com',
-          nickname: 'snaag',
-          profileURL:
-            'https://www.catster.com/wp-content/uploads/2018/01/Orange-tabby-cat-sleeping-with-eyes-closed.jpg',
-          description: 'hihihi',
-        })
-      );
-    }, 1000);
-  };
-  // return async (dispatch, getState) => {
-  //   dispatch(signInRequest());
-  //   try {
-  //     const { status, data } = await axios
-  //       .get(`${BASE_URL}/signin`, signInData)
-  //       .then(response => response)
-  //       .catch(error => error.response);
+    try {
+      const { status, data } = await axios
+        .post(`${BASE_URL}/user/signin`, signInData)
+        .then(response => response)
+        .catch(error => error.response);
 
-  //     if (status === 200) {
-  //       const { email, nickname, profileURL, profileDescription } = data;
-  //       dispatch(
-  //         signInSuccess({
-  //           email,
-  //           nickname,
-  //           profileURL,
-  //           description: profileDescription,
-  //         })
-  //       );
-  //     } else {
-  //       const { message } = data;
-  //       console.log(message);
-  //       if (status === 401) dispatch(signInFailure());
-  //       else dispatch(signInFailure());
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      if (status === 200) {
+        const { email, nickname, profileURL, profileDescription } = data;
+        dispatch(
+          signInSuccess({
+            email,
+            nickname,
+            profileURL,
+            description: profileDescription,
+          })
+        );
+      } else {
+        const { message } = data;
+        console.log(message);
+        if (status === 401) dispatch(signInFailure());
+        else dispatch(signInFailure());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//.. signup
+const signUp = signUpData => {
+  console.log('signup action-signUpData: ', signUpData);
+  return async (dispatch, getState) => {
+    dispatch(signUpRequest());
+    try {
+      const { status, data } = await axios
+        .post(`${BASE_URL}/user/signup`, signUpData)
+        .then(response => response)
+        .catch(error => error.response);
+
+      if (status === 200) {
+        console.log('>>signup success', data);
+        dispatch(signUpSuccess());
+      } else {
+        console.log('>>signup failure', status);
+        const { message } = data;
+        console.log(message);
+        dispatch(signUpFailure());
+      }
+    } catch (error) {
+      console.log('>>signup error');
+      console.log(error);
+    }
+  };
 };
 
 //.. signout
@@ -305,6 +329,7 @@ const updateDescription = (description, authentication) => {
 
 export {
   signIn,
+  signUp,
   signOut,
   getLikeAmount,
   getAudienceAmount,

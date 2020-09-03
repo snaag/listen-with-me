@@ -20,6 +20,7 @@ const Navigation = ({
   setSignUpActive,
   setSignUpInactive,
   signIn,
+  signUp,
   signOut,
   history,
 }) => {
@@ -66,7 +67,11 @@ const Navigation = ({
         />
       )}
       {signUpModalActive && (
-        <SignUp isActive={signUpModalActive} handleClose={setSignUpInactive} />
+        <SignUp
+          isActive={signUpModalActive}
+          handleClose={setSignUpInactive}
+          signUp={signUp}
+        />
       )}
     </div>
   );
