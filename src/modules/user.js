@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import Cookies from 'js-cookie';
 const axios = require('axios');
 
 const BASE_URL = 'http://localhost:4000';
@@ -122,15 +123,29 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 // action creator (async)
 //.. signin
 const signIn = signInData => {
-  console.log('signInData:', signInData);
   return async (dispatch, getState) => {
-    dispatch(signInRequest());
+    // dispatch(signInRequest());
+    // try {
+    //   const data = await axios
+    //     .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
+    //     .then(response => response)
+    //     .catch(error => error.response);
+
+    //   console.log('data>>', data);
+    //   const { headers } = data;
+    //   console.log('headers>>', headers);
+    //   console.log(Cookies.get('authorization'));
+    //   localStorage.
+    // } catch (error) {}
+
     try {
-      const { status, data } = await axios
-        .post(`${BASE_URL}/user/signin`, signInData)
+      const { status, data, headers } = await axios
+        .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
         .then(response => response)
         .catch(error => error.response);
 
+      console.log('headers>', headers);
+      console.log('data>', data);
       if (status === 200) {
         const { email, nickname, profileURL, profileDescription } = data;
         dispatch(
@@ -143,9 +158,8 @@ const signIn = signInData => {
         );
       } else {
         const { message } = data;
-        console.log(message);
-        if (status === 401) dispatch(signInFailure());
-        else dispatch(signInFailure());
+        console.log(status, message);
+        dispatch(signInFailure());
       }
     } catch (error) {
       console.log(error);
@@ -186,7 +200,7 @@ const signOut = () => {
     dispatch(signOutRequest());
     setTimeout(() => {
       dispatch(signOutSuccess());
-    }, 1000);
+    }, 500);
   };
 };
 
@@ -373,6 +387,10 @@ const userReducer = handleActions(
     //.. signout
     [SIGNOUT_REQUEST]: prevState => ({
       ...prevState,
+      status: {
+        isSignIn: false,
+        isLoading: true,
+      },
     }),
     [SIGNOUT_SUCCESS]: (prevState, action) => ({
       ...prevState,

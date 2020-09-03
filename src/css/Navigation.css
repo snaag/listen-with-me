@@ -1,0 +1,50 @@
+/* 네비게이션 전체 */
+.navigation_inner {
+  padding-top: 1.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 0.01rem solid gray;
+}
+
+/* 로고 */
+.navigation_inner .logo {
+  margin: 0 0 0 0.1rem;
+}
+
+.logo__inner span {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* title */
+.title__inner {
+  margin: 0 auto;
+}
+
+.title__inner .title__text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  cursor: default;
+}
+
+/* user(로그인, 회원가입) */
+.navigation_inner .user {
+  margin: 0.25rem 0.1rem 0 0;
+}
+
+.user .user__button {
+  border: none;
+  background: none;
+}
+
+.user .user__button:hover {
+  color: gray;
+  transition: 0.5s;
+}
+
+.user .user__button:focus {
+  outline: 0;
+}
+
+.user .user__button:active {
+  color: white;
+}

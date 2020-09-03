@@ -3,8 +3,10 @@ import { withRouter } from 'react-router-dom';
 
 const Logo = ({ history }) => {
   return (
-    <div>
-      <button onClick={() => history.push('/main')}>🎶</button>
+    <div className="logo__inner">
+      <span role="img" aria-label="notes" onClick={() => history.push('/main')}>
+        🎶
+      </span>
     </div>
   );
 };

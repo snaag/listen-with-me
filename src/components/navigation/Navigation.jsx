@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../css/Navigation.css';
 
 import Logo from './components/Logo';
 import Title from './components/Title';
@@ -27,20 +28,20 @@ const Navigation = ({
   const { signInModalActive, signUpModalActive } = modalsStatus;
 
   return (
-    <div className="container-fluid">
-      <div className="row justify-content-center">
+    <div className="container-fluid navigation">
+      <div className="row justify-content-center navigation_inner">
         <div className="col-3">
-          <div className="row float-left">
+          <div className="row float-left logo">
             <Logo />
           </div>
         </div>
         <div className="col-6">
-          <div className="row" style={{ background: 'LIGHTSALMON' }}>
+          <div className="row title">
             <Title />
           </div>
         </div>
         <div className="col-3">
-          <div className="row float-right">
+          <div className="row float-right user">
             {isSignIn && (
               <>
                 <SignOut signOut={signOut} />
@@ -52,8 +53,18 @@ const Navigation = ({
                 <FontAwesomeIcon icon={['fa', 'spinner']} pulse />
               ) : (
                 <>
-                  <button onClick={() => setSignInActive()}>로그인</button>
-                  <button onClick={() => setSignUpActive()}>회원 가입</button>
+                  <button
+                    className="user__signin user__button"
+                    onClick={() => setSignInActive()}
+                  >
+                    로그인
+                  </button>
+                  <button
+                    className="user__signup user__button"
+                    onClick={() => setSignUpActive()}
+                  >
+                    회원 가입
+                  </button>
                 </>
               ))}
           </div>

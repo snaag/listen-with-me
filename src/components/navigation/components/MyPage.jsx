@@ -5,7 +5,11 @@ const MyPage = ({ history }) => {
   const goToMainPage = () => {
     history.push('/profile');
   };
-  return <button onClick={goToMainPage}>MyPage</button>;
+  return (
+    <button className="user__button" onClick={goToMainPage}>
+      MyPage
+    </button>
+  );
 };
 
 export default withRouter(MyPage);
