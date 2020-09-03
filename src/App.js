@@ -6,7 +6,7 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
-import Navigation from './components/navigation/Navigation';
+import NavigationContainer from './components/navigation/containers/NavigationContainer';
 import MainPage from './components/pages/main/MainPage';
 import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
 import MusicPage from './components/pages/music/MusicPage';
@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <>
-        <Navigation />
+        <NavigationContainer />
       </>
       <>
         <Link to="/main">MainPage</Link>

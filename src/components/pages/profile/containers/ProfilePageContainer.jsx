@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import ProfilePage from '../ProfilePage';
 import {
-  signIn, // 나중에 지울 예정
   getLikeAmount,
   getAudienceAmount,
   updateProfilePicture,
@@ -17,7 +16,6 @@ const ProfilePageContainer = () => {
   const [
     onGetLikeAmount,
     onGetAudienceAmount,
-    onGetSignIn,
     onUpdateProfilePicture,
     onUpdateDescription,
     onUpdateNickname,
@@ -25,7 +23,6 @@ const ProfilePageContainer = () => {
     [
       getLikeAmount,
       getAudienceAmount,
-      signIn,
       updateProfilePicture,
       updateDescription,
       updateNickname,
@@ -38,7 +35,6 @@ const ProfilePageContainer = () => {
       info={info}
       getLikeAmount={onGetLikeAmount}
       getAudienceAmount={onGetAudienceAmount}
-      signIn={onGetSignIn}
       changeProfilePicture={onUpdateProfilePicture}
       changeDescription={onUpdateDescription}
       changeNickname={onUpdateNickname}

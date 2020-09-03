@@ -28,7 +28,6 @@ const ProfilePage = ({
   useEffect(() => {
     getAudienceAmount();
     getLikeAmount();
-    signIn();
     // eslint-disable-next-line
   }, []);
 
