@@ -50,20 +50,20 @@ class SearchUser extends Component {
 
   render() {
     return (
-      <div className="searchMain_content">
+      <div className="searchMain">
         <input
-          className="searchMain_content_input"
+          className="searchMain_input"
           onChange={e => this.props.handleNickname(e.target.value)}
           onKeyPress={e => this.handlePressEnter(e.key)}
         ></input>
         <button
-          className="searchMain_content_alongButton"
+          className="searchMain_alongButton"
           onClick={() => this.listenAlong()}
         >
           따라듣기
         </button>
         <button
-          className="searchMain_content_RandomButton"
+          className="searchMain_RandomButton"
           onClick={() => this.listenRandom()}
         >
           랜덤듣기

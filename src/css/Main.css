@@ -1,0 +1,70 @@
+/* .mainPage {
+  display: flex;
+} */
+
+/* SearchUser */
+.searchMain {
+  position: relative;
+  top: 20px;
+}
+
+.searchMain_input {
+  position: relative;
+  width: 40%;
+  height: 2em;
+  left: 20%;
+}
+
+.searchMain_alongButton {
+  position: relative;
+  height: 2em;
+  left: 20%;
+}
+
+.searchMain_alongButton:hover {
+  opacity: 0.6;
+}
+
+.searchMain_RandomButton {
+  position: relative;
+  height: 2em;
+  left: 20%;
+}
+
+.searchMain_RandomButton:hover {
+  opacity: 0.6;
+}
+
+/* RoomList */
+.renderListMain {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  top: 20px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+.renderListMain_entry {
+  margin: 2.5%;
+  width: 28%;
+}
+
+.renderListMain_entry-thumbnails {
+  width: 100%;
+  height: 18em;
+}
+
+.renderListMain_entry-title {
+  width: 50%;
+  font-size: 2em;
+}
+
+.renderListMain_entry-liked {
+  width: 10%;
+  font-size: 1.5em;
+}
+
+.renderListMain_entry-nickname {
+  font-size: 1.8em;
+}

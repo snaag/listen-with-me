@@ -9,23 +9,16 @@ class RoomListEntry extends Component {
     const { thumbnails, title, nickname, likeAmount } = this.props.listEntry;
 
     return (
-      <div className="renderListMain_content_entry">
+      <div className="renderListMain_entry">
         <img
-          className="renderListMain_content_entry-thumbnails"
+          className="renderListMain_entry-thumbnails"
           onClick={() => this.clickListEntry()}
           src={thumbnails}
           alt=""
-          width="100px"
         />
-        <div className="renderListMain_content_entry-title">
-          타이틀: {title}
-        </div>
-        <div className="renderListMain_content_entry-nickname">
-          닉네임: {nickname}
-        </div>
-        <div className="renderListMain_content_entry-liked">
-          좋아요: {likeAmount}
-        </div>
+        <div className="renderListMain_entry-title">{title}</div>
+        <div className="renderListMain_entry-liked">{likeAmount}</div>
+        <div className="renderListMain_entry-nickname">{nickname}</div>
       </div>
     );
   }

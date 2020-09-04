@@ -1,21 +1,93 @@
 let fakeData = [
   {
     id: 1,
-    title: 'hello',
+    room_id: 12,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 1,
+    title: 'hello',
+    nickname: 'in',
     likeAmount: 10,
-    audienceAmount: 11,
   },
   {
     id: 2,
-    title: 'world',
+    room_id: 14,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 1,
+    title: 'world',
+    nickname: 'ho',
     likeAmount: 9,
-    audienceAmount: 12,
+  },
+  {
+    id: 3,
+    room_id: 12,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'hello',
+    nickname: 'in',
+    likeAmount: 10,
+  },
+  {
+    id: 4,
+    room_id: 14,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'world',
+    nickname: 'ho',
+    likeAmount: 9,
+  },
+  {
+    id: 5,
+    room_id: 12,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'hello',
+    nickname: 'in',
+    likeAmount: 10,
+  },
+  {
+    id: 6,
+    room_id: 14,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'world',
+    nickname: 'ho',
+    likeAmount: 9,
+  },
+  {
+    id: 7,
+    room_id: 12,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'hello',
+    nickname: 'in',
+    likeAmount: 10,
+  },
+  {
+    id: 8,
+    room_id: 14,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'world',
+    nickname: 'ho',
+    likeAmount: 9,
+  },
+  {
+    id: 9,
+    room_id: 12,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'hello',
+    nickname: 'in',
+    likeAmount: 10,
+  },
+  {
+    id: 10,
+    room_id: 14,
+    thumbnails:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    title: 'world',
+    nickname: 'ho',
+    likeAmount: 9,
   },
 ];
 

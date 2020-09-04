@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TitleInputBox from './containers/TitleInputBox';
 import MusicStackBox from './containers/MusicStackBox';
 import SearchMusic from './containers/SearchMusic';
-import './CreateListModal.css';
+import Modal from 'react-bootstrap/Modal';
 
 class CreateListModal extends Component {
   closeModal() {
@@ -62,33 +62,32 @@ class CreateListModal extends Component {
   render() {
     const { isModalOpen } = this.props;
     return (
-      <React.Fragment>
-        {isModalOpen ? (
-          <React.Fragment>
-            <div
-              className="createListModal_overlay"
-              onClick={() => this.closeModal()}
-            />
-            <div className="createListModal_content">
-              <div className="createListModal_content_titleInputBox">
-                <TitleInputBox />
-              </div>
-              <div className="createListModal_content_musicStackBox">
-                <MusicStackBox />
-              </div>
-              <div className="createListModal_content_searchMusic">
-                <SearchMusic />
-              </div>
-              <button
-                className="createListModal_content_createListButton"
-                onClick={() => this.createList()}
-              >
-                확인
-              </button>
-            </div>
-          </React.Fragment>
-        ) : null}
-      </React.Fragment>
+      <Modal
+        className="createListModal"
+        show={isModalOpen}
+        onHide={this.closeModal.bind(this)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="createListModal_title">
+            리스트 만들기
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="createListModal_content">
+          <TitleInputBox />
+          <div className="createListModal_content_musicStackBox">
+            <MusicStackBox />
+          </div>
+          <div className="createListModal_content_searchMusic">
+            <SearchMusic />
+          </div>
+          <button
+            className="createListModal_content_createListButton"
+            onClick={() => this.createList()}
+          >
+            확인
+          </button>
+        </Modal.Body>
+      </Modal>
     );
   }
 }

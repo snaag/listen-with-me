@@ -65,54 +65,52 @@ class MyPlayListEntry extends Component {
     const { thumbnails, likeAmount, audienceAmount } = this.props.listEntry;
 
     return (
-      <div className="myPlayList_content_entry">
+      <div className="myPlayList_entry">
         <div className="임시">
           <button
-            className="myPlayList_content_entry-deleteButton"
+            className="myPlayList_entry-deleteButton"
             onClick={() => this.deleteRoom()}
           >
             삭제
           </button>
         </div>
         <img
-          className="myPlayList_content_entry-thumbnails"
+          className="myPlayList_entry-thumbnails"
           onClick={() => this.createRoom()}
           src={thumbnails}
           alt=""
           width="100px"
         ></img>
-        <div className="myPlayList_content_entry-title">
+        <div className="myPlayList_entry-title">
           <div
-            className="myPlayList_content_entry-title-description"
+            className="myPlayList_entry-title-description"
             style={{ display: this.state.inputTitleDisplay ? 'none' : 'block' }}
           >
             {this.state.title}
           </div>
           <input
-            className="myPlayList_content_entry-title-inputBox"
+            className="myPlayList_entry-title-inputBox"
             style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
             onChange={e => this.handleState('title', e.target.value)}
             value={this.state.title}
           ></input>
           <button
-            className="myPlayList_content_entry-title-editButton"
+            className="myPlayList_entry-title-editButton"
             style={{ display: this.state.inputTitleDisplay ? 'none' : 'block' }}
             onClick={() => this.editTitleButton()}
           >
             수정
           </button>
           <button
-            className="myPlayList_content_entry-title-completeButton"
+            className="myPlayList_entry-title-completeButton"
             style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
             onClick={() => this.completeButton()}
           >
             완료
           </button>
         </div>
-        <div className="myPlayList_content_entry-liked">
-          좋아요: {likeAmount}
-        </div>
-        <div className="myPlayList_content_entry-audience">
+        <div className="myPlayList_entry-liked">좋아요: {likeAmount}</div>
+        <div className="myPlayList_entry-audience">
           누적청취자: {audienceAmount}
         </div>
       </div>

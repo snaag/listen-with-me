@@ -5,7 +5,7 @@ class TitleInputBox extends Component {
     const { handleListTitle } = this.props;
     return (
       <input
-        className="createListModal_content_titleInputBox-description"
+        className="createListModal_content_titleInputBox"
         placeholder="제목을 입력해 주세요."
         onFocus={e => (e.target.placeholder = '')}
         onBlur={e => (e.target.placeholder = '제목을 입력해 주세요.')}

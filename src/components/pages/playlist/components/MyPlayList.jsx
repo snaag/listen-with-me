@@ -26,7 +26,7 @@ class MyPlayList extends Component {
 
   render() {
     return (
-      <div className="myPlayList_content">
+      <div className="myPlayList">
         {this.props.myPlayList.map(listEntry => (
           <MyPlayListEntry
             key={listEntry.id}

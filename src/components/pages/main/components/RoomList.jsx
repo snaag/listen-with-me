@@ -19,7 +19,7 @@ class RoomList extends Component {
 
   render() {
     return (
-      <div className="renderListMain_content">
+      <div className="renderListMain">
         {this.props.likedList.map(listEntry => (
           <RoomListEntry key={listEntry.id} listEntry={listEntry} />
         ))}
