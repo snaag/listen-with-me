@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../../../css/Picture.css';
 
 const Picture = ({ url, changeProfilePicture }) => {
   const changeImage = e => {
