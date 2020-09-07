@@ -7,9 +7,22 @@ const Along = ({ isAlong, updateIsAlong }) => {
 
   return (
     <>
-      <button onClick={updateIsAlongStatus}>
-        따라 듣기 {isAlong ? 'OFF' : 'ON'}
-      </button>
+      <div className="along">
+        <span className="along__title">같이 듣기</span>
+        <div className="along__inner">
+          <input
+            type="checkbox"
+            checked={isAlong}
+            onClick={updateIsAlongStatus}
+          />
+          <label htmlFor="" className="along__on">
+            ON
+          </label>
+          <label htmlFor="" className="along__off">
+            OFF
+          </label>
+        </div>
+      </div>
     </>
   );
 };

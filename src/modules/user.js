@@ -2,7 +2,9 @@ import { createAction, handleActions } from 'redux-actions';
 import Cookies from 'js-cookie';
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:4000';
+// const BASE_URL = 'http://localhost:4000';
+const BASE_URL =
+  'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
 const initialState = {
   status: {
@@ -152,7 +154,8 @@ const signIn = signInData => {
           signInSuccess({
             email,
             nickname,
-            profileURL,
+            profileURL:
+              'https://lwm-test.s3.ap-northeast-2.amazonaws.com/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C+2020-09-07+13-20-34.png',
             description: profileDescription,
           })
         );

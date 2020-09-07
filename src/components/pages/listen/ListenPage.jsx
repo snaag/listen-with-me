@@ -5,17 +5,18 @@ import Menu from './components/Menu';
 import VideoView from './components/VideoView';
 import ChatContainer from './containers/ChatContainer';
 import PlayList from './components/playlist/PlayList';
+import '../../../css/Listen.css';
 
 const ListenPage = ({ isAlong }) => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col">
+        <div className="col-8">
           <Menu />
           <VideoView />
         </div>
-        <div className="col">
-          {/* {isAlong && <ChatContainer />} */}
+        <div className="col-4 interaction">
+          {isAlong && <ChatContainer />}
           {!isAlong && <PlayList />}
         </div>
       </div>

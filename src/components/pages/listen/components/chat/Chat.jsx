@@ -1,66 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-// const socket = io.connect('http://localhost:4000');
-
 // 유저의 아이디로, 어떤 유저가 말 한 것인지에 따라 말풍선 다르게 해주기
-// const Chat = ({ name, profileURL }) => {
-//   const [state, setState] = useState({ message: '', name });
-//   const [chats, setChats] = useState([]);
+const Chat = ({ name, profileURL }) => {
+  // const socket = io.connect('http://localhost:4000');
 
-//   useEffect(() => {
-//     socket.emit('joinRoom', { room: 'jsroom', name });
-//     // eslint-disable-next-line
-//   }, []);
+  const [state, setState] = useState({ message: '', name });
+  const [chats, setChats] = useState([]);
 
-//   useEffect(() => {
-//     socket.on('message', ({ name, message }) => {
-//       setChats([...chats, { name, message }]);
-//     });
-//   });
+  useEffect(() => {
+    // socket.emit('joinRoom', { room: 'jsroom', name });
+    // eslint-disable-next-line
+  }, []);
 
-//   const onTextChange = e => {
-//     setState({ ...state, [e.target.name]: e.target.value });
-//   };
+  useEffect(() => {
+    // socket.on('message', ({ name, message }) => {
+    //   setChats([...chats, { name, message }]);
+    // });
+  });
 
-//   const onMessageSubmit = e => {
-//     e.preventDefault();
-//     const { name, message } = state;
-//     socket.emit('message', { name, message });
-//     setState({ message: '', name });
-//   };
+  const onTextChange = e => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
 
-//   const renderChat = () =>
-//     chats.map(({ name, message }, index) => (
-//       <div key={index}>
-//         <h3>
-//           {name}: <span>{message}</span>
-//         </h3>
-//       </div>
-//     ));
+  const onMessageSubmit = e => {
+    e.preventDefault();
+    const { name, message } = state;
+    // socket.emit('message', { name, message });
+    setState({ message: '', name });
+  };
 
-//   return (
-//     <div>
-//       <form onSubmit={onMessageSubmit}>
-//         <div>
-//           <input
-//             type="text"
-//             name="message"
-//             value={state.message}
-//             onChange={onTextChange}
-//           />
-//           <button>전송</button>
-//         </div>
-//       </form>
-//       <div className="render-chat">{renderChat()}</div>
-//     </div>
-//   );
-// };
+  const renderChat = () =>
+    chats.map(({ name, message }, index) => (
+      <div key={index}>
+        <h3>
+          {name}: <span>{message}</span>
+        </h3>
+      </div>
+    ));
 
-const Chat = () => {
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className="chat">
+      <form onSubmit={onMessageSubmit}>
+        <div className="chat__inner">
+          <input
+            className="chat__input"
+            type="text"
+            name="message"
+            value={state.message}
+            onChange={onTextChange}
+          />
+          <button className="chat__send-button">전송</button>
+        </div>
+      </form>
+      <div className="render-chat">{renderChat()}</div>
     </div>
   );
 };
