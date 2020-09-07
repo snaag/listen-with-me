@@ -14,7 +14,7 @@ class StackBoxEntry extends Component {
   render() {
     const { entry } = this.props;
     return (
-      <>
+      <div className="createListModal_content_musicStackBox-entry">
         <div className="createListModal_content_musicStackBox-entry-title">
           {entry.title}
         </div>
@@ -24,7 +24,7 @@ class StackBoxEntry extends Component {
         >
           삭제
         </button>
-      </>
+      </div>
     );
   }
 }

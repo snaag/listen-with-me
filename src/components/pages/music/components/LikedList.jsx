@@ -43,7 +43,7 @@ let fakeData = [
 class LikedList extends Component {
   state = {
     likedList: fakeData,
-    viewCount: 1,
+    viewCount: 4,
     buttonDisplay: false,
   };
 
@@ -66,7 +66,7 @@ class LikedList extends Component {
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
     const count = list.length;
-    this.handleState('viewCount', count === viewCount ? 1 : count);
+    this.handleState('viewCount', count === viewCount ? 4 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
   }
 
@@ -86,23 +86,28 @@ class LikedList extends Component {
   render() {
     const { likedList, buttonDisplay } = this.state;
     return (
-      <div className="likedList_content">
-        <div className="likedList_content_title">좋아요한 리스트</div>
-        {this.viewListEntry(likedList)}
-        <button
-          className="likedList_content_viewMoreButton"
-          style={{ display: buttonDisplay ? 'none' : 'block' }}
-          onClick={() => this.handleViewButton(likedList)}
+      <div className="likedList">
+        <div className="likedList_title">좋아요한 리스트</div>
+        <div
+          className="recentAndLikedEntry"
+          style={{ height: buttonDisplay ? '25em' : '100%' }}
         >
-          더보기
-        </button>
-        <button
-          className="likedList_content_viewLessButton"
-          style={{ display: buttonDisplay ? 'block' : 'none' }}
-          onClick={() => this.handleViewButton(likedList)}
-        >
-          줄이기
-        </button>
+          {this.viewListEntry(likedList)}
+          <button
+            className="likedList_viewButton"
+            style={{ display: buttonDisplay ? 'none' : 'block' }}
+            onClick={() => this.handleViewButton(likedList)}
+          >
+            더보기
+          </button>
+          <button
+            className="likedList_viewButton"
+            style={{ display: buttonDisplay ? 'block' : 'none' }}
+            onClick={() => this.handleViewButton(likedList)}
+          >
+            줄이기
+          </button>
+        </div>
       </div>
     );
   }

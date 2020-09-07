@@ -4,6 +4,7 @@
 } */
 .playListPage_title {
   position: relative;
+  width: 20%;
   top: 20px;
   left: 5%;
   font-size: 2.5em;
@@ -68,25 +69,102 @@
 /* CreateListModal */
 .createListModal {
   position: fixed;
-  top: 10%;
+  top: 5%;
 }
 
 .createListModal_content {
   position: relative;
-  height: 40em;
+  height: 45em;
 }
 
 .createListModal_content_titleInputBox {
   position: relative;
-  left: 50%;
-  width: 60%;
-  font-size: 1.2em;
-  transform: translate(-50%);
+  margin: 1em;
+  margin-top: 0;
+}
+
+.createListModal_content_titleInputBox-box {
+  position: relative;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+.createListModal_content_musicStackBox {
+  position: relative;
+  height: 6em;
+  border: 1px solid black;
+  margin: 1em;
+  margin-top: 0;
+  border-radius: 2px;
+  overflow: auto;
+}
+
+.createListModal_content_musicStackBox-entry {
+  position: relative;
+  margin: 10px;
+}
+
+.createListModal_content_musicStackBox-entry-title {
+  position: relative;
+}
+
+.createListModal_content_musicStackBox-entry-deleteEntryButton {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+}
+
+.createListModal_content_searchMusic {
+  position: relative;
+  margin: 1em;
+  margin-top: 0;
+}
+
+.createListModal_content_searchMusic-inputBox {
+  position: relative;
+  width: 85%;
+  height: 2em;
+}
+
+.createListModal_content_searchMusic-searchButton {
+  position: relative;
+  width: 15%;
+  height: 2em;
+}
+
+.createListModal_content_searchMusic-entries {
+  position: relative;
+  overflow: auto;
+  height: 27em;
+}
+
+.createListModal_content_searchMusic-entry {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.createListModal_content_searchMusic-entry-thumbnail {
+}
+
+.createListModal_content_searchMusic-entry-title {
+  position: absolute;
+  width: 57%;
+  top: 20%;
+  left: 30%;
+  height: 65%;
+  overflow: auto;
+}
+
+.createListModal_content_searchMusic-entry-addEntryButton {
+  position: absolute;
+  right: 0;
+  top: 40%;
+  transform: translate(0%, -50%);
 }
 
 .createListModal_content_createListButton {
   position: absolute;
-  bottom: 5%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
 }

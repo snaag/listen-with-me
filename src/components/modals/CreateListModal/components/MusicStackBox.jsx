@@ -5,7 +5,7 @@ class MusicStackBox extends Component {
   render() {
     const { entries } = this.props;
     return (
-      <div className="createListModal_content_musicStackBox-entry">
+      <div className="createListModal_content_musicStackBox">
         {entries.map(entry => (
           <StackBoxEntry key={entry.id} entry={entry} />
         ))}

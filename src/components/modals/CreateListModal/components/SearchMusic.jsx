@@ -19,7 +19,7 @@ class SearchMusic extends Component {
   render() {
     const { music, handleQuery } = this.props;
     return (
-      <>
+      <div className="createListModal_content_searchMusic">
         <input
           className="createListModal_content_searchMusic-inputBox"
           onChange={e => handleQuery(e.target.value)}
@@ -31,10 +31,12 @@ class SearchMusic extends Component {
         >
           검색
         </button>
-        {music.map(entry => (
-          <SearchMusicEntry key={entry.id.videoId} entry={entry} />
-        ))}
-      </>
+        <div className="createListModal_content_searchMusic-entries">
+          {music.map(entry => (
+            <SearchMusicEntry key={entry.id.videoId} entry={entry} />
+          ))}
+        </div>
+      </div>
     );
   }
 }

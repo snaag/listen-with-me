@@ -12,14 +12,20 @@ class CreateListModal extends Component {
       entries,
       handleEntries,
       handleModalOpen,
+      handleMusic,
+      handleQuery,
     } = this.props;
 
     if (list_title || entries.length) {
       if (window.confirm('play list 작성을 취소하시겠습니까')) {
         handleEntries([]);
+        handleMusic([]);
+        handleQuery('');
         handleModalOpen(!isModalOpen);
       }
     } else {
+      handleMusic([]);
+      handleQuery('');
       handleModalOpen(!isModalOpen);
     }
   }
@@ -74,12 +80,8 @@ class CreateListModal extends Component {
         </Modal.Header>
         <Modal.Body className="createListModal_content">
           <TitleInputBox />
-          <div className="createListModal_content_musicStackBox">
-            <MusicStackBox />
-          </div>
-          <div className="createListModal_content_searchMusic">
-            <SearchMusic />
-          </div>
+          <MusicStackBox />
+          <SearchMusic />
           <button
             className="createListModal_content_createListButton"
             onClick={() => this.createList()}
