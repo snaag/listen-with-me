@@ -1,3 +1,8 @@
+/* menu */
+.menu {
+  height: 3rem;
+  margin-top: 0.5rem;
+}
 /* audience */
 .realtime-audience {
   padding: 0.5rem;
@@ -37,9 +42,9 @@
 }
 .along__title {
   position: relative;
-  bottom: 0.6rem;
+  bottom: 0.75rem;
   right: 0.7rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 .along__inner {
   position: relative;
@@ -69,6 +74,7 @@ input[type='checkbox']::before {
   border-radius: 50%;
   transform: scale(1.1);
   transition: 0.4s;
+  border: 0.01rem solid gray;
 }
 
 input:checked[type='checkbox'] {

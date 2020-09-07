@@ -8,7 +8,7 @@ import '../../../../css/ListenMenu.css';
 
 const Menu = () => {
   return (
-    <div style={{ backgroundColor: 'lightcoral' }} className="container-fluid">
+    <div className="container-fluid menu">
       <div className="row">
         <div className="col">
           <div className="row">
