@@ -1,0 +1,70 @@
+.musicPage {
+  margin: 2em;
+}
+
+/* recent list */
+.recentList,
+.likedList {
+  position: relative;
+  margin: 5em;
+  margin-top: 3em;
+  margin-bottom: 1.5em;
+}
+
+.recentList_title,
+.likedList_title {
+  font-size: 2.5em;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.recentList_removeRecentListButton {
+  position: relative;
+  left: 10px;
+  top: -10px;
+}
+
+.recentAndLikedEntry {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.recentAndLikedEntry_content {
+  position: relative;
+  margin-left: 2.5em;
+  margin-right: 2.5em;
+  width: 14%;
+}
+
+.recentAndLikedEntry_content_thumbnail {
+  width: 100%;
+  height: 10em;
+}
+
+.recentAndLikedEntry_content_title {
+  display: inline-block;
+  font-size: 1.7em;
+  margin: 5px;
+  width: 70%;
+}
+
+.recentAndLikedEntry_content_likeAmount {
+  position: absolute;
+  font-size: 1.2em;
+  margin: 5px;
+  right: 0%;
+  top: 85%;
+}
+
+.recentList_viewButton,
+.likedList_viewButton {
+  position: relative;
+  width: 14%;
+  height: 10em;
+  margin-left: 2.5em;
+}
+
+/* liked list */
+
+/* recent user */

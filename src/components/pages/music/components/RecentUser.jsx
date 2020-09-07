@@ -78,24 +78,24 @@ class RecentUser extends Component {
   render() {
     const { recentUser, buttonDisplay } = this.state;
     return (
-      <div className="recentUser_content">
-        <div className="recentUser_content_title">최근 따라들은 유저</div>
+      <div className="recentUser">
+        <div className="recentUser_title">최근 따라들은 유저</div>
         <button
-          className="recentUser_content_removeRecentUserButton"
+          className="recentUser_removeRecentUserButton"
           onClick={() => this.removeRecentUser()}
         >
           기록 삭제
         </button>
         {this.viewListEntry(recentUser)}
         <button
-          className="recentUser_content_viewMoreButton"
+          className="recentUser_viewMoreButton"
           style={{ display: buttonDisplay ? 'none' : 'block' }}
           onClick={() => this.handleViewButton(recentUser)}
         >
           더보기
         </button>
         <button
-          className="recentUser_content_viewLessButton"
+          className="recentUser_viewLessButton"
           style={{ display: buttonDisplay ? 'block' : 'none' }}
           onClick={() => this.handleViewButton(recentUser)}
         >

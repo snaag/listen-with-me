@@ -3,6 +3,8 @@ import {
   setIsModalOpen,
   setListTitle,
   setEntries,
+  setMusic,
+  setQuery,
 } from '../../../../modules/playList';
 import CreateListModal from '../CreateListModal';
 
@@ -22,6 +24,12 @@ const mapDispatchToProps = dispatch => {
     },
     handleEntries: entries => {
       return dispatch(setEntries(entries));
+    },
+    handleMusic: music => {
+      return dispatch(setMusic(music));
+    },
+    handleQuery: query => {
+      return dispatch(setQuery(query));
     },
   };
 };
