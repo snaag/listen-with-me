@@ -4,9 +4,11 @@ import Audience from './Audience';
 import Like from './Like';
 import AlongContainer from '../containers/AlongContainer';
 
+import '../../../../css/ListenMenu.css';
+
 const Menu = () => {
   return (
-    <div style={{ backgroundColor: 'lightcoral' }} className="container-fluid">
+    <div className="container-fluid menu">
       <div className="row">
         <div className="col">
           <div className="row">

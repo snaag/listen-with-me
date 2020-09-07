@@ -11,12 +11,11 @@ const VideoView = () => {
   ];
   const [currentVideoUrl, setCurrentVideoUrl] = useState(videoList[videoIndex]);
   return (
-    <div style={{ backgroundColor: 'darksalmon', height: '200px' }}>
+    <div className="video-view">
       <ReactPlayer
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
+        className="video-view__player"
+        width="100%"
+        height="100%"
         controls
         url={currentVideoUrl}
         onReady={() => console.log('onReady')}

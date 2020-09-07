@@ -10,7 +10,7 @@
 .picture__content {
   display: inline;
   margin: 0 auto;
-  margin-left: -50%;
+  /* margin-left: -50%; */
   height: 100%;
   width: auto;
 }

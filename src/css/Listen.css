@@ -1,0 +1,36 @@
+/* video view */
+.video-view {
+  height: 70vh;
+}
+
+/* Chat */
+.chat__input {
+  width: 70%;
+  height: 1.9rem;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  border: 0.1rem solid gray;
+}
+
+.chat__send-button {
+  width: 20%;
+  margin-left: 1rem;
+  height: 1.9rem;
+  background: none;
+  border-radius: 5px;
+  border: 0.1rem solid gray;
+}
+
+.chat__send-button:hover {
+  background: #dfdfdf;
+  transition: 0.3s;
+}
+
+.chat__send-button:active {
+  background: #a1a1a1;
+  color: white;
+}
+
+.chat__send-button:focus {
+  outline: 0;
+}

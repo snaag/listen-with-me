@@ -1,13 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import numToString from '../../../../lib/numToString';
+
 const Audience = () => {
   return (
-    <>
-      <button>
+    <div className="realtime-audience">
+      <span className="realtime-audience__icon">
         <FontAwesomeIcon icon={['fas', 'users']} />
-      </button>
-    </>
+        <span className="realtime-audience__amount">{numToString(5100)}</span>
+      </span>
+    </div>
   );
 };
 
