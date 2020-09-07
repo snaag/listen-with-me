@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import '../../../../css/Profile.css';
+
 const Nickname = ({ nickname, changeNickname }) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
   const [currentNickname, setCurrentNickname] = useState(nickname);
 
   const updateIsEdit = () => {
@@ -14,24 +16,26 @@ const Nickname = ({ nickname, changeNickname }) => {
     changeNickname(currentNickname);
   };
   return (
-    <div>
+    <div className="nickname">
       {isEdit ? (
         <>
-          <button onClick={handleChangeNickname}>
+          <button onClick={handleChangeNickname} className="nickname__button">
             <FontAwesomeIcon icon={['fas', 'save']} />
           </button>
           <input
             placeholder={nickname}
             value={currentNickname}
             onChange={e => setCurrentNickname(e.target.value)}
+            className="nickname__input"
           />
         </>
       ) : (
         <>
-          <button onClick={updateIsEdit}>
+          <button onClick={updateIsEdit} className="nickname__button">
             <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
           </button>
-          <span>{nickname}</span>
+          {/* <span className="nickname__show">{nickname}</span> */}
+          <span className="nickname__show">snaagaa</span>
         </>
       )}
     </div>

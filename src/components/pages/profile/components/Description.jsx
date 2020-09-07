@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import '../../../../css/Profile.css';
+
 const Description = ({ description, changeDescription }) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
   const [currentDescription, setCurrentDescription] = useState(description);
 
   const updateIsEdit = () => {
@@ -15,24 +17,29 @@ const Description = ({ description, changeDescription }) => {
   };
 
   return (
-    <div>
+    <div className="description">
       {isEdit ? (
         <>
-          <button onClick={handleChangeDescription}>
+          <button
+            onClick={handleChangeDescription}
+            className="description__button"
+          >
             <FontAwesomeIcon icon={['fas', 'save']} />
           </button>
           <input
             type="text"
             placeholder={description}
             onChange={e => setCurrentDescription(e.target.value)}
+            className="description__input"
           />
         </>
       ) : (
         <>
-          <button onClick={updateIsEdit}>
+          <button onClick={updateIsEdit} className="description__button">
             <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
           </button>
-          <span>{description}</span>
+          {/* <span className="description__show">{description}</span> */}
+          <span className="description__show">안녕하세요</span>
         </>
       )}
     </div>

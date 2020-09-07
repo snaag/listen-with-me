@@ -5,8 +5,11 @@ import numToString from '../../../../lib/numToString';
 
 const Audience = ({ amount }) => {
   return (
-    <div>
-      <FontAwesomeIcon icon={['fas', 'users']} /> {numToString(amount)}
+    <div className="audience">
+      <span className="audience__inner">
+        <FontAwesomeIcon className="audience__icon" icon={['fas', 'users']} />
+      </span>
+      <span className="audience__amount">{numToString(amount)}</span>
     </div>
   );
 };

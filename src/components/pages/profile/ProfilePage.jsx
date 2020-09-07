@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import '../../../css/Picture.css';
 import Picture from './components/Picture';
 import Nickname from './components/Nickname';
 import Audience from './components/Audience';
 import Like from './components/Like';
 import Description from './components/Description';
+import '../../../css/Profile.css';
+
+const verticalCenterStyle = {
+  margin: 'auto 0',
+};
 
 const ProfilePage = ({
   info,
@@ -32,7 +36,7 @@ const ProfilePage = ({
   }, []);
 
   return (
-    <div className="container">
+    <div className="container profile-page">
       <div className="row justify-content-center">
         <div className="col-4">
           <Picture
@@ -40,15 +44,16 @@ const ProfilePage = ({
             changeProfilePicture={changeProfilePicture}
           />
         </div>
-        <div className="col-4">
-          <div className="row">
+        <div className="col-4" style={verticalCenterStyle}>
+          <div className="row mt-3 mb-3 profile-page__amount inner_info">
+            <Audience amount={audienceAmount} className="profile__audience" />
+            <Like amount={likeAmount} className="profile__like" />
+          </div>
+          <div className="row mt-3 mb-3 profile-page__nickname inner_info">
             <Nickname nickname={nickname} changeNickname={changeNickname} />
           </div>
-          <div className="row">
-            <Audience amount={audienceAmount} />
-            <Like amount={likeAmount} />
-          </div>
-          <div className="row">
+
+          <div className="row mt-3 mb-3 profile-page__description inner_info">
             <Description
               description={description}
               changeDescription={changeDescription}
