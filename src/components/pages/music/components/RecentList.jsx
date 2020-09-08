@@ -115,7 +115,7 @@ let fakeData = [
 class RecentList extends Component {
   state = {
     recentList: [],
-    viewCount: 4,
+    viewCount: 3,
     buttonDisplay: false,
   };
 
@@ -128,7 +128,7 @@ class RecentList extends Component {
   viewListEntry(list) {
     let count = 0;
     return list.map(entry => {
-      if (this.state.viewCount > count) {
+      if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
         count++;
         return <RecentAndLikedEntry key={entry.id} entry={entry} />;
       }
@@ -138,7 +138,7 @@ class RecentList extends Component {
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
     const count = list.length;
-    this.handleState('viewCount', count === viewCount ? 4 : count);
+    this.handleState('viewCount', count === viewCount ? 3 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
   }
 
@@ -177,7 +177,10 @@ class RecentList extends Component {
           {this.viewListEntry(recentList)}
           <button
             className="recentList_viewButton"
-            style={{ display: buttonDisplay ? 'none' : 'block' }}
+            style={{
+              display:
+                buttonDisplay || recentList.length <= 4 ? 'none' : 'block',
+            }}
             onClick={() => this.handleViewButton(recentList)}
           >
             더보기

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class MyPlayListEntry extends Component {
   state = {
     title: '',
     inputTitleDisplay: false,
+    deleteButtonDisplay: false,
   };
 
   handleState(key, value) {
@@ -16,7 +18,37 @@ class MyPlayListEntry extends Component {
     this.handleState('inputTitleDisplay', true);
   }
 
-  completeButton() {
+  hideDeleteButton() {
+    let root = document.querySelector('#root');
+    root.addEventListener('click', e => {
+      const { classList, nodeName } = e.target;
+      if (
+        classList[1] !== `number${this.props.listEntry.id}` &&
+        classList[0] !== 'myPlayList_entry-deleteButton' &&
+        classList[3] !== 'times-circle' &&
+        nodeName !== 'path'
+      ) {
+        this.handleState('deleteButtonDisplay', false);
+      }
+    });
+  }
+
+  handleButtonPress() {
+    this.buttonPressTimer = setTimeout(() => {
+      this.handleState('deleteButtonDisplay', true);
+      this.hideDeleteButton();
+    }, 1000);
+  }
+
+  handleButtonRelease() {
+    clearTimeout(this.buttonPressTimer);
+  }
+
+  completeButton(e) {
+    // if (e.key === 'Enter') {
+    // 테스트
+    // this.handleState('title', this.state.title);
+    // this.handleState('inputTitleDisplay', false);
     // fetch(`/playlist?id=${this.props.listEntry.id}`, {
     //   method: 'PATCH',
     //   headers: {
@@ -34,6 +66,7 @@ class MyPlayListEntry extends Component {
     //     this.handleState('inputTitleDisplay', false);
     //   })
     //   .catch(err => console.log(err));
+    // }
   }
 
   deleteRoom() {
@@ -62,24 +95,28 @@ class MyPlayListEntry extends Component {
   }
 
   render() {
-    const { thumbnails, likeAmount, audienceAmount } = this.props.listEntry;
+    const { id, thumbnails, likeAmount, audienceAmount } = this.props.listEntry;
 
     return (
       <div className="myPlayList_entry">
-        <div className="임시">
+        {this.state.deleteButtonDisplay && (
           <button
             className="myPlayList_entry-deleteButton"
             onClick={() => this.deleteRoom()}
           >
-            삭제
+            <FontAwesomeIcon
+              className="times-circle"
+              icon={['far', 'times-circle']}
+            />
           </button>
-        </div>
+        )}
         <img
-          className="myPlayList_entry-thumbnails"
+          className={`myPlayList_entry-thumbnails number${id}`}
           onClick={() => this.createRoom()}
+          onMouseDown={this.handleButtonPress.bind(this)}
+          onMouseUp={this.handleButtonRelease.bind(this)}
           src={thumbnails}
           alt=""
-          width="100px"
         ></img>
         <div className="myPlayList_entry-title">
           <div
@@ -92,6 +129,7 @@ class MyPlayListEntry extends Component {
             className="myPlayList_entry-title-inputBox"
             style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
             onChange={e => this.handleState('title', e.target.value)}
+            onKeyPress={e => this.completeButton(e)}
             value={this.state.title}
           ></input>
           <button
@@ -99,19 +137,23 @@ class MyPlayListEntry extends Component {
             style={{ display: this.state.inputTitleDisplay ? 'none' : 'block' }}
             onClick={() => this.editTitleButton()}
           >
-            수정
+            <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
           </button>
-          <button
+          {/* <button
             className="myPlayList_entry-title-completeButton"
             style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
             onClick={() => this.completeButton()}
           >
             완료
-          </button>
+          </button> */}
         </div>
-        <div className="myPlayList_entry-liked">좋아요: {likeAmount}</div>
+        <div className="myPlayList_entry-liked">
+          <FontAwesomeIcon icon={['fas', 'heart']} />
+          {' ' + likeAmount}
+        </div>
         <div className="myPlayList_entry-audience">
-          누적청취자: {audienceAmount}
+          <FontAwesomeIcon icon={['fas', 'users']} />
+          {' ' + audienceAmount}
         </div>
       </div>
     );

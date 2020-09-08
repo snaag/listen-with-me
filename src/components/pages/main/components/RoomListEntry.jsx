@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomListEntry extends Component {
   clickListEntry() {
@@ -17,7 +18,10 @@ class RoomListEntry extends Component {
           alt=""
         />
         <div className="renderListMain_entry-title">{title}</div>
-        <div className="renderListMain_entry-liked">{likeAmount}</div>
+        <div className="renderListMain_entry-liked">
+          <FontAwesomeIcon icon={['fas', 'heart']} />
+          {' ' + likeAmount}
+        </div>
         <div className="renderListMain_entry-nickname">{nickname}</div>
       </div>
     );

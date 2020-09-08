@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RecentAndLikedEntry extends Component {
   render() {
@@ -12,7 +13,8 @@ class RecentAndLikedEntry extends Component {
         />
         <div className="recentAndLikedEntry_content_title">{title}</div>
         <div className="recentAndLikedEntry_content_likeAmount">
-          img {likeAmount}
+          <FontAwesomeIcon icon={['fas', 'heart']} />
+          {' ' + likeAmount}
         </div>
       </div>
     );
