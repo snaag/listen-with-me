@@ -7,6 +7,7 @@ let fakeData = [
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
+    audienceAmount: 1000,
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ let fakeData = [
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,
+    audienceAmount: 1000,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ let fakeData = [
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
+    audienceAmount: 1000,
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ let fakeData = [
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,
+    audienceAmount: 1000,
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ let fakeData = [
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
+    audienceAmount: 1000,
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ let fakeData = [
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,
+    audienceAmount: 1000,
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ let fakeData = [
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
+    audienceAmount: 1000,
   },
   {
     id: 8,
@@ -70,6 +77,7 @@ let fakeData = [
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,
+    audienceAmount: 1000,
   },
   {
     id: 9,
@@ -79,6 +87,7 @@ let fakeData = [
     title: 'hello',
     nickname: 'in',
     likeAmount: 10,
+    audienceAmount: 1000,
   },
   {
     id: 10,
@@ -88,6 +97,7 @@ let fakeData = [
     title: 'world',
     nickname: 'ho',
     likeAmount: 9,
+    audienceAmount: 1000,
   },
 ];
 
@@ -99,8 +109,8 @@ const initialState = {
   music: [],
   searchInfo: {
     query: '',
-    max: 0,
-    key: '',
+    max: 3,
+    key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
   },
 };
 
@@ -139,8 +149,8 @@ const setMusic = music => ({
 const setQuery = query => ({
   type: SET_QUERY,
   query,
-  max: 3,
-  key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
+  max: initialState.searchInfo.max,
+  key: initialState.searchInfo.key,
 });
 
 export {

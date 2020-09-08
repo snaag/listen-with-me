@@ -2,9 +2,10 @@
   margin: 2em;
 }
 
-/* recent list */
+/* recent list, liked list */
 .recentList,
-.likedList {
+.likedList,
+.recentUser {
   position: relative;
   margin: 5em;
   margin-top: 3em;
@@ -12,34 +13,42 @@
 }
 
 .recentList_title,
-.likedList_title {
-  font-size: 2.5em;
+.likedList_title,
+.recentUser_title {
+  font-size: 2em;
   display: inline-block;
   margin-bottom: 1em;
 }
 
-.recentList_removeRecentListButton {
+.recentList_removeRecentListButton,
+.recentUser_removeRecentUserButton {
   position: relative;
   left: 10px;
-  top: -10px;
+  top: -5px;
+  border: 0;
+  outline: none;
+  background: rgba(255, 255, 255, 0);
 }
 
-.recentAndLikedEntry {
+.recentAndLikedEntry,
+.recentUserEntry {
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
 }
 
-.recentAndLikedEntry_content {
+.recentAndLikedEntry_content,
+.recentUserEntry_content {
   position: relative;
-  margin-left: 2.5em;
-  margin-right: 2.5em;
-  width: 14%;
+  margin-left: 2em;
+  margin-right: 2em;
+  width: 19.5%;
+  height: 46.3%;
 }
 
 .recentAndLikedEntry_content_thumbnail {
   width: 100%;
-  height: 10em;
+  height: 9em;
 }
 
 .recentAndLikedEntry_content_title {
@@ -54,17 +63,44 @@
   font-size: 1.2em;
   margin: 5px;
   right: 0%;
-  top: 85%;
+  top: 80%;
 }
 
 .recentList_viewButton,
-.likedList_viewButton {
+.likedList_viewButton,
+.recentUser_viewButton {
   position: relative;
-  width: 14%;
-  height: 10em;
-  margin-left: 2.5em;
+  width: 19.5%;
+  height: 9em;
+  margin-left: 2em;
 }
 
-/* liked list */
-
 /* recent user */
+.recentUserEntry_content {
+  display: flex;
+  border: 1px solid black;
+  height: 6em;
+  margin-bottom: 2em;
+}
+
+.recentUserEntry_profileImg {
+  position: relative;
+  width: 5em;
+  height: 5em;
+  left: 8%;
+  top: 50%;
+  transform: translate(0%, -50%);
+  border-radius: 50%;
+}
+
+.recentUserEntry_nickname {
+  position: relative;
+  height: 1em;
+  left: 32%;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.recentUser_viewButton {
+  height: 6em;
+}

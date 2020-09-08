@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MyPlayList from './containers/MyPlayList';
 import CreateListModal from '../../modals/CreateListModal/containers/CreateListModal';
 import '../../../css/PlayList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class PlayListPage extends Component {
   render() {
@@ -14,7 +15,7 @@ class PlayListPage extends Component {
           className="playListPage_modalButton"
           onClick={() => handleModalOpen(!isModalOpen)}
         >
-          모달
+          <FontAwesomeIcon icon={['fas', 'plus']} />
         </button>
         {isModalOpen && <CreateListModal />}
       </div>

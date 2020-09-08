@@ -3,13 +3,25 @@ import RecentUserEntry from './RecentUserEntry';
 
 let fakeData = [
   {
-    id: 4,
+    id: 1,
     profileImg:
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
     nickname: 'brbr',
   },
   {
-    id: 15,
+    id: 2,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 3,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
+    id: 4,
     profileImg:
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
     nickname: 'ccccrrrr',
@@ -21,7 +33,79 @@ let fakeData = [
     nickname: 'brbr',
   },
   {
+    id: 6,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 7,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
+    id: 8,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 9,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 10,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
+    id: 12,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 13,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
+    id: 14,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 15,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
     id: 16,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 17,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'brbr',
+  },
+  {
+    id: 18,
+    profileImg:
+      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+    nickname: 'ccccrrrr',
+  },
+  {
+    id: 19,
     profileImg:
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
     nickname: 'ccccrrrr',
@@ -31,7 +115,7 @@ let fakeData = [
 class RecentUser extends Component {
   state = {
     recentUser: [],
-    viewCount: 1,
+    viewCount: 7,
     buttonDisplay: false,
   };
 
@@ -44,7 +128,7 @@ class RecentUser extends Component {
   viewListEntry(list) {
     let count = 0;
     return list.map(entry => {
-      if (this.state.viewCount > count) {
+      if ((list.length <= 8 ? 8 : this.state.viewCount) > count) {
         count++;
         return <RecentUserEntry key={entry.id} entry={entry} />;
       }
@@ -54,7 +138,7 @@ class RecentUser extends Component {
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
     const count = list.length;
-    this.handleState('viewCount', count === viewCount ? 1 : count);
+    this.handleState('viewCount', count === viewCount ? 7 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
   }
 
@@ -70,7 +154,7 @@ class RecentUser extends Component {
 
   componentDidMount() {
     // 기록
-    // localStorage.setItem('recentUser', JSON.stringify(fakeData));
+    localStorage.setItem('recentUser', JSON.stringify(fakeData));
     // 가져오기
     this.getRecentUser();
   }
@@ -86,21 +170,29 @@ class RecentUser extends Component {
         >
           기록 삭제
         </button>
-        {this.viewListEntry(recentUser)}
-        <button
-          className="recentUser_viewMoreButton"
-          style={{ display: buttonDisplay ? 'none' : 'block' }}
-          onClick={() => this.handleViewButton(recentUser)}
+        <div
+          className="recentUserEntry"
+          style={{ height: buttonDisplay ? '25em' : '100%' }}
         >
-          더보기
-        </button>
-        <button
-          className="recentUser_viewLessButton"
-          style={{ display: buttonDisplay ? 'block' : 'none' }}
-          onClick={() => this.handleViewButton(recentUser)}
-        >
-          줄이기
-        </button>
+          {this.viewListEntry(recentUser)}
+          <button
+            className="recentUser_viewButton"
+            style={{
+              display:
+                buttonDisplay || recentUser.length <= 8 ? 'none' : 'block',
+            }}
+            onClick={() => this.handleViewButton(recentUser)}
+          >
+            더보기
+          </button>
+          <button
+            className="recentUser_viewButton"
+            style={{ display: buttonDisplay ? 'block' : 'none' }}
+            onClick={() => this.handleViewButton(recentUser)}
+          >
+            줄이기
+          </button>
+        </div>
       </div>
     );
   }

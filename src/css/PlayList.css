@@ -1,19 +1,27 @@
-/* .playListPage {
-  position: relative;
-  top: 20px;
-} */
+.playListPage {
+  margin: 2em;
+}
 .playListPage_title {
   position: relative;
-  width: 20%;
-  top: 20px;
-  left: 5%;
-  font-size: 2.5em;
+  display: inline-block;
+
+  top: 15px;
+  left: 6%;
+  font-size: 2em;
+  /* margin-bottom: 1em; */
 }
 
 .playListPage_modalButton {
   position: fixed;
   right: 10%;
   bottom: 10%;
+  width: 2em;
+  height: 2em;
+  border: 3px solid black;
+  border-radius: 50%;
+  font-size: 2em;
+  outline: none;
+  background: rgba(180, 178, 178, 0.4);
 }
 
 /* MyPlayList */
@@ -21,24 +29,32 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  top: 20px;
+  top: 3em;
+  margin-left: 5em;
+  margin-right: 5em;
 }
 
 .myPlayList_entry {
   position: relative;
-  margin: 2.5%;
-  width: 15%;
+  margin: 2em;
+  margin-top: 0;
+  width: 19.5%;
+  height: 46.3%;
 }
 
 .myPlayList_entry-thumbnails {
   width: 100%;
-  height: 11em;
+  height: 9em;
+  cursor: pointer;
 }
 
 .myPlayList_entry-deleteButton {
   position: absolute;
-  top: -2%;
-  right: -6%;
+  top: -7%;
+  right: -9%;
+  font-size: 2em;
+  border: none;
+  background: rgba(255, 255, 255, 0);
 }
 
 .myPlayList_entry-title {
@@ -48,22 +64,45 @@
 
 .myPlayList_entry-title-description {
   position: absolute;
-  font-size: 2em;
+  font-size: 1.7em;
+  margin: 5px;
 }
 
 .myPlayList_entry-title-inputBox {
   position: absolute;
-  font-size: 1.3em;
+  font-size: 1.2em;
+  width: 95%;
+  height: 90%;
+  border: 0;
+  margin-left: 5px;
+  outline: none;
+  border-bottom: 1px solid black;
 }
 
 .myPlayList_entry-title-editButton {
   position: absolute;
   right: 0;
+  top: 3px;
+  margin: 5px;
+  border: 0;
+  outline: none;
+  background: rgba(255, 255, 255, 0);
 }
 
-.myPlayList_entry-title-completeButton {
+/* .myPlayList_entry-title-completeButton {
   position: absolute;
   right: 0;
+  top: 4px;
+  border: 0;
+  background: rgba(255, 255, 255, 0);
+} */
+
+.myPlayList_entry-liked {
+  margin-left: 8px;
+}
+
+.myPlayList_entry-audience {
+  margin-left: 5px;
 }
 
 /* CreateListModal */
@@ -74,7 +113,7 @@
 
 .createListModal_content {
   position: relative;
-  height: 45em;
+  height: 37em;
 }
 
 .createListModal_content_titleInputBox {
@@ -87,6 +126,7 @@
   position: relative;
   font-size: 1.5em;
   width: 100%;
+  outline: none;
 }
 
 .createListModal_content_musicStackBox {
@@ -124,27 +164,28 @@
   position: relative;
   width: 85%;
   height: 2em;
+  outline: none;
 }
 
 .createListModal_content_searchMusic-searchButton {
   position: relative;
   width: 15%;
   height: 2em;
+  /* border: none; */
+  outline: none;
 }
 
 .createListModal_content_searchMusic-entries {
   position: relative;
   overflow: auto;
-  height: 27em;
+  height: 19em;
+  margin-top: 1em;
 }
 
 .createListModal_content_searchMusic-entry {
   position: relative;
   margin-top: 1em;
   margin-bottom: 1em;
-}
-
-.createListModal_content_searchMusic-entry-thumbnail {
 }
 
 .createListModal_content_searchMusic-entry-title {

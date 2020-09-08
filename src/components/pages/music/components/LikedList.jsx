@@ -38,12 +38,21 @@ let fakeData = [
     likeAmount: 9,
     audienceAmount: 231,
   },
+  {
+    id: 5,
+    title: 'world',
+    thumbnail:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    user_id: 8,
+    likeAmount: 9,
+    audienceAmount: 231,
+  },
 ];
 
 class LikedList extends Component {
   state = {
     likedList: fakeData,
-    viewCount: 4,
+    viewCount: 3,
     buttonDisplay: false,
   };
 
@@ -56,7 +65,7 @@ class LikedList extends Component {
   viewListEntry(list) {
     let count = 0;
     return list.map(entry => {
-      if (this.state.viewCount > count) {
+      if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
         count++;
         return <RecentAndLikedEntry key={entry.id} entry={entry} />;
       }
@@ -66,7 +75,7 @@ class LikedList extends Component {
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
     const count = list.length;
-    this.handleState('viewCount', count === viewCount ? 4 : count);
+    this.handleState('viewCount', count === viewCount ? 3 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
   }
 
@@ -95,7 +104,10 @@ class LikedList extends Component {
           {this.viewListEntry(likedList)}
           <button
             className="likedList_viewButton"
-            style={{ display: buttonDisplay ? 'none' : 'block' }}
+            style={{
+              display:
+                buttonDisplay || likedList.length <= 4 ? 'none' : 'block',
+            }}
             onClick={() => this.handleViewButton(likedList)}
           >
             더보기

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import searchYoutube from './SearchYoutube';
 import SearchMusicEntry from '../containers/SearchMusicEntry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchMusic extends Component {
   searchMusic() {
-    const { searchInfo, handleMusic } = this.props;
-    searchYoutube(searchInfo, data => {
-      handleMusic(data);
-    });
+    // const { searchInfo, handleMusic } = this.props;
+    // searchYoutube(searchInfo, data => {
+    //   handleMusic(data);
+    // });
   }
 
   handlePressEnter(key) {
@@ -29,12 +30,13 @@ class SearchMusic extends Component {
           className="createListModal_content_searchMusic-searchButton"
           onClick={() => this.searchMusic()}
         >
-          검색
+          <FontAwesomeIcon icon={['fas', 'search']} />
         </button>
         <div className="createListModal_content_searchMusic-entries">
-          {music.map(entry => (
-            <SearchMusicEntry key={entry.id.videoId} entry={entry} />
-          ))}
+          {music &&
+            music.map(entry => (
+              <SearchMusicEntry key={entry.id.videoId} entry={entry} />
+            ))}
         </div>
       </div>
     );

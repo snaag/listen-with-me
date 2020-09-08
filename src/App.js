@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 
 import NavigationContainer from './components/navigation/containers/NavigationContainer';
-import MainPage from './components/pages/main/MainPage';
+import MainPage from './components/pages/main/containers/MainPage';
 import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
-import MusicPage from './components/pages/music/MusicPage';
+import MusicPage from './components/pages/music/containers/MusicPage';
 import PlayListPage from './components/pages/playlist/containers/PlayListPage';
 import ProfilePageContainer from './components/pages/profile/containers/ProfilePageContainer';
 import UserTab from './components/tabs/UserTab';
