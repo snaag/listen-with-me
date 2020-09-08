@@ -1,0 +1,29 @@
+.tab__inner {
+  box-sizing: border-box;
+}
+
+.tab__item {
+  float: left;
+  height: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.tab__item button {
+  display: block;
+  padding: 1rem;
+  color: black;
+  text-underline-position: none;
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+
+.tab__item button:hover {
+  border-bottom: 2px solid black;
+  color: black;
+  font-weight: 500;
+}
+
+.tab__item button:focus {
+  outline: 0;
+}

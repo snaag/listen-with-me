@@ -6,12 +6,14 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
+
 import NavigationContainer from './components/navigation/containers/NavigationContainer';
 import MainPage from './components/pages/main/MainPage';
 import ListenPageContainer from './components/pages/listen/containers/ListenPageContainer';
 import MusicPage from './components/pages/music/MusicPage';
 import PlayListPage from './components/pages/playlist/containers/PlayListPage';
 import ProfilePageContainer from './components/pages/profile/containers/ProfilePageContainer';
+import UserTab from './components/tabs/UserTab';
 import './css/Reset.css';
 
 function App() {
@@ -35,12 +37,15 @@ function App() {
           <ListenPageContainer />
         </Route>
         <Route path="/music">
+          <UserTab />
           <MusicPage />
         </Route>
         <Route path="/playlist">
+          <UserTab />
           <PlayListPage />
         </Route>
         <Route path="/profile">
+          <UserTab />
           <ProfilePageContainer />
         </Route>
       </Switch>
