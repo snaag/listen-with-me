@@ -1,0 +1,32 @@
+.tab {
+}
+.tab__inner {
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: green;
+  text-align: center;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.tab__item {
+  float: left;
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tab__item button {
+  display: block;
+  padding: 1rem;
+  color: black;
+  text-underline-position: none;
+  text-decoration: none;
+}
+
+.tab__item button:hover {
+  border-bottom: 2px solid black;
+}
