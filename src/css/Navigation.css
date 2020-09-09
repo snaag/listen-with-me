@@ -1,4 +1,7 @@
 /* 네비게이션 전체 */
+.navigation {
+  background: rgb(32, 32, 32);
+}
 .navigation_inner {
   padding-top: 1.5rem;
   padding-bottom: 1.2rem;
@@ -11,8 +14,9 @@
 }
 
 .logo__inner span {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   cursor: pointer;
+  color: white;
 }
 
 /* title */
@@ -22,22 +26,31 @@
 
 .title__inner .title__text {
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 300;
   cursor: default;
+  color: #fff;
 }
 
 /* user(로그인, 회원가입) */
 .navigation_inner .user {
-  margin: 0.25rem 0.1rem 0 0;
 }
 
 .user .user__button {
-  border: none;
+  border: 0.01rem solid rgb(170, 170, 170);
+  padding: 0.5rem;
+  border-radius: 4px;
   background: none;
+  color: rgb(170, 170, 170);
+}
+
+.user__signup {
+  margin-left: 0.5rem;
 }
 
 .user .user__button:hover {
-  color: gray;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  font-weight: 500;
   transition: 0.5s;
 }
 
