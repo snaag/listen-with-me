@@ -1,6 +1,11 @@
 * {
   box-sizing: border-box;
 }
+
+/* profile-page */
+.profile-page {
+}
+
 /* nickname, description */
 .nickname__button,
 .description__button {

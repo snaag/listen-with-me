@@ -1,3 +1,6 @@
+.tab {
+  background-color: rgb(24, 24, 24);
+}
 .tab__inner {
   box-sizing: border-box;
 }
@@ -11,7 +14,7 @@
 .tab__item button {
   display: block;
   padding: 1rem;
-  color: black;
+  color: rgb(170, 170, 170);
   text-underline-position: none;
   text-decoration: none;
   background: none;
@@ -19,8 +22,8 @@
 }
 
 .tab__item button:hover {
-  border-bottom: 2px solid black;
-  color: black;
+  border-bottom: 2px solid #fff;
+  color: #fff;
   font-weight: 500;
 }
 

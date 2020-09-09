@@ -32,6 +32,7 @@ const Picture = ({ url, changeProfilePicture }) => {
       <div className="filebox">
         <label htmlFor="filebox__upload">
           <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
+          !업로드!
         </label>
         <input
           type="file"

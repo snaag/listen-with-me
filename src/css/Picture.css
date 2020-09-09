@@ -1,3 +1,7 @@
+.edit-profile {
+  position: relative;
+}
+
 .picture {
   width: 10rem;
   height: 10rem;
@@ -14,33 +18,27 @@
   height: 100%;
   width: auto;
 }
-
 .filebox label {
   display: inline-block;
-  padding: 0.7rem 0.7rem;
+  padding: 0.5em 0.75em;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: inherit;
   line-height: normal;
   vertical-align: middle;
-  background-color: black;
+  background-color: #5cb85c;
   cursor: pointer;
-  border-radius: 50%;
+  border: 1px solid #4cae4c;
+  border-radius: 0.25em;
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
 
 .filebox label:hover {
-  background-color: #212121;
+  background-color: #6ed36e;
 }
 
 .filebox label:active {
-  background-color: #404040;
-}
-
-.filebox {
-  position: absolute;
-  top: 80%;
-  right: 10%;
+  background-color: #367c36;
 }
 
 .filebox input[type='file'] {
