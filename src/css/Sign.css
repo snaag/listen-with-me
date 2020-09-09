@@ -2,6 +2,27 @@
   box-sizing: border-box;
 }
 
+/* modal 뒷배경 */
+.modal-content {
+  background-color: rgb(32, 32, 32);
+  color: white;
+}
+.signin__modal {
+  background-color: rgba(24, 24, 24, 0.5);
+}
+/* modal 전체 */
+.modal-title {
+  color: #fff;
+}
+
+.modal-header span {
+  color: white;
+}
+
+.modal-body hr {
+  border: 0.01rem solid rgba(255, 255, 255, 0.5);
+}
+
 /* oauth */
 .oauth {
   margin-bottom: 1.5rem;
@@ -85,14 +106,14 @@
   padding: 0.5rem;
   width: 20rem;
   margin: 2rem auto 0;
-  border: 0.1rem solid gray;
+  border: 0.1rem solid rgb(170, 170, 170);
   border-radius: 5px;
-  color: gray;
+  color: rgb(170, 170, 170);
+  background: none;
   transition: 0.5s;
 }
 
 .sign__button:hover {
-  background: rgb(177, 177, 177);
   transition: 0.5s;
   color: white;
 }
