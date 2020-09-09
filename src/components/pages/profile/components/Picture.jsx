@@ -24,7 +24,7 @@ const Picture = ({ url, changeProfilePicture }) => {
   };
 
   return (
-    <div className="profile-picture">
+    <div className="profile-picture float-right">
       <img className="profile-picture__content" src={url} alt="" />
       <div className="profile-picture__filebox">
         <input

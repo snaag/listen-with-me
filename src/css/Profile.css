@@ -2,11 +2,6 @@
   box-sizing: border-box;
 }
 
-/* profile-page */
-.profile-page {
-  background: rgb(24, 24, 24);
-}
-
 /* nickname, description */
 .nickname__button,
 .description__button {
