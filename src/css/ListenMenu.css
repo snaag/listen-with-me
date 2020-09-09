@@ -40,6 +40,11 @@
 .along {
   position: relative;
 }
+
+.along span {
+  color: #fff;
+}
+
 .along__title {
   position: relative;
   bottom: 0.75rem;

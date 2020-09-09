@@ -4,7 +4,7 @@ import PlayListEntry from './PlayListEntry';
 
 const PlayList = () => {
   return (
-    <div style={{ background: 'salmon', height: '200px' }}>
+    <div className="play-list">
       <PlayListEntry />
     </div>
   );
