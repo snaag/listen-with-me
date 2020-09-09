@@ -126,6 +126,10 @@
   border: none;
 }
 
+.close:focus {
+  outline: none;
+}
+
 .createListModal_title {
   position: relative;
   left: 50%;

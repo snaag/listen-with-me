@@ -63,54 +63,6 @@ let fakeData = [
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
     nickname: 'brbr',
   },
-  {
-    id: 12,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
-  },
-  {
-    id: 13,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'brbr',
-  },
-  {
-    id: 14,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
-  },
-  {
-    id: 15,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'brbr',
-  },
-  {
-    id: 16,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
-  },
-  {
-    id: 17,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'brbr',
-  },
-  {
-    id: 18,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
-  },
-  {
-    id: 19,
-    profileImg:
-      'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
-  },
 ];
 
 class RecentUser extends Component {
