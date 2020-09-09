@@ -1,53 +1,36 @@
-.edit-profile {
+.profile-picture {
   position: relative;
-}
-
-.picture {
   width: 10rem;
   height: 10rem;
-  position: relative;
-  overflow: hidden;
+}
+
+.profile-picture img {
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
-  float: right;
-  border: 0.01rem solid #919191;
-}
-.picture__content {
-  display: inline;
-  margin: 0 auto;
-  /* margin-left: -50%; */
-  height: 100%;
-  width: auto;
-}
-.filebox label {
-  display: inline-block;
-  padding: 0.5em 0.75em;
-  color: #fff;
-  font-size: inherit;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #5cb85c;
-  cursor: pointer;
-  border: 1px solid #4cae4c;
-  border-radius: 0.25em;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+  border: 0.01rem solid rgb(170, 170, 170);
 }
 
-.filebox label:hover {
-  background-color: #6ed36e;
-}
-
-.filebox label:active {
-  background-color: #367c36;
-}
-
-.filebox input[type='file'] {
+.profile-picture__filebox label {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  background: #fff;
+  border: 0.01rem solid rgb(170, 170, 170);
+  border-radius: 50%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.profile-picture__filebox label:hover {
+  background: #404040;
+  color: white;
+  transition: 0.2s;
+}
+
+.profile-picture__filebox label:active {
+  background: #212121;
+  color: white;
+  transition: 0.2s;
 }

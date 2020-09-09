@@ -4,6 +4,7 @@
 
 /* profile-page */
 .profile-page {
+  background: rgb(24, 24, 24);
 }
 
 /* nickname, description */
@@ -37,13 +38,14 @@
   transition: 0.2s;
 }
 
-.nickname__show {
-  font-size: 1.2rem;
+.nickname__show,
+.description__show {
+  color: white;
 }
 
 .nickname__show:hover,
 .description__show:hover {
-  border-bottom: 2px solid #7e7e7e;
+  border-bottom: 2px solid white;
   cursor: default;
 }
 
@@ -79,6 +81,10 @@
   text-align: center;
 }
 
+.audience .audience__amount,
+.like .like__amount {
+  color: white;
+}
 /* profile page */
 .inner_info {
   margin: 0 auto;
