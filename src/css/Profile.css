@@ -2,11 +2,6 @@
   box-sizing: border-box;
 }
 
-/* profile-page */
-.profile-page {
-  background: rgb(24, 24, 24);
-}
-
 /* nickname, description */
 .nickname__button,
 .description__button {
@@ -40,18 +35,27 @@
 
 .nickname__show,
 .description__show {
-  color: white;
+  color: rgb(170, 170, 170);
 }
 
 .nickname__show:hover,
 .description__show:hover {
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid rgb(170, 170, 170);
   cursor: default;
 }
 
 .nickname__input,
 .description__input {
   padding: 0.2rem;
+  background: rgb(24, 24, 24);
+  border: none;
+  border-bottom: 1px solid rgb(170, 170, 170);
+  color: white;
+}
+
+.nickname__input:focus,
+.description__input:focus {
+  outline: 0;
 }
 
 /* audience, like */
@@ -68,22 +72,19 @@
 .like__inner,
 .audience__inner {
   display: inline-block;
-  background: white;
-  border: 0.01rem solid #5c5c5c;
-  color: black;
+  color: rgb(170, 170, 170);
   width: 1.6rem;
   height: 1.6rem;
   padding: 0.15rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   padding: 0.3rem 0 0 0;
-  border-radius: 50%;
   margin-right: 0.5rem;
   text-align: center;
 }
 
 .audience .audience__amount,
 .like .like__amount {
-  color: white;
+  color: rgb(170, 170, 170);
 }
 /* profile page */
 .inner_info {
