@@ -8,12 +8,17 @@
   padding: 0.5rem;
 }
 
-.realtime-audience__icon,
-.like-playlist__button {
+.realtime-audience {
   padding: 0.5rem;
-  background: white;
   border-radius: 20px;
-  border: 0.01rem solid gray;
+  color: rgb(170, 170, 170);
+}
+
+.like-playlist__button {
+  color: rgb(170, 170, 170);
+  background: none;
+  border: none;
+  margin-left: 0.5rem;
 }
 
 .realtime-audience__amount {
@@ -42,7 +47,7 @@
 }
 
 .along span {
-  color: #fff;
+  color: rgb(170, 170, 170);
 }
 
 .along__title {
