@@ -55,6 +55,7 @@ class SearchUser extends Component {
           className="searchMain_input"
           onChange={e => this.props.handleNickname(e.target.value)}
           onKeyPress={e => this.handlePressEnter(e.key)}
+          placeholder="검색"
         ></input>
         <button
           className="searchMain_alongButton"

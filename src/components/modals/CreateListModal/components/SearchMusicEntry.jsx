@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchMusicEntry extends Component {
   state = {
@@ -57,7 +58,7 @@ class SearchMusicEntry extends Component {
           className="createListModal_content_searchMusic-entry-addEntryButton"
           onClick={() => this.addEntry(this.state.entry)}
         >
-          추가
+          <FontAwesomeIcon icon={['fas', 'plus']} />
         </button>
       </div>
     );

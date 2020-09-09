@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchMusic extends Component {
   searchMusic() {
-    // const { searchInfo, handleMusic } = this.props;
-    // searchYoutube(searchInfo, data => {
-    //   handleMusic(data);
-    // });
+    const { searchInfo, handleMusic } = this.props;
+    searchYoutube(searchInfo, data => {
+      handleMusic(data);
+    });
   }
 
   handlePressEnter(key) {
@@ -25,6 +25,7 @@ class SearchMusic extends Component {
           className="createListModal_content_searchMusic-inputBox"
           onChange={e => handleQuery(e.target.value)}
           onKeyPress={e => this.handlePressEnter(e.key)}
+          placeholder="검색"
         ></input>
         <button
           className="createListModal_content_searchMusic-searchButton"

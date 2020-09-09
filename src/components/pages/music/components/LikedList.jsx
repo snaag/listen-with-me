@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecentAndLikedEntry from './RecentAndLikedEntry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let fakeData = [
   {
@@ -31,15 +32,6 @@ let fakeData = [
   },
   {
     id: 4,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 5,
     title: 'world',
     thumbnail:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
@@ -110,14 +102,14 @@ class LikedList extends Component {
             }}
             onClick={() => this.handleViewButton(likedList)}
           >
-            더보기
+            <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
           </button>
           <button
             className="likedList_viewButton"
             style={{ display: buttonDisplay ? 'block' : 'none' }}
             onClick={() => this.handleViewButton(likedList)}
           >
-            줄이기
+            <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
           </button>
         </div>
       </div>

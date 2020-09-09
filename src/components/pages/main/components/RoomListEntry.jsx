@@ -17,7 +17,12 @@ class RoomListEntry extends Component {
           src={thumbnails}
           alt=""
         />
-        <div className="renderListMain_entry-title">{title}</div>
+        <div
+          className="renderListMain_entry-title"
+          onClick={() => this.clickListEntry()}
+        >
+          {title}
+        </div>
         <div className="renderListMain_entry-liked">
           <FontAwesomeIcon icon={['fas', 'heart']} />
           {' ' + likeAmount}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecentUserEntry from './RecentUserEntry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let fakeData = [
   {
@@ -183,14 +184,14 @@ class RecentUser extends Component {
             }}
             onClick={() => this.handleViewButton(recentUser)}
           >
-            더보기
+            <FontAwesomeIcon className="userViewIcon" icon={['fas', 'plus']} />
           </button>
           <button
             className="recentUser_viewButton"
             style={{ display: buttonDisplay ? 'block' : 'none' }}
             onClick={() => this.handleViewButton(recentUser)}
           >
-            줄이기
+            <FontAwesomeIcon className="userViewIcon" icon={['fas', 'minus']} />
           </button>
         </div>
       </div>
