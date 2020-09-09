@@ -73,7 +73,7 @@ class CreateListModal extends Component {
         show={isModalOpen}
         onHide={this.closeModal.bind(this)}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="createListModal_header">
           <Modal.Title className="createListModal_title">
             리스트 만들기
           </Modal.Title>
@@ -86,7 +86,7 @@ class CreateListModal extends Component {
             className="createListModal_content_createListButton"
             onClick={() => this.createList()}
           >
-            확인
+            생성
           </button>
         </Modal.Body>
       </Modal>

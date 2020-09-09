@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecentAndLikedEntry from './RecentAndLikedEntry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let fakeData = [
   {
@@ -183,14 +184,14 @@ class RecentList extends Component {
             }}
             onClick={() => this.handleViewButton(recentList)}
           >
-            더보기
+            <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
           </button>
           <button
             className="recentList_viewButton"
             style={{ display: buttonDisplay ? 'block' : 'none' }}
             onClick={() => this.handleViewButton(recentList)}
           >
-            줄이기
+            <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
           </button>
         </div>
       </div>

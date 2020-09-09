@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class MyPlayListEntry extends Component {
   state = {
     title: '',
-    inputTitleDisplay: false,
-    deleteButtonDisplay: false,
+    buttonDisplay: false,
   };
 
   handleState(key, value) {
@@ -14,41 +13,31 @@ class MyPlayListEntry extends Component {
     });
   }
 
-  editTitleButton() {
-    this.handleState('inputTitleDisplay', true);
+  editButton() {
+    this.handleState('buttonDisplay', true);
+    this.hideEditButton();
   }
 
-  hideDeleteButton() {
+  hideEditButton() {
+    let title = this.state.title;
     let root = document.querySelector('#root');
     root.addEventListener('click', e => {
-      const { classList, nodeName } = e.target;
+      const { classList, nodeName, className } = e.target;
       if (
         classList[1] !== `number${this.props.listEntry.id}` &&
         classList[0] !== 'myPlayList_entry-deleteButton' &&
         classList[3] !== 'times-circle' &&
-        nodeName !== 'path'
+        nodeName !== 'path' &&
+        className !== 'myPlayList_entry-title-inputBox'
       ) {
-        this.handleState('deleteButtonDisplay', false);
+        this.handleState('buttonDisplay', false);
+        this.handleState('title', title);
       }
     });
   }
 
-  handleButtonPress() {
-    this.buttonPressTimer = setTimeout(() => {
-      this.handleState('deleteButtonDisplay', true);
-      this.hideDeleteButton();
-    }, 1000);
-  }
-
-  handleButtonRelease() {
-    clearTimeout(this.buttonPressTimer);
-  }
-
   completeButton(e) {
     // if (e.key === 'Enter') {
-    // 테스트
-    // this.handleState('title', this.state.title);
-    // this.handleState('inputTitleDisplay', false);
     // fetch(`/playlist?id=${this.props.listEntry.id}`, {
     //   method: 'PATCH',
     //   headers: {
@@ -61,9 +50,9 @@ class MyPlayListEntry extends Component {
     // })
     //   .then(res => {
     //     if (res.status !== 200) {
-    //       this.handleState('title', this.props.listEntry.title);
+    //       this.handleState('title', this.props.listEntry.title); // 이게 맞나?? this.state.title 아니고??
     //     }
-    //     this.handleState('inputTitleDisplay', false);
+    //     this.handleState('buttonDisplay', false);
     //   })
     //   .catch(err => console.log(err));
     // }
@@ -99,49 +88,45 @@ class MyPlayListEntry extends Component {
 
     return (
       <div className="myPlayList_entry">
-        {this.state.deleteButtonDisplay && (
+        {this.state.buttonDisplay && (
           <button
             className="myPlayList_entry-deleteButton"
             onClick={() => this.deleteRoom()}
           >
-            <FontAwesomeIcon
-              className="times-circle"
-              icon={['far', 'times-circle']}
-            />
+            <FontAwesomeIcon icon={['far', 'times-circle']} />
           </button>
         )}
         <img
           className={`myPlayList_entry-thumbnails number${id}`}
           onClick={() => this.createRoom()}
-          onMouseDown={this.handleButtonPress.bind(this)}
-          onMouseUp={this.handleButtonRelease.bind(this)}
           src={thumbnails}
           alt=""
         ></img>
         <div className="myPlayList_entry-title">
           <div
             className="myPlayList_entry-title-description"
-            style={{ display: this.state.inputTitleDisplay ? 'none' : 'block' }}
+            style={{ display: this.state.buttonDisplay ? 'none' : 'block' }}
+            onClick={() => this.createRoom()}
           >
             {this.state.title}
           </div>
           <input
             className="myPlayList_entry-title-inputBox"
-            style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
+            style={{ display: this.state.buttonDisplay ? 'block' : 'none' }}
             onChange={e => this.handleState('title', e.target.value)}
             onKeyPress={e => this.completeButton(e)}
             value={this.state.title}
           ></input>
           <button
             className="myPlayList_entry-title-editButton"
-            style={{ display: this.state.inputTitleDisplay ? 'none' : 'block' }}
-            onClick={() => this.editTitleButton()}
+            style={{ display: this.state.buttonDisplay ? 'none' : 'block' }}
+            onClick={() => this.editButton()}
           >
             <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
           </button>
           {/* <button
             className="myPlayList_entry-title-completeButton"
-            style={{ display: this.state.inputTitleDisplay ? 'block' : 'none' }}
+            style={{ display: this.state.buttonDisplay ? 'block' : 'none' }}
             onClick={() => this.completeButton()}
           >
             완료

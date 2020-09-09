@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class StackBoxEntry extends Component {
   deleteEntry(id) {
@@ -22,7 +23,7 @@ class StackBoxEntry extends Component {
           className="createListModal_content_musicStackBox-entry-deleteEntryButton"
           onClick={() => this.deleteEntry(entry.id)}
         >
-          삭제
+          <FontAwesomeIcon className="minusButton" icon={['fas', 'minus']} />
         </button>
       </div>
     );
