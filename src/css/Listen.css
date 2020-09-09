@@ -1,9 +1,16 @@
+/* listen page */
+.listen-page {
+  background: rgb(24, 24, 24);
+}
 /* video view */
 .video-view {
   height: 70vh;
 }
 
 /* Chat */
+.chat {
+  margin-top: 0.5rem;
+}
 .chat__input {
   width: 70%;
   height: 1.9rem;
@@ -19,6 +26,7 @@
   background: none;
   border-radius: 5px;
   border: 0.1rem solid gray;
+  color: #fff;
 }
 
 .chat__send-button:hover {
@@ -33,4 +41,10 @@
 
 .chat__send-button:focus {
   outline: 0;
+}
+
+/* playlist */
+.play-list {
+  margin-top: 0.5rem;
+  background-color: rgb(170, 170, 170);
 }

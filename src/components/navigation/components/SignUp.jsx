@@ -8,7 +8,6 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
   const [info, setInfo] = useState({
     nickname: '',
     email: '',
-    cert: '',
     password: '',
     checkPassword: '',
   });
@@ -132,18 +131,6 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
               <span className="info__invalid password--invalid">
                 {checkPasswordMessage}
               </span>
-            </div>
-            <div className="info">
-              <label htmlFor="cert" className="info__label">
-                인증번호
-              </label>
-              <input
-                type="text"
-                id="cert"
-                onChange={changeInfo}
-                value={info.cert}
-                className="info__input info__input--long"
-              />
             </div>
             <div className="info">
               <label htmlFor="password" className="info__label">

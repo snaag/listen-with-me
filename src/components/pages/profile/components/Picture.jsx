@@ -24,21 +24,19 @@ const Picture = ({ url, changeProfilePicture }) => {
   };
 
   return (
-    <div className="edit-profile">
-      <div className="picture">
-        <img className="picture__content" src={url} alt="프로필 이미지" />
-      </div>
-
-      <div className="filebox">
-        <label htmlFor="filebox__upload">
-          <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
-        </label>
+    <div className="profile-picture">
+      <img className="profile-picture__content" src={url} alt="" />
+      <div className="profile-picture__filebox">
         <input
           type="file"
           id="filebox__upload"
           onChange={changeImage}
           accept="image/png, image/jpeg, image/jpg"
+          hidden
         />
+        <label for="filebox__upload">
+          <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
+        </label>
       </div>
     </div>
   );

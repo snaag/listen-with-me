@@ -9,7 +9,7 @@ import '../../../css/Listen.css';
 
 const ListenPage = ({ isAlong }) => {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid listen-page">
       <div className="row">
         <div className="col-8">
           <Menu />

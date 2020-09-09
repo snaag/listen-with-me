@@ -22,7 +22,12 @@ const SignIn = ({ isActive, signIn, handleClose }) => {
   };
 
   return (
-    <Modal show={isActive} onHide={handleClose} animation={true}>
+    <Modal
+      show={isActive}
+      onHide={handleClose}
+      animation={true}
+      className="signin__modal"
+    >
       <Modal.Header closeButton>
         <Modal.Title>로그인</Modal.Title>
       </Modal.Header>
