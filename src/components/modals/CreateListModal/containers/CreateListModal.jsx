@@ -31,6 +31,9 @@ const mapDispatchToProps = dispatch => {
     handleQuery: query => {
       return dispatch(setQuery(query));
     },
+    handleListTitle: list_title => {
+      return dispatch(setListTitle(list_title));
+    },
   };
 };
 

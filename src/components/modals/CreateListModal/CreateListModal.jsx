@@ -14,6 +14,7 @@ class CreateListModal extends Component {
       handleModalOpen,
       handleMusic,
       handleQuery,
+      handleListTitle,
     } = this.props;
 
     if (list_title || entries.length) {
@@ -21,6 +22,7 @@ class CreateListModal extends Component {
         handleEntries([]);
         handleMusic([]);
         handleQuery('');
+        handleListTitle('');
         handleModalOpen(!isModalOpen);
       }
     } else {
