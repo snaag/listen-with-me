@@ -12,13 +12,15 @@ body {
 /* SearchUser */
 .searchMain {
   position: relative;
+  display: flex;
   top: 4em;
+  height: 2em;
 }
 
 .searchMain_input {
   position: relative;
   width: 40%;
-  height: 2em;
+  height: 100%;
   left: 20%;
   border: none;
   padding: 2px;
@@ -32,19 +34,23 @@ body {
 
 .searchMain_alongButton {
   position: relative;
-  height: 2em;
-  top: -1px;
+  height: 100%;
+  width: 5%;
+  min-width: 5em;
   left: 20%;
   border: none;
+  color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
 }
 
 .searchMain_RandomButton {
   position: relative;
-  height: 2em;
-  top: -1px;
+  height: 100%;
+  width: 5%;
+  min-width: 5em;
   left: 20%;
   border: none;
+  color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
 }
 
@@ -56,7 +62,7 @@ body {
 .searchMain_alongButton:hover,
 .searchMain_RandomButton:hover {
   opacity: 0.9;
-  color: gray;
+  color: white;
   transition: 0.5s;
 }
 
@@ -74,38 +80,47 @@ body {
 .renderListMain_entry {
   position: relative;
   margin: 2.5%;
-  width: 20%;
+  width: 16.3em;
 }
 
 .renderListMain_entry-thumbnails {
-  width: 100%;
-  height: 10em;
+  width: 16.3em;
+  height: 9.2em;
+  min-width: 16.3em;
   cursor: pointer;
 }
 
 .renderListMain_entry-title {
   position: relative;
-  display: inline-block;
-  width: 50%;
-  font-size: 2em;
+  width: 75%;
+  font-size: 1.3em;
   color: rgb(255, 255, 255);
-  left: 0.2em;
+  margin-top: 0.2em;
   cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  max-height: 2.4em;
 }
 
 .renderListMain_entry-liked {
   position: absolute;
   display: inline-block;
-  width: 30%;
   bottom: 15%;
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: rgb(255, 255, 255);
-  right: -1.2em;
+  margin-top: 0.2em;
+  top: 8.6em;
+  right: 0%;
 }
 
 .renderListMain_entry-nickname {
   position: relative;
-  font-size: 1.8em;
+  font-size: 1.1em;
   color: rgb(170, 170, 170);
-  left: 0.2em;
+  margin-top: 0.2em;
 }

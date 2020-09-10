@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 let fakeData = [
   {
     id: 1,
-    title: 'hello',
+    title: 'hellohellohellohellohellohellohello',
     thumbnail:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
     user_id: 7,
@@ -14,7 +14,7 @@ let fakeData = [
   },
   {
     id: 2,
-    title: 'world',
+    title: '헬로헬로헬로헬로헬로헬로헬헬로헬로헬로헬',
     thumbnail:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
     user_id: 8,

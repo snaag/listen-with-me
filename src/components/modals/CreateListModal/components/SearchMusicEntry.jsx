@@ -14,10 +14,8 @@ class SearchMusicEntry extends Component {
   addEntry(value) {
     const { entries, handleEntries } = this.props;
     const newEntries = entries.slice();
-    const newValue = Object.assign({}, value);
-    newValue.id = entries.length ? entries[entries.length - 1].id + 1 : 1;
-    newValue.title = this.state.entry.title.slice(0, 35) + ' ...';
-    newEntries.push(newValue);
+    value.id = entries.length ? entries[entries.length - 1].id + 1 : 1;
+    newEntries.push(value);
     handleEntries(newEntries);
   }
 

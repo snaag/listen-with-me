@@ -20,13 +20,13 @@ class CreateListModal extends Component {
     if (list_title || entries.length) {
       if (window.confirm('play list 작성을 취소하시겠습니까')) {
         handleEntries([]);
-        handleMusic([]);
+        handleMusic('');
         handleQuery('');
         handleListTitle('');
         handleModalOpen(!isModalOpen);
       }
     } else {
-      handleMusic([]);
+      handleMusic('');
       handleQuery('');
       handleModalOpen(!isModalOpen);
     }
