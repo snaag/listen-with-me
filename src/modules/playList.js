@@ -4,7 +4,7 @@ let fakeData = [
     room_id: 12,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
+    title: 'hellohellohellohellohellohellohellohellohellohellohello',
     nickname: 'in',
     likeAmount: 10,
     audienceAmount: 1000,
@@ -14,7 +14,8 @@ let fakeData = [
     room_id: 14,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
+    title:
+      '헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로',
     nickname: 'ho',
     likeAmount: 9,
     audienceAmount: 1000,
@@ -106,7 +107,7 @@ const initialState = {
   myPlayList: fakeData,
   list_title: '',
   entries: [],
-  music: [],
+  music: '',
   searchInfo: {
     query: '',
     max: 3,

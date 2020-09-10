@@ -7,13 +7,13 @@ let fakeData = [
     id: 1,
     profileImg:
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'brbr',
+    nickname: 'brbrasdfasdfasdfasdfasdfasdfasdf',
   },
   {
     id: 2,
     profileImg:
       'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-    nickname: 'ccccrrrr',
+    nickname: '헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로',
   },
   {
     id: 3,
@@ -125,7 +125,7 @@ class RecentUser extends Component {
         </button>
         <div
           className="recentUserEntry"
-          style={{ height: buttonDisplay ? '25em' : '100%' }}
+          style={{ height: buttonDisplay ? '24em' : '100%' }}
         >
           {this.viewListEntry(recentUser)}
           <button

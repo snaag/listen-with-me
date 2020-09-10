@@ -34,6 +34,7 @@
 
 .recentAndLikedEntry,
 .recentUserEntry {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   overflow: auto;
@@ -50,29 +51,38 @@
   margin-left: 2em;
   margin-right: 2em;
   margin-bottom: 2em;
-  width: 19.5%;
+  width: 14.8em;
   height: 46.3%;
 }
 
 .recentAndLikedEntry_content_thumbnail {
-  width: 100%;
-  height: 9em;
+  position: relative;
+  width: 14.8em;
+  height: 8.3em;
+  min-width: 14.8em;
 }
 
 .recentAndLikedEntry_content_title {
-  display: inline-block;
-  font-size: 1.7em;
-  margin: 5px;
+  position: relative;
+  font-size: 1.2em;
   width: 70%;
+  margin-top: 0.2em;
   color: rgb(255, 255, 255);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  max-height: 2.4em;
 }
 
 .recentAndLikedEntry_content_likeAmount {
   position: absolute;
-  font-size: 1.2em;
-  margin: 5px;
+  font-size: 1em;
   right: 0%;
-  top: 80%;
+  top: 8.8em;
   color: rgb(255, 255, 255);
 }
 
@@ -80,8 +90,8 @@
 .likedList_viewButton,
 .recentUser_viewButton {
   position: relative;
-  width: 19.5%;
-  height: 9em;
+  width: 14.8em;
+  height: 8.3em;
   margin-left: 2em;
   border: none;
   background: rgb(50, 49, 50);
@@ -117,11 +127,19 @@
 
 .recentUserEntry_nickname {
   position: relative;
-  height: 1em;
-  left: 32%;
+  width: 6em;
+  left: 16%;
   top: 50%;
   transform: translate(0%, -50%);
   color: rgb(255, 255, 255);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  max-height: 2.4em;
 }
 
 .recentUser_viewButton {

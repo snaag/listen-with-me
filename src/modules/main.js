@@ -4,7 +4,7 @@ let fakeData = [
     room_id: 12,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
+    title: '헬로헬로헬로헬로헬로헬로헬로헬로헬로로헬로',
     nickname: 'in',
     likeAmount: 10,
   },
@@ -13,7 +13,7 @@ let fakeData = [
     room_id: 14,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
+    title: 'hellohellohellohellohellohell',
     nickname: 'ho',
     likeAmount: 9,
   },
@@ -22,7 +22,7 @@ let fakeData = [
     room_id: 12,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
+    title: 'hellohellohellohellohellohellohellohellohello',
     nickname: 'in',
     likeAmount: 10,
   },
@@ -31,7 +31,7 @@ let fakeData = [
     room_id: 14,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
+    title: '헬로헬로헬로헬로헬로헬로헬로헬로',
     nickname: 'ho',
     likeAmount: 9,
   },
