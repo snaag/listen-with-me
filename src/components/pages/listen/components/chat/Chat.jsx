@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
+import '../../../../../css/Chat.css';
 // 유저의 아이디로, 어떤 유저가 말 한 것인지에 따라 말풍선 다르게 해주기
 
 const Chat = ({ name, profileURL, chats, addChat }) => {
@@ -78,6 +79,14 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
 
   return (
     <div className="chat">
+      {/* <div className="render-chat">{renderChat()}</div> */}
+      <div className="chat__list">
+        <ul>
+          {chats.map(chat => (
+            <li>{`${chat.user_nickname}: ${chat.message}`}</li>
+          ))}
+        </ul>
+      </div>
       <form onSubmit={onMessageSubmit}>
         <div className="chat__inner">
           <input
@@ -90,12 +99,6 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
           <button className="chat__send-button">전송</button>
         </div>
       </form>
-      {/* <div className="render-chat">{renderChat()}</div> */}
-      <div style={{ color: 'white' }}>
-        {chats.map(chat => (
-          <li>{`${chat.user_nickname}: ${chat.message}`}</li>
-        ))}
-      </div>
     </div>
   );
 };

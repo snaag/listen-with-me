@@ -1,0 +1,55 @@
+/* Chat */
+.chat {
+  margin-top: 0.5rem;
+}
+
+.chat__list {
+  height: 70vh;
+  background: hotpink;
+  overflow-y: hidden;
+}
+
+.chat__list li {
+  color: white;
+  display: block;
+  padding-top: 0.5rem;
+}
+
+.chat__input {
+  width: 70%;
+  height: 1.9rem;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+  background-color: rgb(24, 24, 24);
+  border: none;
+  border-bottom: 1px solid rgb(170, 170, 170);
+  color: white;
+}
+.chat__input:focus {
+  outline: 0;
+}
+
+.chat__send-button {
+  width: 20%;
+  margin-left: 1rem;
+  height: 1.9rem;
+  background: none;
+  border-radius: 5px;
+  border: 0.1rem solid rgb(170, 170, 170);
+  color: rgb(170, 170, 170);
+}
+
+.chat__send-button:hover {
+  border: 0.1rem solid white;
+  color: white;
+  transition: 0.3s;
+}
+
+.chat__send-button:active {
+  border: 0.1rem solid white;
+  color: white;
+}
+
+.chat__send-button:focus {
+  outline: 0;
+}

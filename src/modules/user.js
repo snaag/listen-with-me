@@ -159,6 +159,9 @@ const signIn = signInData => {
             description: profileDescription,
           })
         );
+
+        // console.log(Cookies.get('authorization'));
+        // localStorage
       } else {
         const { message } = data;
         console.log(status, message);
