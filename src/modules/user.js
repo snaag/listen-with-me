@@ -13,7 +13,7 @@ const initialState = {
   },
   info: {
     email: '',
-    nickname: '',
+    nickname: 'lee sang-a',
     profileURL: '',
     description: '',
     audienceAmount: 0,
