@@ -12,16 +12,23 @@ body {
 /* SearchUser */
 .searchMain {
   position: relative;
-  display: flex;
   top: 4em;
   height: 2em;
 }
 
-.searchMain_input {
+.searchMain_content {
   position: relative;
-  width: 40%;
+  display: inline-block;
+  height: 2em;
+  width: 40em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.searchMain_input {
+  position: absolute;
+  width: 75%;
   height: 100%;
-  left: 20%;
   border: none;
   padding: 2px;
   background: linear-gradient(0deg, rgb(18, 18, 18), rgb(18, 18, 18)),
@@ -33,22 +40,22 @@ body {
 }
 
 .searchMain_alongButton {
-  position: relative;
+  position: absolute;
   height: 100%;
-  width: 5%;
+  width: 10%;
   min-width: 5em;
-  left: 20%;
+  right: 12.5%;
   border: none;
   color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
 }
 
 .searchMain_RandomButton {
-  position: relative;
+  position: absolute;
   height: 100%;
-  width: 5%;
+  width: 10%;
   min-width: 5em;
-  left: 20%;
+  right: 0%;
   border: none;
   color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
@@ -69,16 +76,24 @@ body {
 /* RoomList */
 .renderListMain {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
   top: 4em;
   padding-left: 2.5%;
   padding-right: 2.5%;
   margin: 2em;
 }
 
+.renderListMain_content {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 81.5em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .renderListMain_entry {
   position: relative;
+  display: inline-block;
   margin: 2.5%;
   width: 16.3em;
 }
@@ -86,7 +101,7 @@ body {
 .renderListMain_entry-thumbnails {
   width: 16.3em;
   height: 9.2em;
-  min-width: 16.3em;
+  /* min-width: 16.3em; */
   cursor: pointer;
 }
 

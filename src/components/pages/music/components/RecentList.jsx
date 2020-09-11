@@ -164,35 +164,37 @@ class RecentList extends Component {
     const { recentList, buttonDisplay } = this.state;
     return (
       <div className="recentList">
-        <div className="recentList_title">최근 들은 리스트</div>
-        <button
-          className="recentList_removeRecentListButton"
-          onClick={() => this.removeRecentList()}
-        >
-          기록 삭제
-        </button>
-        <div
-          className="recentAndLikedEntry"
-          style={{ height: buttonDisplay ? '25em' : '100%' }}
-        >
-          {this.viewListEntry(recentList)}
+        <div className="recentList_content">
+          <div className="recentList_title">최근 들은 리스트</div>
           <button
-            className="recentList_viewButton"
-            style={{
-              display:
-                buttonDisplay || recentList.length <= 4 ? 'none' : 'block',
-            }}
-            onClick={() => this.handleViewButton(recentList)}
+            className="recentList_removeRecentListButton"
+            onClick={() => this.removeRecentList()}
           >
-            <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
+            기록 삭제
           </button>
-          <button
-            className="recentList_viewButton"
-            style={{ display: buttonDisplay ? 'block' : 'none' }}
-            onClick={() => this.handleViewButton(recentList)}
+          <div
+            className="recentAndLikedEntry"
+            style={{ height: buttonDisplay ? '25em' : '100%' }}
           >
-            <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
-          </button>
+            {this.viewListEntry(recentList)}
+            <button
+              className="recentList_viewButton"
+              style={{
+                display:
+                  buttonDisplay || recentList.length <= 4 ? 'none' : 'block',
+              }}
+              onClick={() => this.handleViewButton(recentList)}
+            >
+              <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
+            </button>
+            <button
+              className="recentList_viewButton"
+              style={{ display: buttonDisplay ? 'block' : 'none' }}
+              onClick={() => this.handleViewButton(recentList)}
+            >
+              <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
+            </button>
+          </div>
         </div>
       </div>
     );

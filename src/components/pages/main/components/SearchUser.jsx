@@ -51,24 +51,26 @@ class SearchUser extends Component {
   render() {
     return (
       <div className="searchMain">
-        <input
-          className="searchMain_input"
-          onChange={e => this.props.handleNickname(e.target.value)}
-          onKeyPress={e => this.handlePressEnter(e.key)}
-          placeholder="검색"
-        ></input>
-        <button
-          className="searchMain_alongButton"
-          onClick={() => this.listenAlong()}
-        >
-          따라듣기
-        </button>
-        <button
-          className="searchMain_RandomButton"
-          onClick={() => this.listenRandom()}
-        >
-          랜덤듣기
-        </button>
+        <div className="searchMain_content">
+          <input
+            className="searchMain_input"
+            onChange={e => this.props.handleNickname(e.target.value)}
+            onKeyPress={e => this.handlePressEnter(e.key)}
+            placeholder="검색"
+          ></input>
+          <button
+            className="searchMain_alongButton"
+            onClick={() => this.listenAlong()}
+          >
+            따라듣기
+          </button>
+          <button
+            className="searchMain_RandomButton"
+            onClick={() => this.listenRandom()}
+          >
+            랜덤듣기
+          </button>
+        </div>
       </div>
     );
   }

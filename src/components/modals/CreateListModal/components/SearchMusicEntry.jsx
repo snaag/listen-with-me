@@ -56,7 +56,7 @@ class SearchMusicEntry extends Component {
           className="createListModal_content_searchMusic-entry-addEntryButton"
           onClick={() => this.addEntry(this.state.entry)}
         >
-          <FontAwesomeIcon icon={['fas', 'plus']} />
+          <FontAwesomeIcon className="plusButton" icon={['fas', 'plus']} />
         </button>
       </div>
     );

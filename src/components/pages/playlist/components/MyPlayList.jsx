@@ -27,13 +27,15 @@ class MyPlayList extends Component {
   render() {
     return (
       <div className="myPlayList">
-        {this.props.myPlayList.map(listEntry => (
-          <MyPlayListEntry
-            key={listEntry.id}
-            listEntry={listEntry}
-            deleteList={this.deleteList.bind(this)}
-          />
-        ))}
+        <div className="myPlayList_content">
+          {this.props.myPlayList.map(listEntry => (
+            <MyPlayListEntry
+              key={listEntry.id}
+              listEntry={listEntry}
+              deleteList={this.deleteList.bind(this)}
+            />
+          ))}
+        </div>
       </div>
     );
   }

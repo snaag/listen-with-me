@@ -2,14 +2,49 @@
   margin: 2em;
 }
 
+/* .myPlayList {
+  position: relative;
+  top: 3em;
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+.myPlayList_content {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 75.2em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.myPlayList_entry {
+  position: relative;
+  display: inline-block;
+  margin: 2em;
+  margin-top: 0;
+  width: 14.8em;
+  height: 46.3%;
+} */
+
 /* recent list, liked list */
 .recentList,
 .likedList,
 .recentUser {
   position: relative;
   margin: 5em;
-  margin-top: 3em;
+  margin-top: 2em;
   margin-bottom: 1.5em;
+}
+
+.recentList_content,
+.likedList_content,
+.recentUser_content {
+  position: relative;
+  display: inline-block;
+  width: 75.2em;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .recentList_title,
@@ -17,7 +52,7 @@
 .recentUser_title {
   font-size: 2em;
   display: inline-block;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   color: rgb(255, 255, 255);
 }
 
