@@ -88,29 +88,31 @@ class LikedList extends Component {
     const { likedList, buttonDisplay } = this.state;
     return (
       <div className="likedList">
-        <div className="likedList_title">좋아요한 리스트</div>
-        <div
-          className="recentAndLikedEntry"
-          style={{ height: buttonDisplay ? '25em' : '100%' }}
-        >
-          {this.viewListEntry(likedList)}
-          <button
-            className="likedList_viewButton"
-            style={{
-              display:
-                buttonDisplay || likedList.length <= 4 ? 'none' : 'block',
-            }}
-            onClick={() => this.handleViewButton(likedList)}
+        <div className="likedList_content">
+          <div className="likedList_title">좋아요한 리스트</div>
+          <div
+            className="recentAndLikedEntry"
+            style={{ height: buttonDisplay ? '25em' : '100%' }}
           >
-            <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
-          </button>
-          <button
-            className="likedList_viewButton"
-            style={{ display: buttonDisplay ? 'block' : 'none' }}
-            onClick={() => this.handleViewButton(likedList)}
-          >
-            <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
-          </button>
+            {this.viewListEntry(likedList)}
+            <button
+              className="likedList_viewButton"
+              style={{
+                display:
+                  buttonDisplay || likedList.length <= 4 ? 'none' : 'block',
+              }}
+              onClick={() => this.handleViewButton(likedList)}
+            >
+              <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
+            </button>
+            <button
+              className="likedList_viewButton"
+              style={{ display: buttonDisplay ? 'block' : 'none' }}
+              onClick={() => this.handleViewButton(likedList)}
+            >
+              <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
+            </button>
+          </div>
         </div>
       </div>
     );

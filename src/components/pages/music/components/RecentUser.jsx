@@ -116,35 +116,43 @@ class RecentUser extends Component {
     const { recentUser, buttonDisplay } = this.state;
     return (
       <div className="recentUser">
-        <div className="recentUser_title">최근 따라들은 유저</div>
-        <button
-          className="recentUser_removeRecentUserButton"
-          onClick={() => this.removeRecentUser()}
-        >
-          기록 삭제
-        </button>
-        <div
-          className="recentUserEntry"
-          style={{ height: buttonDisplay ? '24em' : '100%' }}
-        >
-          {this.viewListEntry(recentUser)}
+        <div className="recentUser_content">
+          <div className="recentUser_title">최근 따라들은 유저</div>
           <button
-            className="recentUser_viewButton"
-            style={{
-              display:
-                buttonDisplay || recentUser.length <= 8 ? 'none' : 'block',
-            }}
-            onClick={() => this.handleViewButton(recentUser)}
+            className="recentUser_removeRecentUserButton"
+            onClick={() => this.removeRecentUser()}
           >
-            <FontAwesomeIcon className="userViewIcon" icon={['fas', 'plus']} />
+            기록 삭제
           </button>
-          <button
-            className="recentUser_viewButton"
-            style={{ display: buttonDisplay ? 'block' : 'none' }}
-            onClick={() => this.handleViewButton(recentUser)}
+          <div
+            className="recentUserEntry"
+            style={{ height: buttonDisplay ? '24em' : '100%' }}
           >
-            <FontAwesomeIcon className="userViewIcon" icon={['fas', 'minus']} />
-          </button>
+            {this.viewListEntry(recentUser)}
+            <button
+              className="recentUser_viewButton"
+              style={{
+                display:
+                  buttonDisplay || recentUser.length <= 8 ? 'none' : 'block',
+              }}
+              onClick={() => this.handleViewButton(recentUser)}
+            >
+              <FontAwesomeIcon
+                className="userViewIcon"
+                icon={['fas', 'plus']}
+              />
+            </button>
+            <button
+              className="recentUser_viewButton"
+              style={{ display: buttonDisplay ? 'block' : 'none' }}
+              onClick={() => this.handleViewButton(recentUser)}
+            >
+              <FontAwesomeIcon
+                className="userViewIcon"
+                icon={['fas', 'minus']}
+              />
+            </button>
+          </div>
         </div>
       </div>
     );

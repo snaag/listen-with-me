@@ -20,9 +20,11 @@ class RoomList extends Component {
   render() {
     return (
       <div className="renderListMain">
-        {this.props.likedList.map(listEntry => (
-          <RoomListEntry key={listEntry.id} listEntry={listEntry} />
-        ))}
+        <div className="renderListMain_content">
+          {this.props.likedList.map(listEntry => (
+            <RoomListEntry key={listEntry.id} listEntry={listEntry} />
+          ))}
+        </div>
       </div>
     );
   }

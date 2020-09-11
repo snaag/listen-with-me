@@ -31,7 +31,7 @@ let fakeData = [
     room_id: 14,
     thumbnails:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: '헬로헬로헬로헬로헬로헬로헬로헬로',
+    title: '헬로헬로헬로헬로헬로',
     nickname: 'ho',
     likeAmount: 9,
   },

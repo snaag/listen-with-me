@@ -1,11 +1,17 @@
 .playListPage {
   margin: 2em;
 }
+.playListPage_title_section {
+  position: relative;
+  display: inline-block;
+  width: 75.2em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .playListPage_title {
   position: relative;
   display: inline-block;
-  top: 15px;
-  left: 6%;
   font-size: 2em;
   color: rgb(255, 255, 255);
 }
@@ -24,17 +30,26 @@
 }
 
 /* MyPlayList */
+
 .myPlayList {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
   top: 3em;
   margin-left: 5em;
   margin-right: 5em;
 }
 
+.myPlayList_content {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 75.2em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .myPlayList_entry {
   position: relative;
+  display: inline-block;
   margin: 2em;
   margin-top: 0;
   width: 14.8em;
@@ -216,10 +231,11 @@
 }
 
 .minusButton {
-  position: relative;
+  position: absolute;
   font-size: 0.8em;
   left: 50%;
-  transform: translate(-50%, 0%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .createListModal_content_searchMusic {
@@ -289,6 +305,13 @@
   border: none;
   border-radius: 50%;
   background: rgb(50, 49, 50);
+}
+
+.plusButton {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .createListModal_content_searchMusic-noResult {
