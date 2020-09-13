@@ -13,7 +13,7 @@ const initialState = {
   },
   info: {
     email: '',
-    nickname: '',
+    nickname: 'lee sang-a',
     profileURL: '',
     description: '',
     audienceAmount: 0,
@@ -159,6 +159,9 @@ const signIn = signInData => {
             description: profileDescription,
           })
         );
+
+        // console.log(Cookies.get('authorization'));
+        // localStorage
       } else {
         const { message } = data;
         console.log(status, message);
