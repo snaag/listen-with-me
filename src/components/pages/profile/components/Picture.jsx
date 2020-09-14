@@ -34,7 +34,7 @@ const Picture = ({ url, changeProfilePicture }) => {
           accept="image/png, image/jpeg, image/jpg"
           hidden
         />
-        <label for="filebox__upload">
+        <label htmlFor="filebox__upload">
           <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
         </label>
       </div>
