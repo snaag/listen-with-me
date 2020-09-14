@@ -126,49 +126,29 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 //.. signin
 const signIn = signInData => {
   return async (dispatch, getState) => {
-    // dispatch(signInRequest());
-    // try {
-    //   const data = await axios
-    //     .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
-    //     .then(response => response)
-    //     .catch(error => error.response);
-
-    //   console.log('data>>', data);
-    //   const { headers } = data;
-    //   console.log('headers>>', headers);
-    //   console.log(Cookies.get('authorization'));
-    //   localStorage.
-    // } catch (error) {}
-
+    dispatch(signInRequest());
     try {
-      const { status, data, headers } = await axios
-        .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
+      const { headers, data, status } = await axios
+        .post(`${BASE_URL}/user/signin`, signInData, {
+          withCredentials: true,
+          credentials: 'include',
+        })
         .then(response => response)
         .catch(error => error.response);
 
-      console.log('headers>', headers);
-      console.log('data>', data);
       if (status === 200) {
-        const { email, nickname, profileURL, profileDescription } = data;
+        const { email, nickname, profileDescription, profileURL } = data;
+        const { authorization } = headers;
         dispatch(
-          signInSuccess({
-            email,
-            nickname,
-            profileURL:
-              'https://lwm-test.s3.ap-northeast-2.amazonaws.com/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C+2020-09-07+13-20-34.png',
-            description: profileDescription,
-          })
+          signInSuccess({ email, nickname, profileDescription, profileURL })
         );
-
-        // console.log(Cookies.get('authorization'));
-        // localStorage
+        localStorage.setItem('authorization', authorization);
       } else {
-        const { message } = data;
-        console.log(status, message);
         dispatch(signInFailure());
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.resonse);
+      dispatch(signInFailure());
     }
   };
 };
