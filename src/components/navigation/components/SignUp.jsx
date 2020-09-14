@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 import '../../../css/Sign.css';
 
 const SignUp = ({ isActive, signUp, handleClose }) => {
+  const BASE_URL =
+    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/user';
+
   const [info, setInfo] = useState({
     nickname: '',
     email: '',
@@ -12,47 +15,95 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     checkPassword: '',
   });
 
-  const [valid, setValid] = useState({
-    nickname: false,
-    email: false,
-  });
-
   const [invalidText, setInvalidText] = useState({
-    nickname: '...',
-    email: '...',
+    nickname: '',
+    email: '',
+    password: '',
   });
-
-  const [checkPasswordMessage, setCheckPasswordMessage] = useState('');
 
   const changeInfo = e => {
     setInfo({
       ...info,
       [e.target.id]: e.target.value,
     });
+
+    validationCheck(e.target.id, e.target.value);
   };
 
-  const changeValid = e => {
-    setValid({
-      ...valid,
-      [e.target.name]: e.target.value,
-    });
+  const validationCheck = async (type, value) => {
+    const createRequest = async () => {
+      try {
+        const { status, data } = await axios.get(`${BASE_URL}/${type}`, {
+          params: {
+            [type]: value,
+          },
+        });
+        return status;
+      } catch (error) {
+        return error.response.status;
+      }
+    };
+
+    // 비밀번호는 여기서 체크 X
+    if (type === 'nickname' || type === 'email') {
+      const status = await createRequest();
+      if (status === 200 || value.length === 0) {
+        // OK
+        setInvalidText({
+          ...invalidText,
+          [type]: '',
+        });
+      } else {
+        if (status === 202) {
+          // 중복
+          setInvalidText({
+            ...invalidText,
+            [type]: '이미 있습니다',
+          });
+        }
+        if (status === 400) {
+          // 형식에 맞게 작성
+          setInvalidText({
+            ...invalidText,
+            [type]: '형식에 맞게 작성해주세요',
+          });
+        }
+        if (status === 500) {
+          // 서버 에러
+          setInvalidText({
+            ...invalidText,
+            [type]: '서버 에러가 발생했습니다',
+          });
+        }
+      }
+    }
   };
 
   useEffect(() => {
-    if (info.password !== info.checkPassword)
-      setCheckPasswordMessage('비밀번호를 동일하게 작성해주세요');
-    else setCheckPasswordMessage('');
-  }, [info]);
+    if (info.password === info.checkPassword)
+      setInvalidText({
+        ...invalidText,
+        password: '',
+      });
+    else
+      setInvalidText({
+        ...invalidText,
+        password: '비밀번호를 똑같이 작성해주세요',
+      });
+    // eslint-disable-next-line
+  }, [info.password, info.checkPassword]);
 
-  const onSignUpSubmit = e => {
+  const onSignUpSubmit = async e => {
     const { email, password, nickname } = info;
     e.preventDefault();
-    signUp({
+    const isSuccess = await signUp({
       email,
       password,
       nickname,
     });
-    // handleClose();
+
+    if (isSuccess) handleClose();
+    else alert('회원가입에 실패하였습니다');
   };
 
   return (
@@ -84,21 +135,8 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
                 value={info.nickname}
                 className="info__input"
               />
-              <button className="info__validation-check">
-                {valid.nickname ? (
-                  <FontAwesomeIcon
-                    className="info__validation-check--valid"
-                    icon={['far', 'check-circle']}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    className="info__validation-check--invalid"
-                    icon={['far', 'circle']}
-                  />
-                )}
-              </button>
-              <span className="info__invalid password--invalid">
-                {checkPasswordMessage}
+              <span className="info__invalid nickname--invalid">
+                {invalidText.nickname}
               </span>
             </div>
             <div className="info">
@@ -112,24 +150,9 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
                 value={info.email}
                 className="info__input"
               />
-              <button
-                className="info__validation-check"
-                onClick={() => setValid({ ...valid, email: true })}
-              >
-                {valid.email ? (
-                  <FontAwesomeIcon
-                    className="info__validation-check--valid"
-                    icon={['far', 'check-circle']}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    className="info__validation-check--invalid"
-                    icon={['far', 'circle']}
-                  />
-                )}
-              </button>
-              <span className="info__invalid password--invalid">
-                {checkPasswordMessage}
+
+              <span className="info__invalid email--invalid">
+                {invalidText.email}
               </span>
             </div>
             <div className="info">
@@ -141,7 +164,7 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
                 id="password"
                 onChange={changeInfo}
                 value={info.password}
-                className="info__input info__input--long"
+                className="info__input"
               />
             </div>
             <div className="info info__password">
@@ -153,10 +176,10 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
                 id="checkPassword"
                 onChange={changeInfo}
                 value={info.checkPassword}
-                className="info__input info__input--long"
+                className="info__input"
               />
               <span className="info__invalid password--invalid">
-                {checkPasswordMessage}
+                {invalidText.password}
               </span>
             </div>
 

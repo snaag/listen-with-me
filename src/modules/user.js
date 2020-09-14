@@ -1,5 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import Cookies from 'js-cookie';
 const axios = require('axios');
 
 // const BASE_URL = 'http://localhost:4000';
@@ -162,7 +161,6 @@ const signIn = signInData => {
 
 //.. signup
 const signUp = signUpData => {
-  console.log('signup action-signUpData: ', signUpData);
   return async (dispatch, getState) => {
     dispatch(signUpRequest());
     try {
@@ -172,16 +170,13 @@ const signUp = signUpData => {
         .catch(error => error.response);
 
       if (status === 200) {
-        console.log('>>signup success', data);
         dispatch(signUpSuccess());
+        return true;
       } else {
-        console.log('>>signup failure', status);
-        const { message } = data;
-        console.log(message);
         dispatch(signUpFailure());
+        return false;
       }
     } catch (error) {
-      console.log('>>signup error');
       console.log(error);
     }
   };
@@ -191,8 +186,18 @@ const signUp = signUpData => {
 const signOut = () => {
   return (dispatch, getState) => {
     dispatch(signOutRequest());
-    setTimeout(() => {
-      dispatch(signOutSuccess());
+    setTimeout(async () => {
+      try {
+        const { status } = await axios.get(`${BASE_URL}/user/signout`, {
+          headers: {
+            authorization,
+          },
+        });
+        if (status === 204) dispatch(signOutSuccess());
+        else dispatch(signOutFailure());
+      } catch (error) {
+        dispatch(signOutFailure());
+      }
     }, 500);
   };
 };
