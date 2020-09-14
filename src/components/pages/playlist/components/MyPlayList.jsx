@@ -12,16 +12,21 @@ class MyPlayList extends Component {
   }
 
   componentDidMount() {
-    // fetch('/playlist/user', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   credentials: 'include',
-    // })
-    //   .then(res => res.json())
-    //   .then(myPlayList => this.props.handleMyPlayList(myPlayList))
-    //   .catch(err => console.log(err));
+    const authorization = localStorage.getItem('authorization') || '';
+    fetch(
+      'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/user',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: authorization,
+        },
+        credentials: 'include',
+      }
+    )
+      .then(res => res.json())
+      .then(myPlayList => this.props.handleMyPlayList(myPlayList))
+      .catch(err => console.log(err));
   }
 
   render() {

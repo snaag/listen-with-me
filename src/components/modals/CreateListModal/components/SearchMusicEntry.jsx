@@ -31,6 +31,8 @@ class SearchMusicEntry extends Component {
       },
     } = this.props.entry;
 
+    console.log(url);
+
     this.setState({
       entry: {
         title: title,

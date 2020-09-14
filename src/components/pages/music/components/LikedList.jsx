@@ -72,16 +72,21 @@ class LikedList extends Component {
   }
 
   componentDidMount() {
-    // fetch('/playlist/likedlist', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   credentials: 'include',
-    // })
-    //   .then(res => res.json())
-    //   .then(likedList => this.handleState(likedList))
-    //   .catch(err => console.log(err));
+    const authorization = localStorage.getItem('authorization') || '';
+    fetch(
+      'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/likedlist',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: authorization,
+        },
+        credentials: 'include',
+      }
+    )
+      .then(res => res.json())
+      .then(likedList => this.handleState('likedList', likedList))
+      .catch(err => console.log(err));
   }
 
   render() {
