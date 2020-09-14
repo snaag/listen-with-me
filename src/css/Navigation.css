@@ -83,3 +83,9 @@
 .user .user__button:active {
   color: white;
 }
+
+.user__is-loading {
+  color: white;
+  margin-top: 0.3rem;
+  font-size: 1.5rem;
+}

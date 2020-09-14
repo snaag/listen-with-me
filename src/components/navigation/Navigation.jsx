@@ -50,7 +50,11 @@ const Navigation = ({
             )}
             {!isSignIn &&
               (isLoading ? (
-                <FontAwesomeIcon icon={['fa', 'spinner']} pulse />
+                <FontAwesomeIcon
+                  className="user__is-loading"
+                  icon={['fa', 'spinner']}
+                  pulse
+                />
               ) : (
                 <>
                   <button
