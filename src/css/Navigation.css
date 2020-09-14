@@ -65,7 +65,8 @@
   color: rgb(170, 170, 170);
 }
 
-.user__signup {
+.user__signup,
+.user__mypage {
   margin-left: 0.5rem;
 }
 

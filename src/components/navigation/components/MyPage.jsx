@@ -6,8 +6,8 @@ const MyPage = ({ history }) => {
     history.push('/profile');
   };
   return (
-    <button className="user__button" onClick={goToMainPage}>
-      MyPage
+    <button className="user__button user__mypage" onClick={goToMainPage}>
+      마이 페이지
     </button>
   );
 };
