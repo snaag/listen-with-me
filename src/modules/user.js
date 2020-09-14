@@ -162,7 +162,6 @@ const signIn = signInData => {
 
 //.. signup
 const signUp = signUpData => {
-  console.log('signup action-signUpData: ', signUpData);
   return async (dispatch, getState) => {
     dispatch(signUpRequest());
     try {
@@ -174,11 +173,11 @@ const signUp = signUpData => {
       if (status === 200) {
         console.log('>>signup success', data);
         dispatch(signUpSuccess());
+        return true;
       } else {
         console.log('>>signup failure', status);
-        const { message } = data;
-        console.log(message);
         dispatch(signUpFailure());
+        return false;
       }
     } catch (error) {
       console.log('>>signup error');
