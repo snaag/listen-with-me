@@ -6,6 +6,8 @@ const axios = require('axios');
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
+const authorization = localStorage.getItem('authorization');
+
 const initialState = {
   status: {
     isSignIn: false,
@@ -13,7 +15,7 @@ const initialState = {
   },
   info: {
     email: '',
-    nickname: 'lee sang-a',
+    nickname: '',
     profileURL: '',
     description: '',
     audienceAmount: 0,
@@ -140,7 +142,12 @@ const signIn = signInData => {
         const { email, nickname, profileDescription, profileURL } = data;
         const { authorization } = headers;
         dispatch(
-          signInSuccess({ email, nickname, profileDescription, profileURL })
+          signInSuccess({
+            email,
+            nickname,
+            description: profileDescription,
+            profileURL,
+          })
         );
         localStorage.setItem('authorization', authorization);
       } else {
@@ -192,8 +199,6 @@ const signOut = () => {
 
 const getLikeAmount = () => {
   return async (dispatch, getState) => {
-    const authorization = localStorage.getItem('authorization');
-
     dispatch(likeAmountRequest());
     try {
       const { status, data } = await axios.get(
@@ -217,10 +222,8 @@ const getLikeAmount = () => {
   };
 };
 
-const getAudienceAmount = authentication => {
+const getAudienceAmount = () => {
   return async (dispatch, getState) => {
-    const authorization = localStorage.getItem('authorization');
-
     dispatch(audienceAmountRequest());
     try {
       const { status, data } = await axios.get(
@@ -244,37 +247,33 @@ const getAudienceAmount = authentication => {
   };
 };
 
-const updateNickname = (nickname, authentication) => {
-  // return async (dispatch, getState) => {
-  //   dispatch(updateNicknameRequest());
-  //   try {
-  //     const { status, data } = await axios
-  //       .patch(`${BASE_URL}/profile/image`, {
-  //         headers: {
-  //           Authentication: authentication,
-  //         },
-  //         nickname,
-  //       })
-  //       .then(response => response)
-  //       .catch(error => error.response);
-
-  //     if (status === 200) dispatch(updateNicknameSuccess());
-  //     else {
-  //       console.log(status, data.message);
-  //       dispatch(updateNicknameFailure());
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  return (dispatch, getState) => {
+const updateNickname = nickname => {
+  return async (dispatch, getState) => {
     dispatch(updateNicknameRequest());
-    setTimeout(() => {
-      dispatch(updateNicknameSuccess(nickname));
-    }, 1000);
+    try {
+      const { status, data } = await axios({
+        url: `${BASE_URL}/user/profile/nickname`,
+        method: 'PATCH',
+        data: {
+          nickname,
+        },
+        headers: {
+          authorization,
+        },
+      });
+
+      if (status === 200) dispatch(updateNicknameSuccess(nickname));
+      else {
+        console.log(status, data);
+        dispatch(updateNicknameFailure());
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(updateNicknameFailure());
+    }
   };
 };
-const updateProfilePicture = (picture, authentication) => {
+const updateProfilePicture = picture => {
   return (dispatch, getState) => {
     dispatch(updateProfilePictureRequest());
     setTimeout(() => {
@@ -282,34 +281,30 @@ const updateProfilePicture = (picture, authentication) => {
     }, 1000);
   };
 };
-const updateDescription = (description, authentication) => {
-  // return async (dispatch, getState) => {
-  //   dispatch(updateDescriptionRequest());
-  //   try {
-  //     const { status, data } = await axios
-  //       .patch(`${BASE_URL}/profile/description`, {
-  //         headers: {
-  //           Authentication: authentication,
-  //         },
-  //         description,
-  //       })
-  //       .then(response => response)
-  //       .catch(error => error.response);
-
-  //     if (status === 200) dispatch(updateDescriptionSuccess());
-  //     else {
-  //       console.log(status, data.message);
-  //       dispatch(updateDescriptionFailure());
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  return (dispatch, getState) => {
+const updateDescription = description => {
+  return async (dispatch, getState) => {
     dispatch(updateDescriptionRequest());
-    setTimeout(() => {
-      dispatch(updateDescriptionSuccess(description));
-    }, 1000);
+    try {
+      const { status, data } = await axios({
+        url: `${BASE_URL}/user/profile/description`,
+        method: 'PATCH',
+        data: {
+          description,
+        },
+        headers: {
+          authorization,
+        },
+      });
+
+      if (status === 200) dispatch(updateDescriptionSuccess(description));
+      else {
+        console.log(status, data);
+        dispatch(updateDescriptionFailure());
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(updateDescriptionFailure());
+    }
   };
 };
 

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../css/Profile.css';
 
 const Description = ({ description, changeDescription }) => {
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
   const [currentDescription, setCurrentDescription] = useState(description);
 
   const updateIsEdit = () => {
@@ -38,8 +38,7 @@ const Description = ({ description, changeDescription }) => {
           <button onClick={updateIsEdit} className="description__button">
             <FontAwesomeIcon icon={['fas', 'pencil-alt']} />
           </button>
-          {/* <span className="description__show">{description}</span> */}
-          <span className="description__show">안녕하세요</span>
+          <span className="description__show">{description}</span>
         </>
       )}
     </div>
