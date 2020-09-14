@@ -264,7 +264,6 @@ const updateNickname = nickname => {
 
       if (status === 200) dispatch(updateNicknameSuccess(nickname));
       else {
-        console.log(status, data);
         dispatch(updateNicknameFailure());
       }
     } catch (error) {
@@ -274,13 +273,59 @@ const updateNickname = nickname => {
   };
 };
 const updateProfilePicture = picture => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(updateProfilePictureRequest());
-    setTimeout(() => {
+    const formData = new FormData();
+    formData.append('file', picture);
+
+    try {
+      const result = await axios.post(
+        `${BASE_URL}/user/profile/image`,
+        formData,
+        {
+          headers: {
+            authorization,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
       dispatch(updateProfilePictureSuccess(picture));
-    }, 1000);
+
+      console.log(result);
+    } catch (error) {
+      console.log('error');
+      console.log(error);
+      console.log(error.response);
+    }
+    // try {
+    //   const fd = new FormData(picture);
+
+    // const { status, data } = await axios({
+    //   url: `${BASE_URL}/user/profile/image`,
+    //   method: 'PATCH',
+    //   data: {
+    //     file: picture,
+    //   },
+    //   headers: {
+    //     authorization,
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
+
+    //   if (status === 200) dispatch(updateNicknameSuccess(picture));
+    //   else {
+    //     console.log(status, data);
+    //     dispatch(updateNicknameFailure());
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   console.log(error.response);
+    //   dispatch(updateNicknameFailure());
+    // }
   };
 };
+
 const updateDescription = description => {
   return async (dispatch, getState) => {
     dispatch(updateDescriptionRequest());
