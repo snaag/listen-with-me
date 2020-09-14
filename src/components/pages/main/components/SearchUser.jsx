@@ -8,17 +8,21 @@ class SearchUser extends Component {
   }
 
   listenAlong() {
-    fetch('/along', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nickname: this.props.nickname,
-      }),
-      credentials: 'include',
-    })
+    fetch(
+      'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/along',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nickname: this.props.nickname,
+        }),
+        credentials: 'include',
+      }
+    )
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
           // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
         } else if (res.status === 202) {
@@ -31,14 +35,20 @@ class SearchUser extends Component {
   }
 
   listenRandom() {
-    fetch('/randomentry', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
+    const authorization = localStorage.getItem('authorization') || '';
+    fetch(
+      'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/randomlist',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: authorization,
+        },
+        credentials: 'include',
+      }
+    )
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
           // 상태코드 200이면 룸에 대한 정보를 받고 listen page로 보내 줌
         } else {

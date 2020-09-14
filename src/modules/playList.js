@@ -1,110 +1,110 @@
-let fakeData = [
-  {
-    id: 1,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hellohellohellohellohellohellohellohellohellohellohello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 2,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title:
-      '헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 3,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 4,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 5,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 6,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 7,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 8,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 9,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 10,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-];
+// let fakeData = [
+//   {
+//     id: 1,
+//     room_id: 12,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'hellohellohellohellohellohellohellohellohellohellohello',
+//     nickname: 'in',
+//     likeAmount: 10,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 2,
+//     room_id: 14,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title:
+//       '헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로',
+//     nickname: 'ho',
+//     likeAmount: 9,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 3,
+//     room_id: 12,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'hello',
+//     nickname: 'in',
+//     likeAmount: 10,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 4,
+//     room_id: 14,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'world',
+//     nickname: 'ho',
+//     likeAmount: 9,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 5,
+//     room_id: 12,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'hello',
+//     nickname: 'in',
+//     likeAmount: 10,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 6,
+//     room_id: 14,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'world',
+//     nickname: 'ho',
+//     likeAmount: 9,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 7,
+//     room_id: 12,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'hello',
+//     nickname: 'in',
+//     likeAmount: 10,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 8,
+//     room_id: 14,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'world',
+//     nickname: 'ho',
+//     likeAmount: 9,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 9,
+//     room_id: 12,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'hello',
+//     nickname: 'in',
+//     likeAmount: 10,
+//     audienceAmount: 1000,
+//   },
+//   {
+//     id: 10,
+//     room_id: 14,
+//     thumbnails:
+//       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+//     title: 'world',
+//     nickname: 'ho',
+//     likeAmount: 9,
+//     audienceAmount: 1000,
+//   },
+// ];
 
 const initialState = {
   isModalOpen: false,
-  myPlayList: fakeData,
+  myPlayList: [],
   list_title: '',
   entries: [],
   music: '',

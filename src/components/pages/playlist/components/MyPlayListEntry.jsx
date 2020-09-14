@@ -37,42 +37,56 @@ class MyPlayListEntry extends Component {
   }
 
   completeButton(e) {
-    // if (e.key === 'Enter') {
-    // fetch(`/playlist?id=${this.props.listEntry.id}`, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     title: this.state.title,
-    //   }),
-    //   credentials: 'include',
-    // })
-    //   .then(res => {
-    //     if (res.status !== 200) {
-    //       this.handleState('title', this.props.listEntry.title); // 이게 맞나?? this.state.title 아니고??
-    //     }
-    //     this.handleState('buttonDisplay', false);
-    //   })
-    //   .catch(err => console.log(err));
-    // }
+    const authorization = localStorage.getItem('authorization') || '';
+    const { id, title } = this.props.listEntry;
+    if (e.key === 'Enter') {
+      fetch(
+        `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist?id=${id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: authorization,
+          },
+          body: JSON.stringify({
+            title: this.state.title,
+          }),
+          credentials: 'include',
+        }
+      )
+        .then(res => {
+          console.log(res);
+          if (res.status !== 200) {
+            console.log('asdf');
+            this.handleState('title', title); // 이게 맞나?? this.state.title 아니고??
+          }
+          this.handleState('buttonDisplay', false);
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   deleteRoom() {
-    // const { id } = this.props.listEntry;
-    // fetch(`/playlist?id=${id}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   credentials: 'include',
-    // })
-    //   .then(res => {
-    //     if (res.status === 204) {
-    //       this.props.deleteList(id);
-    //     }
-    //   })
-    //   .catch(err => console.log(err));
+    const authorization = localStorage.getItem('authorization') || '';
+    const { id } = this.props.listEntry;
+    fetch(
+      `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist?id=${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: authorization,
+        },
+        credentials: 'include',
+      }
+    )
+      .then(res => {
+        console.log(res);
+        if (res.status === 204) {
+          this.props.deleteList(id);
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   createRoom() {
@@ -84,7 +98,7 @@ class MyPlayListEntry extends Component {
   }
 
   render() {
-    const { id, thumbnails, likeAmount, audienceAmount } = this.props.listEntry;
+    const { id, thumbnail, likeAmount, audienceAmount } = this.props.listEntry;
 
     return (
       <div className="myPlayList_entry">
@@ -99,7 +113,7 @@ class MyPlayListEntry extends Component {
         <img
           className={`myPlayList_entry-thumbnails number${id}`}
           onClick={() => this.createRoom()}
-          src={thumbnails}
+          src={thumbnail}
           alt=""
         ></img>
         <div className="myPlayList_entry-title">

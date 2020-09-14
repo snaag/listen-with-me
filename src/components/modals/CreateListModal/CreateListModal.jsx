@@ -33,38 +33,45 @@ class CreateListModal extends Component {
   }
 
   createList() {
-    // const {
-    //   isModalOpen,
-    //   list_title,
-    //   entries,
-    //   handleEntries,
-    //   handleModalOpen,
-    // } = this.props;
-    // if (!list_title) {
-    //   alert('제목을 입력해주세요.');
-    // } else if (!entries.length) {
-    //   alert('음악을 추가해주세요.');
-    // } else {
-    // fetch('/playlist', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     list_title: list_title,
-    //     entries: entries,
-    //   }),
-    //   credentials: 'include',
-    // })
-    //   .then(res => {
-    //     if (res.status === 202) {
-    //       alert('play list가 생성 되었습니다.');
-    //       handleEntries([]);
-    //       handleModalOpen(!isModalOpen);
-    //     }
-    //   })
-    //   .catch(err => console.log(err));
-    // }
+    const authorization = localStorage.getItem('authorization') || '';
+    const {
+      isModalOpen,
+      list_title,
+      entries,
+      handleEntries,
+      handleModalOpen,
+    } = this.props;
+    console.log(list_title);
+    console.log(entries);
+    if (!list_title) {
+      alert('제목을 입력해주세요.');
+    } else if (!entries.length) {
+      alert('음악을 추가해주세요.');
+    } else {
+      fetch(
+        'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: authorization,
+          },
+          body: JSON.stringify({
+            list_title: list_title,
+            entries: entries,
+          }),
+          credentials: 'include',
+        }
+      )
+        .then(res => {
+          if (res.status === 201) {
+            alert('play list가 생성 되었습니다.');
+            handleEntries([]);
+            handleModalOpen(!isModalOpen);
+          }
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   render() {
