@@ -141,13 +141,20 @@ const signIn = signInData => {
     // } catch (error) {}
 
     try {
-      const { status, data, headers } = await axios
-        .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
+      // axios
+      const { data, headers, status } = await axios
+        // .post(`${BASE_URL}/user/signin`, signInData, { withCredentials: true })
+        .post(`${BASE_URL}/user/signin`, signInData, {
+          withCredentials: true,
+          credentials: 'include',
+        })
         .then(response => response)
         .catch(error => error.response);
 
       console.log('headers>', headers);
       console.log('data>', data);
+
+      /*
       if (status === 200) {
         const { email, nickname, profileURL, profileDescription } = data;
         dispatch(
@@ -167,6 +174,7 @@ const signIn = signInData => {
         console.log(status, message);
         dispatch(signInFailure());
       }
+      */
     } catch (error) {
       console.log(error);
     }
