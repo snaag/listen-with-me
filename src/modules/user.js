@@ -190,71 +190,57 @@ const signOut = () => {
   };
 };
 
-const getLikeAmount = authentication => {
-  return (dispatch, getState) => {
+const getLikeAmount = () => {
+  return async (dispatch, getState) => {
+    const authorization = localStorage.getItem('authorization');
+
     dispatch(likeAmountRequest());
-    setTimeout(() => {
-      dispatch(likeAmountSuccess({ likeAmount: 1000 }));
-    }, 1000);
+    try {
+      const { status, data } = await axios.get(
+        `${BASE_URL}/user/profile/like`,
+        {
+          headers: {
+            authorization,
+          },
+        }
+      );
 
-    // 위에 return async로 고쳐주기 !!!!!!!
-    // (return async (dispatch, getState) => {})
-    // try {
-    //   const { status, data } = await axios
-    //     .get(`${BASE_URL}/profile/audience`, {
-    //       headers: {
-    //         Authentication: authentication,
-    //       },
-    //     })
-    //     .then(response => response)
-    //     .catch(error => error.response);
-
-    //   if (status === 200) {
-    //     const { audienceAmount } = data;
-    //     dispatch(audienceAmountSuccess({ audienceAmount }));
-    //   } else {
-    //     const { message } = data;
-    //     console.log(message);
-    //     if (status === 400) dispatch(audienceAmountFailure());
-    //     else dispatch(audienceAmountFailure());
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (status === 200) {
+        const { likeAmount } = data;
+        dispatch(likeAmountSuccess(likeAmount));
+      } else {
+        dispatch(likeAmountFailure());
+      }
+    } catch (error) {
+      dispatch(likeAmountFailure());
+    }
   };
 };
 
 const getAudienceAmount = authentication => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+    const authorization = localStorage.getItem('authorization');
+
     dispatch(audienceAmountRequest());
-    setTimeout(() => {
-      dispatch(audienceAmountSuccess({ audienceAmount: 1000 }));
-    }, 1000);
+    try {
+      const { status, data } = await axios.get(
+        `${BASE_URL}/user/profile/audience`,
+        {
+          headers: {
+            authorization,
+          },
+        }
+      );
 
-    // 위에 return async로 고쳐주기 !!!!!!!
-    // (return async (dispatch, getState) => {})
-    // try {
-    //   const { status, data } = await axios
-    //     .get(`${BASE_URL}/profile/audience`, {
-    //       headers: {
-    //         Authentication: authentication,
-    //       },
-    //     })
-    //     .then(response => response)
-    //     .catch(error => error.response);
-
-    //   if (status === 200) {
-    //     const { audienceAmount } = data;
-    //     dispatch(audienceAmountSuccess({ audienceAmount }));
-    //   } else {
-    //     const { message } = data;
-    //     console.log(message);
-    //     if (status === 400) dispatch(audienceAmountFailure());
-    //     else dispatch(audienceAmountFailure());
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (status === 200) {
+        const { audienceAmount } = data;
+        dispatch(audienceAmountSuccess(audienceAmount));
+      } else {
+        dispatch(audienceAmountFailure());
+      }
+    } catch (error) {
+      dispatch(audienceAmountFailure());
+    }
   };
 };
 
@@ -404,7 +390,7 @@ const userReducer = handleActions(
       ...prevState,
       info: {
         ...prevState.info,
-        audienceAmount: action.payload.audienceAmount,
+        audienceAmount: action.payload,
       },
     }),
     [AUDIENCE_AMOUNT_FAILURE]: prevState => ({
@@ -418,7 +404,7 @@ const userReducer = handleActions(
       ...prevState,
       info: {
         ...prevState.info,
-        likeAmount: action.payload.likeAmount,
+        likeAmount: action.payload,
       },
     }),
     [LIKE_AMOUNT_FAILURE]: prevState => ({
