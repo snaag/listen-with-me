@@ -29,18 +29,21 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     // 구글 로그인을 통해 받아온 데이터
     console.log('>>TOTAL: ', res);
     const { accessToken } = res;
-    const { profileObj } = res;
+    const { profileObj, tokenObj } = res;
+
+    const { id_token } = tokenObj;
 
     const { email, googleId, imageUrl, name } = profileObj;
     console.log('client accessToken:', accessToken);
     console.log('client data:', email, googleId, imageUrl, name);
 
+    const body = { email, googleId, imageUrl, name, id_token };
+    console.log('>> client will send this BODY', body);
+
     // 서버로 보내기
-    const result = await axios.post(
-      `${BASE_URL}/oauth/google`,
-      { email, googleId, imageUrl, name },
-      { headers: { accessToken } }
-    );
+    const result = await axios.post(`${BASE_URL}/oauth/google`, body, {
+      headers: { accessToken },
+    });
 
     console.log('>>RESULT', result);
   };
