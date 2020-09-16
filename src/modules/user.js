@@ -126,6 +126,7 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 // action creator (async)
 //.. signin
 const signIn = signInData => {
+  console.log('SIGNIN DATA', signInData);
   return async (dispatch, getState) => {
     dispatch(signInRequest());
     try {
@@ -153,7 +154,7 @@ const signIn = signInData => {
         dispatch(signInFailure());
       }
     } catch (error) {
-      console.log(error.resonse);
+      console.log('userjs', error.response);
       dispatch(signInFailure());
     }
   };
