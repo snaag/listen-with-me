@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
@@ -18,11 +18,12 @@ const ListenPage = ({
   history,
 }) => {
   const { isHost, playListId } = history.location;
+  const [isOpen, setIsOpen] = useState(false);
+  localStorage.setItem('playlistId', playListId);
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
   const authorization = localStorage.getItem('authorization');
-  console.log('HISTORY', history);
 
   const getMusics = async () => {
     try {
@@ -70,11 +71,13 @@ const ListenPage = ({
       console.log(result);
       console.log('방 삭제 성공');
       updateMusics([]);
+      return true;
 
       // return result;
     } catch (error) {
       console.log('방 삭제 실패');
       console.log(error.response);
+      return false;
     }
   };
 
@@ -99,20 +102,40 @@ const ListenPage = ({
         const list = await getMusics();
         updateCurrentMusic(list[0]);
         updateMusics([...list]);
-        return data.id;
+        setIsOpen(true);
+        // return data.id;
+        return true;
       }
     } catch (error) {
       console.log('방 생성 실패');
       console.log(error.response);
+      return false;
     }
   };
 
   useEffect(() => {
-    console.log(`MOUNT: isHost:${isHost}`);
-    createRoom();
+    /*
+    const fn = async () => {
+      const createResult = await createRoom();
+      console.log('>createResult:', createResult);
+      if (!createResult) {
+        alert('비정상적으로 종료되었었기 때문에, 삭제 후 다시 생성합니다');
+        const destroyResult = await destroyRoom();
+        console.log('>>destroyResult:', destroyResult);
+        // const createResult = await createRoom();
+        // console.log('>>createResult:', createResult);
+      }
+    };
+
+    fn();
+    */
+
+    if (isHost) {
+      createRoom();
+    }
     return () => {
       console.log('CLEAN UP');
-      destroyRoom();
+      if (isOpen) destroyRoom();
     };
     // eslint-disable-next-line
   }, []);

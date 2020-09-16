@@ -3,7 +3,6 @@ import ReactPlayer from 'react-player';
 
 const VideoView = ({ music }) => {
   const { artist, musicURL, thumbnails, title } = music;
-  console.log(artist, musicURL, thumbnails, title);
 
   return (
     <div className="video-view">
