@@ -9,9 +9,7 @@ class PlayListPage extends Component {
     const { isModalOpen, handleModalOpen } = this.props;
     return (
       <div className="playListPage">
-        <div className="playListPage_title_section">
-          <div className="playListPage_title">내 플레이 리스트</div>
-        </div>
+        <div className="playListPage_title">내 플레이 리스트</div>
         <MyPlayList />
         <button
           className="playListPage_modalButton"

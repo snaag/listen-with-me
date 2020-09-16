@@ -131,32 +131,38 @@ class RecentUser extends Component {
             className={
               recentUser.length ? 'recentUserEntry' : 'recentUserNotice'
             }
-            style={{ height: buttonDisplay ? '24em' : '100%' }}
+            style={{ height: buttonDisplay ? '22em' : '100%' }}
           >
             {this.viewListEntry(recentUser)}
-            <button
-              className="recentUser_viewButton"
+            <div
+              className="recentUser_viewButton_section"
               style={{
-                display:
-                  buttonDisplay || recentUser.length <= 8 ? 'none' : 'block',
+                display: recentUser.length <= 8 ? 'none' : 'block',
               }}
-              onClick={() => this.handleViewButton(recentUser)}
             >
-              <FontAwesomeIcon
-                className="userViewIcon"
-                icon={['fas', 'plus']}
-              />
-            </button>
-            <button
-              className="recentUser_viewButton"
-              style={{ display: buttonDisplay ? 'block' : 'none' }}
-              onClick={() => this.handleViewButton(recentUser)}
-            >
-              <FontAwesomeIcon
-                className="userViewIcon"
-                icon={['fas', 'minus']}
-              />
-            </button>
+              <button
+                className="recentUser_viewButton"
+                style={{
+                  display: buttonDisplay ? 'none' : 'block',
+                }}
+                onClick={() => this.handleViewButton(recentUser)}
+              >
+                <FontAwesomeIcon
+                  className="userViewIcon"
+                  icon={['fas', 'plus']}
+                />
+              </button>
+              <button
+                className="recentUser_viewButton"
+                style={{ display: buttonDisplay ? 'block' : 'none' }}
+                onClick={() => this.handleViewButton(recentUser)}
+              >
+                <FontAwesomeIcon
+                  className="userViewIcon"
+                  icon={['fas', 'minus']}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomListEntry extends Component {
   clickListEntry() {
-    // 라우팅 하면서 roomid만 보내면 됨
+    this.props.history.push({
+      pathname: '/listen',
+      isHost: false,
+      playListId: this.props.listEntry.id,
+    });
   }
 
   render() {
@@ -13,7 +18,7 @@ class RoomListEntry extends Component {
       <div className="renderListMain_entry">
         <div className="renderListMain_entry-thumbnails">
           <img
-            className="renderListMain_entry-thumbnails-content"
+            className="renderListMain_entry-thumbnails-img"
             onClick={() => this.clickListEntry()}
             src={thumbnails}
             alt=""
@@ -37,4 +42,4 @@ class RoomListEntry extends Component {
   }
 }
 
-export default RoomListEntry;
+export default withRouter(RoomListEntry);

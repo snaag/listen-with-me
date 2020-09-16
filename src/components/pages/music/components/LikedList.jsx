@@ -39,6 +39,15 @@ let fakeData = [
     likeAmount: 9,
     audienceAmount: 231,
   },
+  {
+    id: 5,
+    title: 'world',
+    thumbnail:
+      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
+    user_id: 8,
+    likeAmount: 9,
+    audienceAmount: 231,
+  },
 ];
 
 class LikedList extends Component {
@@ -101,26 +110,30 @@ class LikedList extends Component {
             className={
               likedList.length ? 'recentAndLikedEntry' : 'recentAndLikedNotice'
             }
-            style={{ height: buttonDisplay ? '25em' : '100%' }}
+            style={{ height: buttonDisplay ? '32em' : '100%' }}
           >
             {this.viewListEntry(likedList)}
-            <button
-              className="likedList_viewButton"
+            <div
+              className="likedList_viewButton-section"
               style={{
-                display:
-                  buttonDisplay || likedList.length <= 4 ? 'none' : 'block',
+                display: likedList.length <= 4 ? 'none' : 'block',
               }}
-              onClick={() => this.handleViewButton(likedList)}
             >
-              <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
-            </button>
-            <button
-              className="likedList_viewButton"
-              style={{ display: buttonDisplay ? 'block' : 'none' }}
-              onClick={() => this.handleViewButton(likedList)}
-            >
-              <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
-            </button>
+              <button
+                className="likedList_viewButton"
+                onClick={() => this.handleViewButton(likedList)}
+                style={{ display: buttonDisplay ? 'none' : 'block' }}
+              >
+                <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
+              </button>
+              <button
+                className="likedList_viewButton"
+                style={{ display: buttonDisplay ? 'block' : 'none' }}
+                onClick={() => this.handleViewButton(likedList)}
+              >
+                <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

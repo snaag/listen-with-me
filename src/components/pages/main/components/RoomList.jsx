@@ -2,27 +2,26 @@ import React, { Component } from 'react';
 import RoomListEntry from './RoomListEntry';
 
 class RoomList extends Component {
-  // componentDidMount() {
-  //   fetch(
-  //     `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist`,
-  //     {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: 'include',
-  //     }
-  //   )
-  //     .then(res => res.json())
-  //     .then(likedList => {
-  //       // this.props.handleLikedList(likedList);
-  //     })
-  //     .catch(err => console.log(err));
-  // }
+  componentDidMount() {
+    fetch(
+      `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      }
+    )
+      .then(res => res.json())
+      .then(likedList => {
+        this.props.handleLikedList(likedList);
+      })
+      .catch(err => console.log(err));
+  }
 
   render() {
     const { likedList } = this.props;
-    console.log(likedList.length);
     return (
       <div className="renderListMain">
         <div

@@ -6,15 +6,19 @@ class RecentAndLikedEntry extends Component {
     const { thumbnail, title, likeAmount } = this.props.entry;
     return (
       <div className="recentAndLikedEntry_content">
-        <img
-          className="recentAndLikedEntry_content_thumbnail"
-          src={thumbnail}
-          alt=""
-        />
-        <div className="recentAndLikedEntry_content_title">{title}</div>
-        <div className="recentAndLikedEntry_content_likeAmount">
-          <FontAwesomeIcon icon={['fas', 'heart']} />
-          {' ' + likeAmount}
+        <div className="recentAndLikedEntry_content_thumbnail">
+          <img
+            className="recentAndLikedEntry_content_thumbnail-img"
+            src={thumbnail}
+            alt=""
+          />
+        </div>
+        <div className="recentAndLikedEntry_content_section">
+          <div className="recentAndLikedEntry_content_title">{title}</div>
+          <div className="recentAndLikedEntry_content_likeAmount">
+            <FontAwesomeIcon icon={['fas', 'heart']} />
+            {' ' + likeAmount}
+          </div>
         </div>
       </div>
     );

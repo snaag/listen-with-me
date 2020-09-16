@@ -1,18 +1,12 @@
 .playListPage {
   margin: 2em;
 }
-.playListPage_title_section {
-  position: relative;
-  display: inline-block;
-  width: 75.2em;
-  left: 50%;
-  transform: translate(-50%);
-}
 
 .playListPage_title {
   position: relative;
   display: inline-block;
   font-size: 2em;
+  left: 6%;
   color: rgb(255, 255, 255);
 }
 
@@ -42,7 +36,7 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  width: 75.2em;
+  width: 100%;
   left: 50%;
   transform: translate(-50%);
 }
@@ -50,16 +44,27 @@
 .myPlayList_entry {
   position: relative;
   display: inline-block;
-  margin: 2em;
+  margin: 2.5%;
   margin-top: 0;
-  width: 14.8em;
+  width: 20%;
+  min-width: 10em;
   height: 46.3%;
 }
 
 .myPlayList_entry-thumbnails {
-  width: 14.8em;
-  height: 11.1em;
-  min-width: 14.8em;
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 75%;
+}
+
+.myPlayList_entry-thumbnails-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 
@@ -71,6 +76,7 @@
   border: none;
   background: rgba(255, 255, 255, 0);
   color: white;
+  z-index: 1;
 }
 
 .myPlayList_entry-title {

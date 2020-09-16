@@ -44,6 +44,7 @@ class CreateListModal extends Component {
       handleMusic,
       handleQuery,
       handleListTitle,
+      handleMyPlayList,
     } = this.props;
     if (!list_title) {
       alert('제목을 입력해주세요.');
@@ -73,7 +74,21 @@ class CreateListModal extends Component {
             handleQuery('');
             handleListTitle('');
             handleModalOpen(!isModalOpen);
-            this.props.history.push('/playlist');
+            // api요청
+            fetch(
+              'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/user',
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: authorization,
+                },
+                credentials: 'include',
+              }
+            )
+              .then(res => res.json())
+              .then(myPlayList => handleMyPlayList(myPlayList))
+              .catch(err => console.log(err));
           }
         })
         .catch(err => console.log(err));

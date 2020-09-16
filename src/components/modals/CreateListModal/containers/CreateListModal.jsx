@@ -5,6 +5,7 @@ import {
   setEntries,
   setMusic,
   setQuery,
+  setMyPlayList,
 } from '../../../../modules/playList';
 import CreateListModal from '../CreateListModal';
 
@@ -33,6 +34,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleListTitle: list_title => {
       return dispatch(setListTitle(list_title));
+    },
+    handleMyPlayList: myPlayList => {
+      return dispatch(setMyPlayList(myPlayList));
     },
   };
 };

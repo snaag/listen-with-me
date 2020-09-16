@@ -30,7 +30,6 @@ class MyPlayList extends Component {
   }
 
   render() {
-    console.log(this.props.myPlayList);
     return (
       <div className="myPlayList">
         <div className="myPlayList_content">
