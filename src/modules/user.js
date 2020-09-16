@@ -73,9 +73,9 @@ const signInSuccess = createAction(SIGNIN_SUCCESS, data => data);
 const signInFailure = createAction(SIGNIN_FAILURE);
 
 //.. signup
-const signUpRequest = createAction(SIGNUP_REQUEST);
-const signUpSuccess = createAction(SIGNUP_SUCCESS, data => data);
-const signUpFailure = createAction(SIGNUP_FAILURE);
+export const signUpRequest = createAction(SIGNUP_REQUEST);
+export const signUpSuccess = createAction(SIGNUP_SUCCESS, data => data);
+export const signUpFailure = createAction(SIGNUP_FAILURE);
 
 //.. signout
 const signOutRequest = createAction(SIGNOUT_REQUEST);
@@ -282,7 +282,9 @@ const updateProfilePicture = picture => {
   return async (dispatch, getState) => {
     dispatch(updateProfilePictureRequest());
     const formData = new FormData();
+    console.log('PICTURE', picture);
     formData.append('file', picture);
+    // 파일이름을 같이 줘야함
 
     try {
       const result = await axios.post(
@@ -300,7 +302,6 @@ const updateProfilePicture = picture => {
 
       console.log(result);
     } catch (error) {
-      console.log('error');
       console.log(error);
       console.log(error.response);
     }

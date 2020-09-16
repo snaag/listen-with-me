@@ -5,6 +5,7 @@ import modalReducer from './modal';
 import mainReducer from './main';
 import playListReducer from './playList';
 import chatReducer from './chat';
+import musicReducer from './music';
 
 export default combineReducers({
   user: userReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   main: mainReducer,
   playList: playListReducer,
   chat: chatReducer,
+  music: musicReducer,
 });
