@@ -5,7 +5,7 @@ import '../../../../../css/Chat.css';
 // 유저의 아이디로, 어떤 유저가 말 한 것인지에 따라 말풍선 다르게 해주기
 
 const Chat = ({ name, profileURL, chats, addChat }) => {
-  const playlist_id = 0; // 나중에 API로 받아올 예정!
+  const playlist_id = localStorage.getItem('playlistId');
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
   let socket = io.connect(BASE_URL);
@@ -14,7 +14,7 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    console.log('방에 들어왔을 때');
+    // console.log('방에 들어왔을 때');
     socket.emit('chatMessage', {
       user_nickname: name,
       message,
@@ -35,8 +35,8 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
 
   useEffect(() => {
     //
-    console.log('화면에 띄울 메시지들: ');
-    console.log('>>', chats);
+    // console.log('화면에 띄울 메시지들: ');
+    // console.log('>>', chats);
   }, [chats]);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
       // 채팅방을 나갔을 때
       // [LIFECYCLE] component will unmount
       // console.log('>> component will unmount');
-      console.log('채팅방을 나갔을 때');
+      // console.log('채팅방을 나갔을 때');
       socket.close();
     };
     // eslint-disable-next-line

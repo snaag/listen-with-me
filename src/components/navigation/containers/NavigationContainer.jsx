@@ -24,6 +24,9 @@ const NavigationContainer = () => {
     onSignIn,
     onSignOut,
     onSignUp,
+    onSignUpRequest,
+    onSignUpSuccess,
+    onSignUpFailure,
   ] = useActions(
     [
       setSignInActive,
