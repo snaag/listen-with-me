@@ -14,8 +14,12 @@ class SearchMusicEntry extends Component {
   addEntry(value) {
     const { entries, handleEntries } = this.props;
     const newEntries = entries.slice();
-    value.id = entries.length ? entries[entries.length - 1].id + 1 : 1;
-    newEntries.push(value);
+    const newValue = Object.assign({}, value);
+    newValue.id = newEntries.length
+      ? newEntries[newEntries.length - 1].id + 1
+      : 1;
+    newEntries.push(newValue);
+    console.log(newEntries);
     handleEntries(newEntries);
   }
 
@@ -26,12 +30,10 @@ class SearchMusicEntry extends Component {
         title,
         channelTitle,
         thumbnails: {
-          default: { url },
+          high: { url },
         },
       },
     } = this.props.entry;
-
-    console.log(url);
 
     this.setState({
       entry: {
