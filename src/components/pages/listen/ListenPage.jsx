@@ -20,6 +20,7 @@ const ListenPage = ({
   const { isHost, playListId } = history.location;
   const [isOpen, setIsOpen] = useState(false);
   localStorage.setItem('playlistId', playListId);
+  localStorage.setItem('isHost', isHost); // 노래 변경 시에도 써야해서, 이걸로 해줌
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
