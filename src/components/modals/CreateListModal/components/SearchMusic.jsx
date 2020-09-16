@@ -8,7 +8,6 @@ class SearchMusic extends Component {
     const { searchInfo, handleMusic } = this.props;
     searchYoutube(searchInfo, data => {
       handleMusic(data);
-      console.log(data);
     });
   }
 

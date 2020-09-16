@@ -41,7 +41,7 @@ let fakeData = [
   },
   {
     id: 5,
-    title: 'world',
+    title: 'worldodsnafoind oifnoiansdfoinweoinfoinqwioefnoiqwneoin',
     thumbnail:
       'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
     user_id: 8,
@@ -178,26 +178,32 @@ class RecentList extends Component {
             className={
               recentList.length ? 'recentAndLikedEntry' : 'recentAndLikedNotice'
             }
-            style={{ height: buttonDisplay ? '25em' : '100%' }}
+            style={{ height: buttonDisplay ? '32em' : '100%' }}
           >
             {this.viewListEntry(recentList)}
-            <button
-              className="recentList_viewButton"
+            <div
+              className="recentList_viewButton-section"
               style={{
-                display:
-                  buttonDisplay || recentList.length <= 4 ? 'none' : 'block',
+                display: recentList.length <= 4 ? 'none' : 'block',
               }}
-              onClick={() => this.handleViewButton(recentList)}
             >
-              <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
-            </button>
-            <button
-              className="recentList_viewButton"
-              style={{ display: buttonDisplay ? 'block' : 'none' }}
-              onClick={() => this.handleViewButton(recentList)}
-            >
-              <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
-            </button>
+              <button
+                className="recentList_viewButton"
+                style={{
+                  display: buttonDisplay ? 'none' : 'block',
+                }}
+                onClick={() => this.handleViewButton(recentList)}
+              >
+                <FontAwesomeIcon className="viewIcon" icon={['fas', 'plus']} />
+              </button>
+              <button
+                className="recentList_viewButton"
+                style={{ display: buttonDisplay ? 'block' : 'none' }}
+                onClick={() => this.handleViewButton(recentList)}
+              >
+                <FontAwesomeIcon className="viewIcon" icon={['fas', 'minus']} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

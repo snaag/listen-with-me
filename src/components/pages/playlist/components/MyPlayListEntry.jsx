@@ -29,6 +29,7 @@ class MyPlayListEntry extends Component {
         classList[0] !== 'myPlayList_entry-deleteButton' &&
         classList[3] !== 'times-circle' &&
         nodeName !== 'path' &&
+        nodeName !== 'svg' &&
         className !== 'myPlayList_entry-title-inputBox'
       ) {
         this.handleState('buttonDisplay', false);
@@ -56,14 +57,11 @@ class MyPlayListEntry extends Component {
         }
       )
         .then(res => {
-          console.log(res);
-          if (res.status !== 200) {
-            console.log('asdf');
-            this.handleState('title', title); // 이게 맞나?? this.state.title 아니고??
+          if (res.status === 200) {
+            this.handleState('title', this.state.title);
+            this.hideEditButton();
+            this.handleState('buttonDisplay', false);
           }
-          this.handleState('title', this.state.title);
-          this.hideEditButton();
-          this.handleState('buttonDisplay', false);
         })
         .catch(err => console.log(err));
     }
@@ -84,7 +82,7 @@ class MyPlayListEntry extends Component {
       }
     )
       .then(res => {
-        console.log(res);
+        console.log(id, res);
         if (res.status === 204) {
           this.props.deleteList(id);
         }
@@ -138,12 +136,14 @@ class MyPlayListEntry extends Component {
             <FontAwesomeIcon icon={['far', 'times-circle']} />
           </button>
         )}
-        <img
-          className={`myPlayList_entry-thumbnails number${id}`}
-          onClick={() => this.createRoom()}
-          src={thumbnail}
-          alt=""
-        ></img>
+        <div className={'myPlayList_entry-thumbnails'}>
+          <img
+            className={`myPlayList_entry-thumbnails-img number${id}`}
+            onClick={() => this.createRoom()}
+            src={thumbnail}
+            alt=""
+          ></img>
+        </div>
         <div className="myPlayList_entry-title">
           <div
             className="myPlayList_entry-title-description"

@@ -12,23 +12,16 @@ body {
 /* SearchUser */
 .searchMain {
   position: relative;
+  display: flex;
   top: 4em;
   height: 2em;
 }
 
-.searchMain_content {
-  position: relative;
-  display: inline-block;
-  height: 2em;
-  width: 40em;
-  left: 50%;
-  transform: translate(-50%);
-}
-
 .searchMain_input {
-  position: absolute;
-  width: 75%;
+  position: relative;
+  width: 40%;
   height: 100%;
+  left: 25%;
   border: none;
   padding: 2px;
   background: linear-gradient(0deg, rgb(18, 18, 18), rgb(18, 18, 18)),
@@ -40,22 +33,22 @@ body {
 }
 
 .searchMain_alongButton {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: 10%;
-  min-width: 5em;
-  right: 12.5%;
+  width: 5%;
+  min-width: 4.5em;
+  left: 25%;
   border: none;
   color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
 }
 
 .searchMain_RandomButton {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: 10%;
-  min-width: 5em;
-  right: 0%;
+  width: 5%;
+  min-width: 4.5em;
+  left: 25%;
   border: none;
   color: rgb(170, 170, 170);
   background: rgb(50, 49, 50);
@@ -116,7 +109,7 @@ body {
   padding-bottom: 75%;
 }
 
-.renderListMain_entry-thumbnails-content {
+.renderListMain_entry-thumbnails-img {
   position: absolute;
   top: 0;
   left: 0;
