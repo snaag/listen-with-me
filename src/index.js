@@ -9,8 +9,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
-
 import rootReducer from './modules/index';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 library.add(fab, fas, far);
 const store = createStore(

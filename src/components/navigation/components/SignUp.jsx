@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 
@@ -20,6 +21,37 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     email: '',
     password: '',
   });
+
+  const responseGoogle = async res => {
+    // 서버로 토큰을 전달한 후 JWT토큰을 받고 localStorage에 저장해야한다
+    //   console.log(res.tokenId);
+
+    // 구글 로그인을 통해 받아온 데이터
+    console.log('>>TOTAL: ', res);
+    const { accessToken } = res;
+    const { profileObj, tokenObj } = res;
+
+    const { id_token } = tokenObj;
+
+    const { email, googleId, imageUrl, name } = profileObj;
+    console.log('client accessToken:', accessToken);
+    console.log('client data:', email, googleId, imageUrl, name);
+
+    const body = { email, googleId, imageUrl, name, id_token };
+    console.log('>> client will send this BODY', body);
+
+    // 서버로 보내기
+    const result = await axios.post(`${BASE_URL}/oauth/google`, body, {
+      headers: { accessToken },
+    });
+
+    console.log('>>RESULT', result);
+  };
+
+  const responseFailGoogle = err => {
+    // 에러발생시
+    console.log(err);
+  };
 
   const changeInfo = e => {
     setInfo({
@@ -114,9 +146,13 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
       <Modal.Body>
         <div className="signup">
           <div className="oauth">
-            <button className="oauth__google oauth__button">
-              Google 회원가입
-            </button>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              buttonText="SignUp with Google"
+              onSuccess={responseGoogle}
+              onFailure={responseFailGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
             <button className="oauth__kakao oauth__button">
               Kakao 회원가입
             </button>
