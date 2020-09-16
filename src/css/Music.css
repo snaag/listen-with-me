@@ -75,6 +75,15 @@
   overflow: auto;
 }
 
+.recentAndLikedNotice,
+.recentUserNotice {
+  position: relative;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 3em;
+}
+
 .recentAndLikedEntry::-webkit-scrollbar,
 .recentUserEntry::-webkit-scrollbar {
   display: none;
@@ -93,7 +102,7 @@
 .recentAndLikedEntry_content_thumbnail {
   position: relative;
   width: 14.8em;
-  height: 8.3em;
+  height: 11.1em;
   min-width: 14.8em;
 }
 
@@ -117,7 +126,7 @@
   position: absolute;
   font-size: 1em;
   right: 0%;
-  top: 8.8em;
+  top: 11.6em;
   color: rgb(255, 255, 255);
 }
 
@@ -126,7 +135,7 @@
 .recentUser_viewButton {
   position: relative;
   width: 14.8em;
-  height: 8.3em;
+  height: 11.1em;
   margin-left: 2em;
   border: none;
   background: rgb(50, 49, 50);

@@ -11,21 +11,25 @@ class RoomListEntry extends Component {
 
     return (
       <div className="renderListMain_entry">
-        <img
-          className="renderListMain_entry-thumbnails"
-          onClick={() => this.clickListEntry()}
-          src={thumbnails}
-          alt=""
-        />
-        <div
-          className="renderListMain_entry-title"
-          onClick={() => this.clickListEntry()}
-        >
-          {title}
+        <div className="renderListMain_entry-thumbnails">
+          <img
+            className="renderListMain_entry-thumbnails-content"
+            onClick={() => this.clickListEntry()}
+            src={thumbnails}
+            alt=""
+          />
         </div>
-        <div className="renderListMain_entry-liked">
-          <FontAwesomeIcon icon={['fas', 'heart']} />
-          {' ' + likeAmount}
+        <div className="renderListMain_entry-content">
+          <div
+            className="renderListMain_entry-title"
+            onClick={() => this.clickListEntry()}
+          >
+            {title}
+          </div>
+          <div className="renderListMain_entry-liked">
+            <FontAwesomeIcon icon={['fas', 'heart']} />
+            {' ' + likeAmount}
+          </div>
         </div>
         <div className="renderListMain_entry-nickname">{nickname}</div>
       </div>
