@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import TitleInputBox from './containers/TitleInputBox';
 import MusicStackBox from './containers/MusicStackBox';
 import SearchMusic from './containers/SearchMusic';
@@ -40,9 +41,10 @@ class CreateListModal extends Component {
       entries,
       handleEntries,
       handleModalOpen,
+      handleMusic,
+      handleQuery,
+      handleListTitle,
     } = this.props;
-    console.log(list_title);
-    console.log(entries);
     if (!list_title) {
       alert('제목을 입력해주세요.');
     } else if (!entries.length) {
@@ -67,7 +69,11 @@ class CreateListModal extends Component {
           if (res.status === 201) {
             alert('play list가 생성 되었습니다.');
             handleEntries([]);
+            handleMusic('');
+            handleQuery('');
+            handleListTitle('');
             handleModalOpen(!isModalOpen);
+            this.props.history.push('/playlist');
           }
         })
         .catch(err => console.log(err));
@@ -103,4 +109,4 @@ class CreateListModal extends Component {
   }
 }
 
-export default CreateListModal;
+export default withRouter(CreateListModal);

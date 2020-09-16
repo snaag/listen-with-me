@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class MyPlayListEntry extends Component {
@@ -60,6 +61,8 @@ class MyPlayListEntry extends Component {
             console.log('asdf');
             this.handleState('title', title); // 이게 맞나?? this.state.title 아니고??
           }
+          this.handleState('title', this.state.title);
+          this.hideEditButton();
           this.handleState('buttonDisplay', false);
         })
         .catch(err => console.log(err));
@@ -91,6 +94,31 @@ class MyPlayListEntry extends Component {
 
   createRoom() {
     // 라우팅 하면서 roomid만 보내면 됨
+    const authorization = localStorage.getItem('authorization') || '';
+    const { id } = this.props.listEntry;
+    fetch(
+      `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/room`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: authorization,
+        },
+        body: JSON.stringify({
+          playlist_id: id,
+        }),
+        credentials: 'include',
+      }
+    )
+      .then(res => res.json())
+      .then(room => {
+        this.props.history.push({
+          pathname: '/listen',
+          isHost: true,
+          playListId: room.id,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -159,4 +187,4 @@ class MyPlayListEntry extends Component {
   }
 }
 
-export default MyPlayListEntry;
+export default withRouter(MyPlayListEntry);

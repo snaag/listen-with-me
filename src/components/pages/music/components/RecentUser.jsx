@@ -80,12 +80,15 @@ class RecentUser extends Component {
 
   viewListEntry(list) {
     let count = 0;
-    return list.map(entry => {
-      if ((list.length <= 8 ? 8 : this.state.viewCount) > count) {
-        count++;
-        return <RecentUserEntry key={entry.id} entry={entry} />;
-      }
-    });
+
+    return list.length
+      ? list.map(entry => {
+          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+            count++;
+            return <RecentUserEntry key={entry.id} entry={entry} />;
+          }
+        })
+      : '최근 따라들은 유저가 없습니다.';
   }
 
   handleViewButton(list) {
@@ -125,7 +128,9 @@ class RecentUser extends Component {
             기록 삭제
           </button>
           <div
-            className="recentUserEntry"
+            className={
+              recentUser.length ? 'recentUserEntry' : 'recentUserNotice'
+            }
             style={{ height: buttonDisplay ? '24em' : '100%' }}
           >
             {this.viewListEntry(recentUser)}

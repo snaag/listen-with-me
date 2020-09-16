@@ -128,12 +128,14 @@ class RecentList extends Component {
 
   viewListEntry(list) {
     let count = 0;
-    return list.map(entry => {
-      if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
-        count++;
-        return <RecentAndLikedEntry key={entry.id} entry={entry} />;
-      }
-    });
+    return list.length
+      ? list.map(entry => {
+          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+            count++;
+            return <RecentAndLikedEntry key={entry.id} entry={entry} />;
+          }
+        })
+      : '최근 들은 리스트가 없습니다.';
   }
 
   handleViewButton(list) {
@@ -173,7 +175,9 @@ class RecentList extends Component {
             기록 삭제
           </button>
           <div
-            className="recentAndLikedEntry"
+            className={
+              recentList.length ? 'recentAndLikedEntry' : 'recentAndLikedNotice'
+            }
             style={{ height: buttonDisplay ? '25em' : '100%' }}
           >
             {this.viewListEntry(recentList)}

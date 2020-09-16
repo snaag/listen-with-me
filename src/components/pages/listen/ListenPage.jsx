@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import Menu from './components/Menu';
@@ -7,7 +8,8 @@ import ChatContainer from './containers/ChatContainer';
 import PlayList from './components/playlist/PlayList';
 import '../../../css/Listen.css';
 
-const ListenPage = ({ isAlong }) => {
+const ListenPage = ({ isAlong, history }) => {
+  console.log(history);
   return (
     <div className="container-fluid listen-page">
       <div className="row">
@@ -24,4 +26,4 @@ const ListenPage = ({ isAlong }) => {
   );
 };
 
-export default ListenPage;
+export default withRouter(ListenPage);

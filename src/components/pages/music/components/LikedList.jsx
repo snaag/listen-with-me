@@ -56,12 +56,14 @@ class LikedList extends Component {
 
   viewListEntry(list) {
     let count = 0;
-    return list.map(entry => {
-      if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
-        count++;
-        return <RecentAndLikedEntry key={entry.id} entry={entry} />;
-      }
-    });
+    return list.length
+      ? list.map(entry => {
+          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+            count++;
+            return <RecentAndLikedEntry key={entry.id} entry={entry} />;
+          }
+        })
+      : '좋아요한 리스트가 없습니다.';
   }
 
   handleViewButton(list) {
@@ -96,7 +98,9 @@ class LikedList extends Component {
         <div className="likedList_content">
           <div className="likedList_title">좋아요한 리스트</div>
           <div
-            className="recentAndLikedEntry"
+            className={
+              likedList.length ? 'recentAndLikedEntry' : 'recentAndLikedNotice'
+            }
             style={{ height: buttonDisplay ? '25em' : '100%' }}
           >
             {this.viewListEntry(likedList)}

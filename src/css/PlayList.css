@@ -58,7 +58,7 @@
 
 .myPlayList_entry-thumbnails {
   width: 14.8em;
-  height: 8.3em;
+  height: 11.1em;
   min-width: 14.8em;
   cursor: pointer;
 }
@@ -214,6 +214,7 @@
 .createListModal_content_musicStackBox-entry-title {
   position: relative;
   width: 90%;
+  padding-top: 2px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -221,7 +222,7 @@
 
 .createListModal_content_musicStackBox-entry-deleteEntryButton {
   position: absolute;
-  top: 0%;
+  top: -1px;
   right: 0%;
   width: 1.2em;
   height: 1.2em;
@@ -286,8 +287,14 @@
   margin-bottom: 1em;
 }
 
+.createListModal_content_searchMusic-entry-thumbnail {
+  width: 120px;
+  height: 90px;
+}
+
 .createListModal_content_searchMusic-entry-title {
   position: absolute;
+  padding-top: 2px;
   width: 57%;
   top: 20%;
   left: 30%;
