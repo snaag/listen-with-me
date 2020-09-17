@@ -50,7 +50,8 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
     socket.emit('chatMessage', {
       user_nickname: name,
       message,
-      playlist_id,
+      // playlist_id,
+      잠ㅅ: 0,
     });
 
     setMessage('');
