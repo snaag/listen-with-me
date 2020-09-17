@@ -1,4 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
+
+import * as api from '../api/user';
 const axios = require('axios');
 
 // const BASE_URL = 'http://localhost:4000';
@@ -127,17 +129,10 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 // action creator (async)
 //.. signin
 const signIn = signInData => {
-  console.log('SIGNIN DATA', signInData);
   return async (dispatch, getState) => {
     dispatch(signInRequest());
     try {
-      const { headers, data, status } = await axios
-        .post(`${BASE_URL}/user/signin`, signInData, {
-          withCredentials: true,
-          credentials: 'include',
-        })
-        .then(response => response)
-        .catch(error => error.response);
+      const { headers, data, status } = await api.signIn(signInData);
 
       if (status === 200) {
         const { email, nickname, profileDescription, profileURL } = data;
@@ -155,7 +150,7 @@ const signIn = signInData => {
         dispatch(signInFailure());
       }
     } catch (error) {
-      console.log('userjs', error.response);
+      console.log(error);
       dispatch(signInFailure());
     }
   };
@@ -166,10 +161,7 @@ const signUp = signUpData => {
   return async (dispatch, getState) => {
     dispatch(signUpRequest());
     try {
-      const { status, data } = await axios
-        .post(`${BASE_URL}/user/signup`, signUpData)
-        .then(response => response)
-        .catch(error => error.response);
+      const { status, data } = await api.signUp(signUpData);
 
       if (status === 200) {
         dispatch(signUpSuccess());
@@ -180,6 +172,7 @@ const signUp = signUpData => {
       }
     } catch (error) {
       console.log(error);
+      dispatch(signUpFailure());
     }
   };
 };
@@ -190,16 +183,14 @@ const signOut = () => {
     dispatch(signOutRequest());
     setTimeout(async () => {
       try {
-        const { status } = await axios.get(`${BASE_URL}/user/signout`, {
-          headers: {
-            authorization,
-          },
-        });
+        const { status } = await api.signOut(authorization);
+
         if (status === 204) {
           dispatch(signOutSuccess());
           localStorage.removeItem('authorization');
         } else dispatch(signOutFailure());
       } catch (error) {
+        console.log(error);
         dispatch(signOutFailure());
       }
     }, 500);
@@ -210,14 +201,7 @@ const getLikeAmount = () => {
   return async (dispatch, getState) => {
     dispatch(likeAmountRequest());
     try {
-      const { status, data } = await axios.get(
-        `${BASE_URL}/user/profile/like`,
-        {
-          headers: {
-            authorization,
-          },
-        }
-      );
+      const { status, data } = await api.getLikeAmount(authorization);
 
       if (status === 200) {
         const { likeAmount } = data;
@@ -226,6 +210,7 @@ const getLikeAmount = () => {
         dispatch(likeAmountFailure());
       }
     } catch (error) {
+      console.log(error);
       dispatch(likeAmountFailure());
     }
   };
@@ -235,15 +220,7 @@ const getAudienceAmount = () => {
   return async (dispatch, getState) => {
     dispatch(audienceAmountRequest());
     try {
-      const { status, data } = await axios.get(
-        `${BASE_URL}/user/profile/audience`,
-        {
-          headers: {
-            authorization,
-          },
-        }
-      );
-
+      const { status, data } = await api.getAudienceAmount(authorization);
       if (status === 200) {
         const { audienceAmount } = data;
         dispatch(audienceAmountSuccess(audienceAmount));
@@ -251,6 +228,7 @@ const getAudienceAmount = () => {
         dispatch(audienceAmountFailure());
       }
     } catch (error) {
+      console.log(error);
       dispatch(audienceAmountFailure());
     }
   };
@@ -260,16 +238,10 @@ const updateNickname = nickname => {
   return async (dispatch, getState) => {
     dispatch(updateNicknameRequest());
     try {
-      const { status, data } = await axios({
-        url: `${BASE_URL}/user/profile/nickname`,
-        method: 'PATCH',
-        data: {
-          nickname,
-        },
-        headers: {
-          authorization,
-        },
-      });
+      const { status, data } = await api.updateNickname(
+        authorization,
+        nickname
+      );
 
       if (status === 200) dispatch(updateNicknameSuccess(nickname));
       else {
@@ -288,15 +260,9 @@ const updateProfilePicture = picture => {
     formData.append('file', picture[0]);
 
     try {
-      const { data, status } = await axios.post(
-        `${BASE_URL}/user/profile/image`,
-        formData,
-        {
-          headers: {
-            authorization,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
+      const { data, status } = await api.updateProfilePicture(
+        authorization,
+        formData
       );
 
       if (status === 200) {
@@ -305,33 +271,8 @@ const updateProfilePicture = picture => {
       }
     } catch (error) {
       console.log(error);
-      console.log(error.response);
+      dispatch(updateProfilePictureFailure());
     }
-    // try {
-    //   const fd = new FormData(picture);
-
-    // const { status, data } = await axios({
-    //   url: `${BASE_URL}/user/profile/image`,
-    //   method: 'PATCH',
-    //   data: {
-    //     file: picture,
-    //   },
-    //   headers: {
-    //     authorization,
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // });
-
-    //   if (status === 200) dispatch(updateNicknameSuccess(picture));
-    //   else {
-    //     console.log(status, data);
-    //     dispatch(updateNicknameFailure());
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   console.log(error.response);
-    //   dispatch(updateNicknameFailure());
-    // }
   };
 };
 
@@ -339,20 +280,13 @@ const updateDescription = description => {
   return async (dispatch, getState) => {
     dispatch(updateDescriptionRequest());
     try {
-      const { status, data } = await axios({
-        url: `${BASE_URL}/user/profile/description`,
-        method: 'PATCH',
-        data: {
-          description,
-        },
-        headers: {
-          authorization,
-        },
-      });
+      const { status, data } = await api.updateDescription(
+        authorization,
+        description
+      );
 
       if (status === 200) dispatch(updateDescriptionSuccess(description));
       else {
-        console.log(status, data);
         dispatch(updateDescriptionFailure());
       }
     } catch (error) {
@@ -480,9 +414,7 @@ const userReducer = handleActions(
         likeAmount: 0,
       },
     }),
-    [SIGNOUT_FAILURE]: prevState => ({
-      ...prevState,
-    }),
+
     //.. audience amount
     [AUDIENCE_AMOUNT_REQUEST]: prevState => ({
       ...prevState,
@@ -494,9 +426,7 @@ const userReducer = handleActions(
         audienceAmount: action.payload,
       },
     }),
-    [AUDIENCE_AMOUNT_FAILURE]: prevState => ({
-      ...prevState,
-    }),
+
     // like amount
     [LIKE_AMOUNT_REQUEST]: prevState => ({
       ...prevState,
@@ -508,9 +438,7 @@ const userReducer = handleActions(
         likeAmount: action.payload,
       },
     }),
-    [LIKE_AMOUNT_FAILURE]: prevState => ({
-      ...prevState,
-    }),
+
     // nickname
     [UPDATE_NICKNAME_REQUEST]: prevState => ({
       ...prevState,
@@ -522,26 +450,19 @@ const userReducer = handleActions(
         nickname: action.payload,
       },
     }),
-    [UPDATE_NICKNAME_FAILURE]: prevState => ({
-      ...prevState,
-    }),
+
     // profile picture
     [UPDATE_PROFILE_PICTURE_REQUEST]: prevState => ({
       ...prevState,
     }),
-    [UPDATE_PROFILE_PICTURE_SUCCESS]: (prevState, action) => {
-      console.log(action);
-      return {
-        ...prevState,
-        info: {
-          ...prevState.info,
-          profileURL: action.payload,
-        },
-      };
-    },
-    [UPDATE_PROFILE_PICTURE_FAILURE]: prevState => ({
+    [UPDATE_PROFILE_PICTURE_SUCCESS]: (prevState, action) => ({
       ...prevState,
+      info: {
+        ...prevState.info,
+        profileURL: action.payload,
+      },
     }),
+
     // description
     [UPDATE_DESCRIPTION_REQUEST]: prevState => ({
       ...prevState,
@@ -552,9 +473,6 @@ const userReducer = handleActions(
         ...prevState.info,
         description: action.payload,
       },
-    }),
-    [UPDATE_DESCRIPTION_FAILURE]: prevState => ({
-      ...prevState,
     }),
   },
   initialState
