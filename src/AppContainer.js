@@ -1,0 +1,17 @@
+import { connect } from 'react-redux';
+// import { setIsModalOpen } from '../../../../modules/playList';
+import App from './App';
+
+const mapStateToProps = state => ({
+  // isModalOpen: state.playList.isModalOpen,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // handleModalOpen: isModalOpen => {
+    //   return dispatch(setIsModalOpen(isModalOpen));
+    // },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
