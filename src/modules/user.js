@@ -181,8 +181,7 @@ export const signUpOauth = (body, accessToken) => {
         accessToken
       );
       if (status === 200) {
-        const { authorization } = headers;
-        localStorage.setItem('authorization', authorization);
+        dispatch(signUpSuccess());
         return true;
       } else {
         dispatch(signUpFailure());
@@ -191,6 +190,39 @@ export const signUpOauth = (body, accessToken) => {
     } catch (error) {
       console.log(error);
       dispatch(signUpFailure());
+    }
+  };
+};
+
+export const signInOauth = (body, accessToken) => {
+  return async (dispatch, getState) => {
+    dispatch(signInRequest());
+    try {
+      const { data, headers, status } = await api.oauthSignIn(
+        body,
+        accessToken
+      );
+      if (status === 200) {
+        const { authorization } = headers;
+        localStorage.setItem('authorization', authorization);
+        const { user } = data;
+        const { email, nickname, profileDescription, profileURL } = user;
+        dispatch(
+          signInSuccess({
+            email,
+            nickname,
+            description: profileDescription,
+            profileURL,
+          })
+        );
+        return true;
+      } else {
+        dispatch(signInFailure());
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(signInFailure());
     }
   };
 };

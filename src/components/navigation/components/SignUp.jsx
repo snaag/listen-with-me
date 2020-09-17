@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
 
 import '../../../css/Sign.css';
-import * as user from '../../../api/user';
 import * as validation from '../../../api/validation';
 
 const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
-  const BASE_URL =
-    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
-
   const [info, setInfo] = useState({
     nickname: '',
     email: '',
@@ -143,7 +138,7 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
           <div className="oauth">
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="SignUp with Google"
+              buttonText="구글 계정으로 회원가입 하기"
               onSuccess={responseGoogle}
               onFailure={responseFailGoogle}
               cookiePolicy={'single_host_origin'}

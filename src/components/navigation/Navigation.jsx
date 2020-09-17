@@ -21,6 +21,7 @@ const Navigation = ({
   setSignUpActive,
   setSignUpInactive,
   signIn,
+  signInOauth,
   signUp,
   signUpOauth,
   signOut,
@@ -80,6 +81,7 @@ const Navigation = ({
           isActive={signInModalActive}
           handleClose={setSignInInactive}
           signIn={signIn}
+          signInOauth={signInOauth}
         />
       )}
       {signUpModalActive && (
