@@ -78,7 +78,7 @@ class SearchUser extends Component {
         .then(room => {
           if (room) {
             localStorage.setItem('isHost', false);
-            localStorage.setItem('roomId', room.id);
+            localStorage.setItem('roomId', room.room_id);
             this.props.history.push('/listen');
           }
         })

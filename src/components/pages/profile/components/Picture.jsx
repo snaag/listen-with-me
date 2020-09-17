@@ -8,14 +8,20 @@ const Picture = ({ url, changeProfilePicture }) => {
     const target = e.target || window.event.srcElement,
       files = target.files;
 
+    if (files && files.length) {
+      changeProfilePicture(files);
+    }
+    /*
     // FileReader support
     if (FileReader && files && files.length) {
-      const fileReader = new FileReader();
-      fileReader.onload = function() {
-        changeProfilePicture(fileReader.result);
-      };
-      fileReader.readAsDataURL(files[0]);
+      changeProfilePicture(files);
+      // const fileReader = new FileReader();
+      // fileReader.onload = function() {
+        // changeProfilePicture(fileReader.result);
+      // };
+      // fileReader.readAsDataURL(files[0]);
     }
+    */
 
     // Not supported
     else {
