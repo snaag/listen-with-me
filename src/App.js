@@ -18,8 +18,10 @@ import './css/Reset.css';
 
 class App extends Component {
   componentDidMount() {
-    const authorization = localStorage.getItem('authorization') || [];
-    if (authorization.length) {
+    const { handleSignIn, handleReady, handleUserInfo } = this.props;
+    const authorization = localStorage.getItem('authorization') || '';
+
+    if (authorization) {
       fetch(
         'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/user/token',
         {
@@ -31,22 +33,30 @@ class App extends Component {
           credentials: 'include',
         }
       )
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 200) {
+            return res.json();
+          } else {
+            localStorage.removeItem('authorization');
+            handleReady(true);
+          }
+        })
         .then(info => {
           if (info.email) {
-            this.props.handleUserInfo(info);
-            this.props.handleSignIn(true);
-            this.props.handleReady(true);
+            handleUserInfo(info);
+            handleSignIn(true);
+            handleReady(true);
           }
         })
         .catch(err => console.log(err));
     } else {
-      this.props.handleReady(true);
+      handleReady(true);
     }
   }
 
   render() {
     const { isReady, isSignIn } = this.props;
+
     return (
       <Router>
         <>
@@ -118,42 +128,5 @@ class App extends Component {
     );
   }
 }
-
-// function App() {
-//   return (
-//     <Router>
-//       <>
-//         <NavigationContainer />
-//       </>
-//       <>
-//         <Link to="/main">MainPage</Link>
-//         <Link to="/listen">ListenPage</Link>
-//         <Link to="/music">MusicPage</Link>
-//         <Link to="/playlist">PlayListPage</Link>
-//         <Link to="/profile">ProfilePage</Link>
-//       </>
-//       <Switch>
-//         <Route path="/main">
-//           <MainPage />
-//         </Route>
-//         <Route path="/listen">
-//           <ListenPageContainer />
-//         </Route>
-//         <Route path="/music">
-//           <UserTab />
-//           <MusicPage />
-//         </Route>
-//         <Route path="/playlist">
-//           <UserTab />
-//           <PlayListPage />
-//         </Route>
-//         <Route path="/profile">
-//           <UserTab />
-//           <ProfilePageContainer />
-//         </Route>
-//       </Switch>
-//     </Router>
-//   );
-// }
 
 export default App;
