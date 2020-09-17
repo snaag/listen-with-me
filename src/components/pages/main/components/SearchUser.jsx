@@ -37,13 +37,11 @@ class SearchUser extends Component {
               alert('해당 유저를 찾을 수 없습니다.');
             }
           })
-          .then(playList => {
-            if (playList) {
-              this.props.history.push({
-                pathname: '/listen',
-                isHost: false,
-                playListId: playList.id,
-              });
+          .then(room => {
+            if (room) {
+              localStorage.setItem('isHost', false);
+              localStorage.setItem('roomId', room.id);
+              this.props.history.push('/listen');
             }
           })
           .catch(err => console.log(err));
@@ -77,13 +75,11 @@ class SearchUser extends Component {
             alert('열려있는 방이 없습니다.');
           }
         })
-        .then(playList => {
-          if (playList) {
-            this.props.history.push({
-              pathname: '/listen',
-              isHost: false,
-              playListId: playList.id,
-            });
+        .then(room => {
+          if (room) {
+            localStorage.setItem('isHost', false);
+            localStorage.setItem('roomId', room.id);
+            this.props.history.push('/listen');
           }
         })
         .catch(err => console.log(err));

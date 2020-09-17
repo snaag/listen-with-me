@@ -91,13 +91,10 @@ class MyPlayListEntry extends Component {
   }
 
   createRoom() {
-    // 라우팅 하면서 roomid만 보내면 됨
     const { id } = this.props.listEntry;
-    this.props.history.push({
-      pathname: '/listen',
-      isHost: true,
-      playListId: id,
-    });
+    localStorage.setItem('isHost', true);
+    localStorage.setItem('playListId', id);
+    this.props.history.push('/listen');
   }
 
   componentDidMount() {

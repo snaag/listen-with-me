@@ -4,11 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomListEntry extends Component {
   clickListEntry() {
-    this.props.history.push({
-      pathname: '/listen',
-      isHost: false,
-      playListId: this.props.listEntry.id,
-    });
+    localStorage.setItem('isHost', false);
+    localStorage.setItem('roomId', this.props.listEntry.room_id);
+    this.props.history.push('/listen');
   }
 
   render() {
