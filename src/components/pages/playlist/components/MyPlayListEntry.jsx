@@ -25,7 +25,7 @@ class MyPlayListEntry extends Component {
     } = this.props;
     const { title } = this.state;
 
-    let title = title;
+    let saveTitle = title;
     let root = document.querySelector('#root');
     root.addEventListener('click', e => {
       const { classList, nodeName, className } = e.target;
@@ -38,7 +38,7 @@ class MyPlayListEntry extends Component {
         className !== 'myPlayList_entry-title-inputBox'
       ) {
         this.handleState('buttonDisplay', false);
-        this.handleState('title', title);
+        this.handleState('title', saveTitle);
       }
     });
   }
