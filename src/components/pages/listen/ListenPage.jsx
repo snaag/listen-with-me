@@ -17,9 +17,6 @@ const ListenPage = ({
   updateMusics,
   history,
 }) => {
-  // const { isHost, playListId } = history.location;
-  // localStorage.setItem('playlistId', playListId);
-  // localStorage.setItem('isHost', isHost); // 노래 변경 시에도 써야해서, 이걸로 해줌
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
@@ -145,6 +142,7 @@ const ListenPage = ({
         // 내가 방을 연 호스트인 경우,
         // 1. 방을 생성한다
         const roomId = await createRoom(playListId);
+        localStorage.setItem('roomId', roomId);
         // 2. 방의 음악 정보를 불러온다
         const list = await getMusics(playListId);
         updateMusics([...list]);
@@ -154,8 +152,11 @@ const ListenPage = ({
         // 1. 방의 음악 정보를 불러온다
         console.log('>제가 만든 방이 아닙니다<');
         const roomId = localStorage.getItem('roomId');
+        console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
         const { playlist_id } = await getRoomStatus(roomId);
         const list = await getMusics(playlist_id);
+        localStorage.setItem('playListId', playlist_id);
+
         updateMusics([...list]);
         updateCurrentMusic(list[0]);
       }
@@ -175,6 +176,9 @@ const ListenPage = ({
 
     return () => {
       finalizeRoom();
+      // localStorage.removeItem('roomId');
+      // localStorage.removeItem('playListId');
+      // localStorage.removeItem('isHost');
     };
     // eslint-disable-next-line
   }, []);
