@@ -8,7 +8,7 @@ const Picture = ({ url, changeProfilePicture }) => {
     const target = e.target || window.event.srcElement,
       files = target.files;
 
-    if (files && files.length) {
+    if (FileReader && files && files.length) {
       changeProfilePicture(files);
     }
     /*
@@ -34,6 +34,7 @@ const Picture = ({ url, changeProfilePicture }) => {
       <img className="profile-picture__content" src={url} alt="" />
       <div className="profile-picture__filebox">
         <input
+          name="file"
           type="file"
           id="filebox__upload"
           onChange={changeImage}
