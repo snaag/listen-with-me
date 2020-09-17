@@ -285,12 +285,10 @@ const updateProfilePicture = picture => {
   return async (dispatch, getState) => {
     dispatch(updateProfilePictureRequest());
     const formData = new FormData();
-    console.log('PICTURE', picture);
-    formData.append('file', picture);
-    // 파일이름을 같이 줘야함
+    formData.append('file', picture[0]);
 
     try {
-      const result = await axios.post(
+      const { data, status } = await axios.post(
         `${BASE_URL}/user/profile/image`,
         formData,
         {
@@ -301,9 +299,10 @@ const updateProfilePicture = picture => {
         }
       );
 
-      dispatch(updateProfilePictureSuccess(picture));
-
-      console.log(result);
+      if (status === 200) {
+        const { image_url } = data;
+        dispatch(updateProfilePictureSuccess(image_url));
+      }
     } catch (error) {
       console.log(error);
       console.log(error.response);
