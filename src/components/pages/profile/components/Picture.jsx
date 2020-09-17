@@ -29,6 +29,7 @@ const Picture = ({ url, changeProfilePicture }) => {
       <div className="profile-picture__filebox">
         <input
           type="file"
+          name="file"
           id="filebox__upload"
           onChange={changeImage}
           accept="image/png, image/jpeg, image/jpg"
