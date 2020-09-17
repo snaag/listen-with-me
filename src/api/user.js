@@ -24,6 +24,11 @@ export const oauthSignUp = async (body, accessToken) =>
     headers: { accessToken },
   });
 
+export const oauthSignIn = async (body, accessToken) =>
+  axios.post(`${BASE_URL}/user/oauth/google`, body, {
+    headers: { accessToken },
+  });
+
 // 유저의 정보와 관련한 api
 export const getLikeAmount = async authorization =>
   axios.get(`${BASE_URL}/user/profile/like`, {

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
 
 import '../../../css/Sign.css';
 
-const SignIn = ({ isActive, signIn, handleClose }) => {
+const SignIn = ({ isActive, signIn, signInOauth, handleClose }) => {
   const [info, setInfo] = useState({
     email: '',
     password: '',
@@ -21,6 +22,34 @@ const SignIn = ({ isActive, signIn, handleClose }) => {
     handleClose();
   };
 
+  const responseGoogle = async res => {
+    // 구글 로그인을 통해 받아온 데이터
+    // console.log('>>TOTAL: ', res);
+    const { accessToken } = res;
+    const { profileObj, tokenObj } = res;
+
+    const { id_token } = tokenObj;
+
+    const { email, googleId, imageUrl, name } = profileObj;
+    // console.log('client accessToken:', accessToken);
+    // console.log('client data:', email, googleId, imageUrl, name);
+
+    const body = { email, googleId, imageUrl, name, id_token };
+    // console.log('>> client will send this BODY', body);
+
+    try {
+      const isSuccess = await signInOauth(body, accessToken);
+      if (isSuccess) handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const responseFailGoogle = err => {
+    // 에러발생시
+    console.log(err);
+  };
+
   return (
     <Modal
       show={isActive}
@@ -34,9 +63,13 @@ const SignIn = ({ isActive, signIn, handleClose }) => {
       <Modal.Body>
         <div className="signin">
           <div className="oauth">
-            <button className="oauth__google oauth__button">
-              Google 로그인
-            </button>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              buttonText="구글 계정으로 로그인 하기"
+              onSuccess={responseGoogle}
+              onFailure={responseFailGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
             <button className="oauth__kakao oauth__button">Kakao 로그인</button>
           </div>
           <hr />
