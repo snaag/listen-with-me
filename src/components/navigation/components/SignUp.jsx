@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 
 import '../../../css/Sign.css';
 import * as user from '../../../api/user';
 import * as validation from '../../../api/validation';
 
-const SignUp = ({ isActive, signUp, handleClose }) => {
+const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   const BASE_URL =
-    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/user';
+    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
   const [info, setInfo] = useState({
     nickname: '',
@@ -32,16 +33,26 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     const { id_token } = tokenObj;
 
     const { email, googleId, imageUrl, name } = profileObj;
-    // console.log('client accessToken:', accessToken);
-    // console.log('client data:', email, googleId, imageUrl, name);
+    console.log('client accessToken:', accessToken);
+    console.log('client data:', email, googleId, imageUrl, name);
 
     const body = { email, googleId, imageUrl, name, id_token };
-    // console.log('>> client will send this BODY', body);
+    console.log('>> client will send this BODY', body);
+
+    // const isSuccess = await signUpOauth(body, access);
+    // if (isSuccess) handleClose();
 
     try {
-      const { data, headers, status } = await user.oauthSignUp(
+      // const { data, headers, status } = await user.oauthSignUp(
+      //   body,
+      //   accessToken
+      // );
+      const { data, headers, status } = await axios.post(
+        `${BASE_URL}/user/oauth/google`,
         body,
-        accessToken
+        {
+          headers: { accessToken },
+        }
       );
 
       if (status === 200) {

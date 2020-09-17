@@ -123,7 +123,7 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 
 // action creator (async)
 //.. signin
-const signIn = signInData => {
+export const signIn = signInData => {
   return async (dispatch, getState) => {
     dispatch(signInRequest());
     try {
@@ -152,7 +152,7 @@ const signIn = signInData => {
 };
 
 //.. signup
-const signUp = signUpData => {
+export const signUp = signUpData => {
   return async (dispatch, getState) => {
     dispatch(signUpRequest());
     try {
@@ -172,8 +172,31 @@ const signUp = signUpData => {
   };
 };
 
+export const signUpOauth = (body, accessToken) => {
+  return async (dispatch, getState) => {
+    dispatch(signUpRequest());
+    try {
+      const { data, headers, status } = await api.oauthSignUp(
+        body,
+        accessToken
+      );
+      if (status === 200) {
+        const { authorization } = headers;
+        localStorage.setItem('authorization', authorization);
+        return true;
+      } else {
+        dispatch(signUpFailure());
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(signUpFailure());
+    }
+  };
+};
+
 //.. signout
-const signOut = () => {
+export const signOut = () => {
   return (dispatch, getState) => {
     dispatch(signOutRequest());
     setTimeout(async () => {
@@ -192,7 +215,7 @@ const signOut = () => {
   };
 };
 
-const getLikeAmount = () => {
+export const getLikeAmount = () => {
   return async (dispatch, getState) => {
     dispatch(likeAmountRequest());
     try {
@@ -211,7 +234,7 @@ const getLikeAmount = () => {
   };
 };
 
-const getAudienceAmount = () => {
+export const getAudienceAmount = () => {
   return async (dispatch, getState) => {
     dispatch(audienceAmountRequest());
     try {
@@ -229,7 +252,7 @@ const getAudienceAmount = () => {
   };
 };
 
-const updateNickname = nickname => {
+export const updateNickname = nickname => {
   return async (dispatch, getState) => {
     dispatch(updateNicknameRequest());
     try {
@@ -248,7 +271,8 @@ const updateNickname = nickname => {
     }
   };
 };
-const updateProfilePicture = picture => {
+
+export const updateProfilePicture = picture => {
   return async (dispatch, getState) => {
     dispatch(updateProfilePictureRequest());
     const formData = new FormData();
@@ -271,7 +295,7 @@ const updateProfilePicture = picture => {
   };
 };
 
-const updateDescription = description => {
+export const updateDescription = description => {
   return async (dispatch, getState) => {
     dispatch(updateDescriptionRequest());
     try {
@@ -295,34 +319,20 @@ const SET_MAINTAIN_SIGNIN = 'user/SET_MAINTAIN_SIGNIN';
 const SET_ISREADY = 'user/SET_ISREADY';
 const SET_USERINFO = 'user/SET_USERINFO';
 
-const maintainSignIn = isSignIn => ({
+export const maintainSignIn = isSignIn => ({
   type: SET_MAINTAIN_SIGNIN,
   isSignIn,
 });
 
-const setReady = isReady => ({
+export const setReady = isReady => ({
   type: SET_ISREADY,
   isReady,
 });
 
-const setUserInfo = info => ({
+export const setUserInfo = info => ({
   type: SET_USERINFO,
   info,
 });
-
-export {
-  signIn,
-  signUp,
-  signOut,
-  getLikeAmount,
-  getAudienceAmount,
-  updateProfilePicture,
-  updateDescription,
-  updateNickname,
-  maintainSignIn,
-  setReady,
-  setUserInfo,
-};
 
 // reducer
 const userReducer = handleActions(
