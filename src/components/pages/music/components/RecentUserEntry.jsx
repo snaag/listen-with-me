@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class RecentUserEntry extends Component {
   render() {
     const { profileImg, nickname } = this.props.entry;
+
     return (
       <div className="recentUserEntry_section">
         <div className="recentUserEntry_content">

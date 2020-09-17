@@ -20,12 +20,17 @@ class MyPlayListEntry extends Component {
   }
 
   hideEditButton() {
-    let title = this.state.title;
+    const {
+      listEntry: { id },
+    } = this.props;
+    const { title } = this.state;
+
+    let saveTitle = title;
     let root = document.querySelector('#root');
     root.addEventListener('click', e => {
       const { classList, nodeName, className } = e.target;
       if (
-        classList[1] !== `number${this.props.listEntry.id}` &&
+        classList[1] !== `number${id}` &&
         classList[0] !== 'myPlayList_entry-deleteButton' &&
         classList[3] !== 'times-circle' &&
         nodeName !== 'path' &&
@@ -33,7 +38,7 @@ class MyPlayListEntry extends Component {
         className !== 'myPlayList_entry-title-inputBox'
       ) {
         this.handleState('buttonDisplay', false);
-        this.handleState('title', title);
+        this.handleState('title', saveTitle);
       }
     });
   }
@@ -91,10 +96,12 @@ class MyPlayListEntry extends Component {
   }
 
   createRoom() {
-    const { id } = this.props.listEntry;
-    localStorage.setItem('isHost', true);
-    localStorage.setItem('playListId', id);
-    this.props.history.push('/listen');
+    if (window.confirm('방을 생성 하시겠습니까?')) {
+      const { id } = this.props.listEntry;
+      localStorage.setItem('isHost', true);
+      localStorage.setItem('playListId', id);
+      this.props.history.push('/listen');
+    }
   }
 
   componentDidMount() {

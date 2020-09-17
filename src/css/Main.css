@@ -3,6 +3,7 @@
 } */
 body {
   background: rgb(24, 24, 24);
+  min-width: 54em;
 }
 
 .mainPage {
@@ -98,7 +99,7 @@ body {
   display: inline-block;
   margin: 2.5%;
   width: 20%;
-  min-width: 11.3em;
+  min-width: 9.4em;
 }
 
 .renderListMain_entry-thumbnails {

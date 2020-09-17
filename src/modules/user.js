@@ -11,6 +11,7 @@ const initialState = {
   status: {
     isSignIn: false,
     isLoading: false,
+    isReady: false,
   },
   info: {
     email: '',
@@ -194,8 +195,10 @@ const signOut = () => {
             authorization,
           },
         });
-        if (status === 204) dispatch(signOutSuccess());
-        else dispatch(signOutFailure());
+        if (status === 204) {
+          dispatch(signOutSuccess());
+          localStorage.removeItem('authorization');
+        } else dispatch(signOutFailure());
       } catch (error) {
         dispatch(signOutFailure());
       }
@@ -360,6 +363,25 @@ const updateDescription = description => {
   };
 };
 
+const SET_MAINTAIN_SIGNIN = 'user/SET_MAINTAIN_SIGNIN';
+const SET_ISREADY = 'user/SET_ISREADY';
+const SET_USERINFO = 'user/SET_USERINFO';
+
+const maintainSignIn = isSignIn => ({
+  type: SET_MAINTAIN_SIGNIN,
+  isSignIn,
+});
+
+const setReady = isReady => ({
+  type: SET_ISREADY,
+  isReady,
+});
+
+const setUserInfo = info => ({
+  type: SET_USERINFO,
+  info,
+});
+
 export {
   signIn,
   signUp,
@@ -369,17 +391,46 @@ export {
   updateProfilePicture,
   updateDescription,
   updateNickname,
+  maintainSignIn,
+  setReady,
+  setUserInfo,
 };
 
 // reducer
 const userReducer = handleActions(
+  //.. signin 유지
   {
+    [SET_MAINTAIN_SIGNIN]: (prevState, action) => ({
+      ...prevState,
+      status: {
+        ...prevState.status,
+        isSignIn: true,
+      },
+    }),
+    [SET_ISREADY]: (prevState, action) => ({
+      ...prevState,
+      status: {
+        ...prevState.status,
+        isReady: true,
+      },
+    }),
+    [SET_USERINFO]: (prevState, action) => ({
+      ...prevState,
+      info: {
+        ...prevState.info,
+        email: action.info.email,
+        nickname: action.info.nickname,
+        profileURL: action.info.profileURL,
+        description: action.info.profileDescription,
+      },
+    }),
     //.. signin
     [SIGNIN_REQUEST]: prevState => ({
       ...prevState,
       status: {
         isSignIn: false,
         isLoading: true,
+        isReady: true,
       },
     }),
     [SIGNIN_SUCCESS]: (prevState, action) => ({
@@ -387,6 +438,7 @@ const userReducer = handleActions(
       status: {
         isSignIn: true,
         isLoading: false,
+        isReady: true,
       },
       info: {
         ...prevState.info,
@@ -401,6 +453,7 @@ const userReducer = handleActions(
       status: {
         isSignIn: false,
         isLoading: false,
+        isReady: true,
       },
     }),
     //.. signout
@@ -409,6 +462,7 @@ const userReducer = handleActions(
       status: {
         isSignIn: false,
         isLoading: true,
+        isReady: true,
       },
     }),
     [SIGNOUT_SUCCESS]: (prevState, action) => ({
@@ -416,6 +470,7 @@ const userReducer = handleActions(
       status: {
         isSignIn: false,
         isLoading: false,
+        isReady: true,
       },
       info: {
         email: '',

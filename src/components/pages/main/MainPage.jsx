@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class MainPage extends Component {
   render() {
     const { isModalOpen, handleModalOpen } = this.props;
+
     return (
       <div className="mainPage">
         <SearchUser />

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class MusicPage extends Component {
   render() {
     const { isModalOpen, handleModalOpen } = this.props;
+
     return (
       <div className="musicPage">
         <RecentList />

@@ -4,6 +4,7 @@ import RoomList from '../components/RoomList';
 
 const mapStateToProps = state => ({
   likedList: state.main.likedList,
+  isSignIn: state.user.status.isSignIn,
 });
 
 const mapDispatchToProps = dispatch => {
