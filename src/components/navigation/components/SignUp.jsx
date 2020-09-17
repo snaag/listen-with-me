@@ -33,33 +33,15 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     const { id_token } = tokenObj;
 
     const { email, googleId, imageUrl, name } = profileObj;
-    console.log('client accessToken:', accessToken);
-    console.log('client data:', email, googleId, imageUrl, name);
+    // console.log('client accessToken:', accessToken);
+    // console.log('client data:', email, googleId, imageUrl, name);
 
     const body = { email, googleId, imageUrl, name, id_token };
-    console.log('>> client will send this BODY', body);
-
-    // const isSuccess = await signUpOauth(body, access);
-    // if (isSuccess) handleClose();
+    // console.log('>> client will send this BODY', body);
 
     try {
-      // const { data, headers, status } = await user.oauthSignUp(
-      //   body,
-      //   accessToken
-      // );
-      const { data, headers, status } = await axios.post(
-        `${BASE_URL}/user/oauth/google`,
-        body,
-        {
-          headers: { accessToken },
-        }
-      );
-
-      if (status === 200) {
-        const { authorization } = headers;
-        localStorage.setItem('authorization', authorization);
-      }
-      handleClose();
+      const isSuccess = await signUpOauth(body, accessToken);
+      if (isSuccess) handleClose();
     } catch (error) {
       console.log(error);
     }
