@@ -4,10 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 
 import '../../../css/Sign.css';
+import * as user from '../../../api/user';
+import * as validation from '../../../api/validation';
 
-const SignUp = ({ isActive, signUp, handleClose }) => {
+const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   const BASE_URL =
-    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/user';
+    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
   const [info, setInfo] = useState({
     nickname: '',
@@ -23,9 +25,6 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
   });
 
   const responseGoogle = async res => {
-    // 서버로 토큰을 전달한 후 JWT토큰을 받고 localStorage에 저장해야한다
-    //   console.log(res.tokenId);
-
     // 구글 로그인을 통해 받아온 데이터
     // console.log('>>TOTAL: ', res);
     const { accessToken } = res;
@@ -40,23 +39,11 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     const body = { email, googleId, imageUrl, name, id_token };
     // console.log('>> client will send this BODY', body);
 
-    // 서버로 보내기
     try {
-      const { data, headers, status } = await axios.post(
-        `${BASE_URL}/oauth/google`,
-        body,
-        {
-          headers: { accessToken },
-        }
-      );
-
-      if (status === 200) {
-        const { authorization } = headers;
-        localStorage.setItem('authorization', authorization);
-      }
-      handleClose();
+      const isSuccess = await signUpOauth(body, accessToken);
+      if (isSuccess) handleClose();
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
@@ -77,11 +64,7 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
   const validationCheck = async (type, value) => {
     const createRequest = async () => {
       try {
-        const { status, data } = await axios.get(`${BASE_URL}/${type}`, {
-          params: {
-            [type]: value,
-          },
-        });
+        const { status, data } = await validation.something(type, value);
         return status;
       } catch (error) {
         return error.response.status;

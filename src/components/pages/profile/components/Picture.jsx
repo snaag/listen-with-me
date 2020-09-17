@@ -11,17 +11,6 @@ const Picture = ({ url, changeProfilePicture }) => {
     if (FileReader && files && files.length) {
       changeProfilePicture(files);
     }
-    /*
-    // FileReader support
-    if (FileReader && files && files.length) {
-      changeProfilePicture(files);
-      // const fileReader = new FileReader();
-      // fileReader.onload = function() {
-        // changeProfilePicture(fileReader.result);
-      // };
-      // fileReader.readAsDataURL(files[0]);
-    }
-    */
 
     // Not supported
     else {
