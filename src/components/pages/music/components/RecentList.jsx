@@ -127,10 +127,12 @@ class RecentList extends Component {
   }
 
   viewListEntry(list) {
+    const { viewCount } = this.state;
+
     let count = 0;
     return list.length
       ? list.map(entry => {
-          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+          if ((list.length <= 4 ? 4 : viewCount) > count) {
             count++;
             return <RecentAndLikedEntry key={entry.id} entry={entry} />;
           }
@@ -140,6 +142,7 @@ class RecentList extends Component {
 
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
+
     const count = list.length;
     this.handleState('viewCount', count === viewCount ? 3 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
@@ -164,6 +167,7 @@ class RecentList extends Component {
 
   render() {
     const { recentList, buttonDisplay } = this.state;
+
     return (
       <div className="recentList">
         <div className="recentList_content">

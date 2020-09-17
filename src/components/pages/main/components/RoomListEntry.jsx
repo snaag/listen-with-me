@@ -4,9 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomListEntry extends Component {
   clickListEntry() {
-    localStorage.setItem('isHost', false);
-    localStorage.setItem('roomId', this.props.listEntry.room_id);
-    this.props.history.push('/listen');
+    const {
+      isSignIn,
+      listEntry: { room_id },
+      history,
+    } = this.props;
+
+    if (isSignIn) {
+      localStorage.setItem('isHost', false);
+      localStorage.setItem('roomId', room_id);
+      history.push('/listen');
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
   }
 
   render() {

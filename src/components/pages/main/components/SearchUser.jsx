@@ -9,8 +9,9 @@ class SearchUser extends Component {
   }
 
   listenAlong() {
-    const { isSignIn, nickname } = this.props;
+    const { isSignIn, nickname, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
+
     if (isSignIn) {
       if (nickname) {
         fetch(
@@ -41,7 +42,7 @@ class SearchUser extends Component {
             if (room) {
               localStorage.setItem('isHost', false);
               localStorage.setItem('roomId', room.id);
-              this.props.history.push('/listen');
+              history.push('/listen');
             }
           })
           .catch(err => console.log(err));
@@ -54,8 +55,10 @@ class SearchUser extends Component {
   }
 
   listenRandom() {
-    if (this.props.isSignIn) {
-      const authorization = localStorage.getItem('authorization') || '';
+    const { isSignIn, history } = this.props;
+    const authorization = localStorage.getItem('authorization') || '';
+
+    if (isSignIn) {
       fetch(
         'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/randomlist',
         {
@@ -79,7 +82,7 @@ class SearchUser extends Component {
           if (room) {
             localStorage.setItem('isHost', false);
             localStorage.setItem('roomId', room.id);
-            this.props.history.push('/listen');
+            history.push('/listen');
           }
         })
         .catch(err => console.log(err));
@@ -89,11 +92,13 @@ class SearchUser extends Component {
   }
 
   render() {
+    const { handleNickname } = this.props;
+
     return (
       <div className="searchMain">
         <input
           className="searchMain_input"
-          onChange={e => this.props.handleNickname(e.target.value)}
+          onChange={e => handleNickname(e.target.value)}
           onKeyPress={e => this.handlePressEnter(e.key)}
           placeholder="검색"
         ></input>

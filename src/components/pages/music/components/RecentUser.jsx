@@ -79,11 +79,11 @@ class RecentUser extends Component {
   }
 
   viewListEntry(list) {
+    const { viewCount } = this.state;
     let count = 0;
-
     return list.length
       ? list.map(entry => {
-          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+          if ((list.length <= 4 ? 4 : viewCount) > count) {
             count++;
             return <RecentUserEntry key={entry.id} entry={entry} />;
           }
@@ -93,6 +93,7 @@ class RecentUser extends Component {
 
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
+
     const count = list.length;
     this.handleState('viewCount', count === viewCount ? 7 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
@@ -117,6 +118,7 @@ class RecentUser extends Component {
 
   render() {
     const { recentUser, buttonDisplay } = this.state;
+
     return (
       <div className="recentUser">
         <div className="recentUser_content">

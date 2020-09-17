@@ -1,16 +1,23 @@
 import { connect } from 'react-redux';
-// import { setIsModalOpen } from '../../../../modules/playList';
+import { maintainSignIn, setReady, setUserInfo } from './modules/user';
 import App from './App';
 
 const mapStateToProps = state => ({
-  // isModalOpen: state.playList.isModalOpen,
+  isSignIn: state.user.status.isSignIn,
+  isReady: state.user.status.isReady,
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    // handleModalOpen: isModalOpen => {
-    //   return dispatch(setIsModalOpen(isModalOpen));
-    // },
+    handleSignIn: isSignIn => {
+      return dispatch(maintainSignIn(isSignIn));
+    },
+    handleReady: isReady => {
+      return dispatch(setReady(isReady));
+    },
+    handleUserInfo: info => {
+      return dispatch(setUserInfo(info));
+    },
   };
 };
 

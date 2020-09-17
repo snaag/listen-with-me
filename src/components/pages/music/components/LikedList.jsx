@@ -64,10 +64,12 @@ class LikedList extends Component {
   }
 
   viewListEntry(list) {
+    const { viewCount } = this.state;
+
     let count = 0;
     return list.length
       ? list.map(entry => {
-          if ((list.length <= 4 ? 4 : this.state.viewCount) > count) {
+          if ((list.length <= 4 ? 4 : viewCount) > count) {
             count++;
             return <RecentAndLikedEntry key={entry.id} entry={entry} />;
           }
@@ -77,6 +79,7 @@ class LikedList extends Component {
 
   handleViewButton(list) {
     const { viewCount, buttonDisplay } = this.state;
+
     const count = list.length;
     this.handleState('viewCount', count === viewCount ? 3 : count);
     this.handleState('buttonDisplay', !buttonDisplay);
@@ -84,6 +87,7 @@ class LikedList extends Component {
 
   componentDidMount() {
     const authorization = localStorage.getItem('authorization') || '';
+
     fetch(
       'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/likedlist',
       {
@@ -102,6 +106,7 @@ class LikedList extends Component {
 
   render() {
     const { likedList, buttonDisplay } = this.state;
+
     return (
       <div className="likedList">
         <div className="likedList_content">

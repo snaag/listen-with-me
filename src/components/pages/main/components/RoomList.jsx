@@ -3,6 +3,8 @@ import RoomListEntry from './RoomListEntry';
 
 class RoomList extends Component {
   componentDidMount() {
+    const { handleLikedList } = this.props;
+
     fetch(
       `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist`,
       {
@@ -15,13 +17,14 @@ class RoomList extends Component {
     )
       .then(res => res.json())
       .then(likedList => {
-        this.props.handleLikedList(likedList);
+        handleLikedList(likedList);
       })
       .catch(err => console.log(err));
   }
 
   render() {
-    const { likedList } = this.props;
+    const { isSignIn, likedList } = this.props;
+
     return (
       <div className="renderListMain">
         <div
@@ -33,7 +36,11 @@ class RoomList extends Component {
         >
           {likedList.length
             ? likedList.map(listEntry => (
-                <RoomListEntry key={listEntry.id} listEntry={listEntry} />
+                <RoomListEntry
+                  key={listEntry.id}
+                  isSignIn={isSignIn}
+                  listEntry={listEntry}
+                />
               ))
             : '열려있는 방이 없습니다.'}
         </div>
