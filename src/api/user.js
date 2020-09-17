@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
-// 유저 인증과 관련한 api
+// 유저 인증과 관련한 api (일반)
 export const signIn = async data =>
   axios.post(`${BASE_URL}/user/signin`, data, {
     withCredentials: true,
@@ -16,6 +16,12 @@ export const signOut = async authorization =>
     headers: {
       authorization,
     },
+  });
+
+// 유저 인증과 관련한 api (oauth)
+export const oauthSignUp = async (body, accessToken) =>
+  axios.post(`${BASE_URL}/user/oauth/google`, body, {
+    headers: { accessToken },
   });
 
 // 유저의 정보와 관련한 api

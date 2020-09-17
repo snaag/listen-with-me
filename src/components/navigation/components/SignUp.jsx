@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
 
 import '../../../css/Sign.css';
+import * as user from '../../../api/user';
+import * as validation from '../../../api/validation';
 
 const SignUp = ({ isActive, signUp, handleClose }) => {
   const BASE_URL =
@@ -23,9 +24,6 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
   });
 
   const responseGoogle = async res => {
-    // 서버로 토큰을 전달한 후 JWT토큰을 받고 localStorage에 저장해야한다
-    //   console.log(res.tokenId);
-
     // 구글 로그인을 통해 받아온 데이터
     // console.log('>>TOTAL: ', res);
     const { accessToken } = res;
@@ -40,14 +38,10 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
     const body = { email, googleId, imageUrl, name, id_token };
     // console.log('>> client will send this BODY', body);
 
-    // 서버로 보내기
     try {
-      const { data, headers, status } = await axios.post(
-        `${BASE_URL}/oauth/google`,
+      const { data, headers, status } = await user.oauthSignUp(
         body,
-        {
-          headers: { accessToken },
-        }
+        accessToken
       );
 
       if (status === 200) {
@@ -56,7 +50,7 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
       }
       handleClose();
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
@@ -77,11 +71,7 @@ const SignUp = ({ isActive, signUp, handleClose }) => {
   const validationCheck = async (type, value) => {
     const createRequest = async () => {
       try {
-        const { status, data } = await axios.get(`${BASE_URL}/${type}`, {
-          params: {
-            [type]: value,
-          },
-        });
+        const { status, data } = await validation.something(type, value);
         return status;
       } catch (error) {
         return error.response.status;

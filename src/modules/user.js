@@ -1,11 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
 import * as api from '../api/user';
-const axios = require('axios');
-
-// const BASE_URL = 'http://localhost:4000';
-const BASE_URL =
-  'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
 const authorization = localStorage.getItem('authorization');
 
