@@ -4,8 +4,8 @@ import io from 'socket.io-client';
 import '../../../../../css/Chat.css';
 // 유저의 아이디로, 어떤 유저가 말 한 것인지에 따라 말풍선 다르게 해주기
 
-const Chat = ({ name, profileURL, chats, addChat }) => {
-  const playlist_id = localStorage.getItem('playListId');
+const Chat = ({ name, profileURL, chats, addChat, setChat }) => {
+  const playlist_id = localStorage.getItem('roomId');
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
   let socket = io.connect(BASE_URL);
@@ -34,6 +34,8 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
     return () => {
       // 채팅방을 나갔을 때
       // [LIFECYCLE] component will unmount
+
+      setChat([]);
       socket.close();
     };
     // eslint-disable-next-line
@@ -51,7 +53,7 @@ const Chat = ({ name, profileURL, chats, addChat }) => {
       user_nickname: name,
       message,
       // playlist_id,
-      잠ㅅ: 0,
+      playlist_id,
     });
 
     setMessage('');

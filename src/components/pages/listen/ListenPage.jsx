@@ -8,6 +8,8 @@ import VideoView from './components/VideoView';
 import ChatContainer from './containers/ChatContainer';
 import PlayList from './components/playlist/PlayList';
 import '../../../css/Listen.css';
+const BASE_URL =
+  'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
 const ListenPage = ({
   isAlong,
@@ -17,9 +19,6 @@ const ListenPage = ({
   updateMusics,
   history,
 }) => {
-  const BASE_URL =
-    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
-
   const authorization = localStorage.getItem('authorization');
 
   const getMusics = async playListId => {

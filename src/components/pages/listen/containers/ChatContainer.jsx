@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import useActions from '../../../../lib/useActions';
 
 import Chat from '../components/chat/Chat';
-import { addChat } from '../../../../modules/chat';
+import { addChat, setChat } from '../../../../modules/chat';
 
 const ChatContainer = () => {
   const { nickname, profileURL } = useSelector(({ user }) => user.info);
   const { chats } = useSelector(({ chat }) => chat);
 
-  const [onAddChat] = useActions([addChat], []);
+  const [onAddChat, onSetChat] = useActions([addChat, setChat], []);
 
   return (
     <Chat
@@ -17,6 +17,7 @@ const ChatContainer = () => {
       profileURL={profileURL}
       chats={chats}
       addChat={onAddChat}
+      setChat={onSetChat}
     />
   );
 };
