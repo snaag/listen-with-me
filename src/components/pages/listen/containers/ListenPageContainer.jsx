@@ -8,11 +8,16 @@ import {
   updateMusics,
   playNextMusic,
 } from '../../../../modules/music';
-import { setRoomId } from '../../../../modules/room';
+import {
+  setRoomId,
+  setIsClosed,
+  setWantToStay,
+} from '../../../../modules/room';
 
 const ListenPageContainer = () => {
+  const { info } = useSelector(({ user }) => user);
   const { isAlong } = useSelector(({ along }) => along);
-  const { roomId } = useSelector(({ room }) => room);
+  const { roomId, isClosed, wantToStay } = useSelector(({ room }) => room);
   const { musics, currentMusicId } = useSelector(({ music }) => music);
 
   const [
@@ -20,21 +25,35 @@ const ListenPageContainer = () => {
     onUpdateMusics,
     onSetRoomId,
     onPlayNextMusic,
+    onSetIsClosed,
+    onSetWantToStay,
   ] = useActions(
-    [updateCurrentMusicId, updateMusics, setRoomId, playNextMusic],
+    [
+      updateCurrentMusicId,
+      updateMusics,
+      setRoomId,
+      playNextMusic,
+      setIsClosed,
+      setWantToStay,
+    ],
     []
   );
 
   return (
     <ListenPage
+      name={info.nickname}
       isAlong={isAlong}
       rId={roomId}
+      isClosed={isClosed}
+      wantToStay={wantToStay}
       currentMusicId={currentMusicId}
       musics={musics}
       updateMusics={onUpdateMusics}
       setRoomId={onSetRoomId}
       playNextMusic={onPlayNextMusic}
       updateCurrentMusicId={onUpdateCurrentMusicId}
+      setIsClosed={onSetIsClosed}
+      setWantToStay={onSetWantToStay}
     />
   );
 };

@@ -47,7 +47,7 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
       } catch (error) {
         console.log(error);
       }
-      ERR>> currentMusic set을 할 수 없다
+      >>ERR currentMusicListener set을 할 수 없다 (현재 참여자 수)
       */
       updateCurrentMusicId(id);
     } else {

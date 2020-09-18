@@ -33,7 +33,7 @@ const VideoView = ({ music, roomId, isAlong, isHost, playNextMusic }) => {
       });
 
       console.log(result);
-      // ERR>> currentMusic_id가 null이다
+      // >>ERR currentMusic_id가 null이다
     };
     if (!isHost && isAlong) {
       // 따라듣고 있다면, 호스트의 현재 곡을 가져와서 재생합니다
