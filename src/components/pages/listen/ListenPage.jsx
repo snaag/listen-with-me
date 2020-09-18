@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import Menu from './components/Menu';
 import VideoView from './components/VideoView';
@@ -13,14 +14,17 @@ const BASE_URL =
 
 const ListenPage = ({
   isAlong,
+  rId,
   currentMusic,
   musics,
   updateCurrentMusic,
   updateMusics,
+  setRoomId,
   history,
 }) => {
   const authorization = localStorage.getItem('authorization');
-  const [rId, setRId] = useState();
+  // const [rId, setRId] = useState(localStorage.getItem('roomId'));
+  let socket = io.connect(BASE_URL);
 
   const getMusics = async playListId => {
     try {
@@ -142,6 +146,8 @@ const ListenPage = ({
         // 내가 방을 연 호스트인 경우,
         // 1. 방을 생성한다
         const roomId = await createRoom(playListId);
+        console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
+        setRoomId(roomId);
         localStorage.setItem('roomId', roomId);
         // 2. 방의 음악 정보를 불러온다
         const list = await getMusics(playListId);
@@ -166,8 +172,11 @@ const ListenPage = ({
       if (isHost === 'true') {
         console.log('>제가 만든 방을 삭제합니다<');
 
+        // 1. 다른 게스트들에게 메시지 보냄
+        socket.emit('closeRoom', { playlist_id: rId });
+        // 2. 방을 삭제함
         const roomId = localStorage.getItem('roomId');
-        setRId(roomId);
+        // setRId(roomId);
         destroyRoom(roomId);
       } else {
         console.log('>게스트가 방을 나갑니다<');
