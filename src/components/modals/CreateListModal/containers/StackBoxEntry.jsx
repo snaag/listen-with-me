@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleEntries: entries => {
-      return dispatch(setEntries(entries));
+      return dispatch(setEntries({ entries }));
     },
   };
 };

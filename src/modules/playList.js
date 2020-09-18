@@ -1,106 +1,4 @@
-let fakeData = [
-  {
-    id: 1,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hellohellohellohellohellohellohellohellohellohellohello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 2,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title:
-      '헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로헬로',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 3,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 4,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 5,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 6,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 7,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 8,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-  {
-    id: 9,
-    room_id: 12,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'hello',
-    nickname: 'in',
-    likeAmount: 10,
-    audienceAmount: 1000,
-  },
-  {
-    id: 10,
-    room_id: 14,
-    thumbnails:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    title: 'world',
-    nickname: 'ho',
-    likeAmount: 9,
-    audienceAmount: 1000,
-  },
-];
+import { createAction, handleActions } from 'redux-actions';
 
 const initialState = {
   isModalOpen: false,
@@ -109,9 +7,9 @@ const initialState = {
   entries: [],
   music: '',
   searchInfo: {
+    key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
     query: '',
     max: 3,
-    key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
   },
 };
 
@@ -122,37 +20,15 @@ const SET_ENTRIES = 'SET_ENTRIES';
 const SET_MUSIC = 'SET_MUSIC';
 const SET_QUERY = 'SET_QUERY';
 
-const setIsModalOpen = isModalOpen => ({
-  type: SET_ISMODALOPEN,
-  isModalOpen,
-});
-
-const setMyPlayList = myPlayList => ({
-  type: SET_MYPLAYLIST,
-  myPlayList,
-});
-
-const setListTitle = list_title => ({
-  type: SET_LIST_TITLE,
-  list_title,
-});
-
-const setEntries = entries => ({
-  type: SET_ENTRIES,
-  entries,
-});
-
-const setMusic = music => ({
-  type: SET_MUSIC,
-  music,
-});
-
-const setQuery = query => ({
-  type: SET_QUERY,
-  query,
-  max: initialState.searchInfo.max,
-  key: initialState.searchInfo.key,
-});
+const setIsModalOpen = createAction(
+  SET_ISMODALOPEN,
+  isModalOpen => isModalOpen
+);
+const setMyPlayList = createAction(SET_MYPLAYLIST, myPlayList => myPlayList);
+const setListTitle = createAction(SET_LIST_TITLE, list_title => list_title);
+const setEntries = createAction(SET_ENTRIES, entries => entries);
+const setMusic = createAction(SET_MUSIC, music => music);
+const setQuery = createAction(SET_QUERY, query => query);
 
 export {
   setIsModalOpen,
@@ -163,39 +39,37 @@ export {
   setQuery,
 };
 
-const playListReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_ISMODALOPEN:
-      return Object.assign({}, state, {
-        isModalOpen: action.isModalOpen,
-      });
-    case SET_MYPLAYLIST:
-      return Object.assign({}, state, {
-        myPlayList: action.myPlayList,
-      });
-    case SET_LIST_TITLE:
-      return Object.assign({}, state, {
-        list_title: action.list_title,
-      });
-    case SET_ENTRIES:
-      return Object.assign({}, state, {
-        entries: action.entries,
-      });
-    case SET_MUSIC:
-      return Object.assign({}, state, {
-        music: action.music,
-      });
-    case SET_QUERY:
-      return Object.assign({}, state, {
-        searchInfo: {
-          query: action.query,
-          max: action.max,
-          key: action.key,
-        },
-      });
-    default:
-      return state;
-  }
-};
+const playListReducer = handleActions(
+  {
+    [SET_ISMODALOPEN]: (prevState, action) => ({
+      ...prevState,
+      isModalOpen: action.payload.isModalOpen,
+    }),
+    [SET_MYPLAYLIST]: (prevState, action) => ({
+      ...prevState,
+      myPlayList: action.payload.myPlayList,
+    }),
+    [SET_LIST_TITLE]: (prevState, action) => ({
+      ...prevState,
+      list_title: action.payload.list_title,
+    }),
+    [SET_ENTRIES]: (prevState, action) => ({
+      ...prevState,
+      entries: action.payload.entries,
+    }),
+    [SET_MUSIC]: (prevState, action) => ({
+      ...prevState,
+      music: action.payload.music,
+    }),
+    [SET_QUERY]: (prevState, action) => ({
+      ...prevState,
+      searchInfo: {
+        ...prevState.searchInfo,
+        query: action.payload.query,
+      },
+    }),
+  },
+  initialState
+);
 
 export default playListReducer;

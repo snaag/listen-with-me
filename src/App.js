@@ -14,43 +14,29 @@ import MusicPage from './components/pages/music/containers/MusicPage';
 import PlayListPage from './components/pages/playlist/containers/PlayListPage';
 import ProfilePageContainer from './components/pages/profile/containers/ProfilePageContainer';
 import UserTab from './components/tabs/UserTab';
+import * as api from './api/app';
 import './css/Reset.css';
 
 class App extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { handleSignIn, handleReady, handleUserInfo } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (authorization) {
-      fetch(
-        'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/user/token',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: authorization,
-          },
-          credentials: 'include',
+      try {
+        const { status, data } = await api.maintainSignIn(authorization);
+        if (status === 200 && data.email) {
+          handleUserInfo(data);
+          handleSignIn();
+          handleReady();
         }
-      )
-        .then(res => {
-          if (res.status === 200) {
-            return res.json();
-          } else {
-            localStorage.removeItem('authorization');
-            handleReady(true);
-          }
-        })
-        .then(info => {
-          if (info.email) {
-            handleUserInfo(info);
-            handleSignIn(true);
-            handleReady(true);
-          }
-        })
-        .catch(err => console.log(err));
+      } catch (err) {
+        localStorage.removeItem('authorization');
+        handleReady();
+        console.log(err);
+      }
     } else {
-      handleReady(true);
+      handleReady();
     }
   }
 

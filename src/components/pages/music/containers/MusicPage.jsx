@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleModalOpen: isModalOpen => {
-      return dispatch(setIsModalOpen(isModalOpen));
+      return dispatch(setIsModalOpen({ isModalOpen }));
     },
   };
 };

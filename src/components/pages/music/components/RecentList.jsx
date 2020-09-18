@@ -2,117 +2,6 @@ import React, { Component } from 'react';
 import RecentAndLikedEntry from './RecentAndLikedEntry';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-let fakeData = [
-  {
-    id: 1,
-    title: 'hellohellohellohellohellohellohello',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 7,
-    likeAmount: 10,
-    audienceAmount: 101,
-  },
-  {
-    id: 2,
-    title: '헬로헬로헬로헬로헬로헬로헬헬로헬로헬로헬',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 3,
-    title: 'hello',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 7,
-    likeAmount: 10,
-    audienceAmount: 101,
-  },
-  {
-    id: 4,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 5,
-    title: 'worldodsnafoind oifnoiansdfoinweoinfoinqwioefnoiqwneoin',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 6,
-    title: 'hello',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 7,
-    likeAmount: 10,
-    audienceAmount: 101,
-  },
-  {
-    id: 7,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 8,
-    title: 'hello',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 7,
-    likeAmount: 10,
-    audienceAmount: 101,
-  },
-  {
-    id: 9,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 10,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 11,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-  {
-    id: 12,
-    title: 'world',
-    thumbnail:
-      'https://bioritmefestival.org/wp-content/uploads/2017/11/img-test.png',
-    user_id: 8,
-    likeAmount: 9,
-    audienceAmount: 231,
-  },
-];
-
 class RecentList extends Component {
   state = {
     recentList: [],
@@ -160,7 +49,7 @@ class RecentList extends Component {
 
   componentDidMount() {
     // 기록
-    localStorage.setItem('recentList', JSON.stringify(fakeData));
+    // localStorage.setItem('recentList', JSON.stringify(fakeData));
     // 가져오기
     this.getRecentList();
   }

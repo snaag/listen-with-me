@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import * as api from '../../../../api/main';
 
 class SearchUser extends Component {
   handlePressEnter(key) {
@@ -8,44 +9,30 @@ class SearchUser extends Component {
     }
   }
 
-  listenAlong() {
+  async listenAlong() {
     const { isSignIn, nickname, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (isSignIn) {
       if (nickname) {
-        fetch(
-          'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/along',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: authorization,
-            },
-            body: JSON.stringify({
-              nickname: nickname,
-            }),
-            credentials: 'include',
+        try {
+          const { status, data } = await api.listenAlong(
+            nickname,
+            authorization
+          );
+
+          if (status === 200) {
+            localStorage.setItem('isHost', false);
+            localStorage.setItem('roomId', data.id);
+            history.push('/listen');
+          } else if (status === 202) {
+            alert('해당 유저가 방을 열지 않았습니다.');
+          } else {
+            alert('해당 유저를 찾을 수 없습니다.');
           }
-        )
-          .then(res => {
-            console.dir(res);
-            if (res.status === 200) {
-              return res.json();
-            } else if (res.status === 202) {
-              alert('해당 유저가 방을 열지 않았습니다.');
-            } else {
-              alert('해당 유저를 찾을 수 없습니다.');
-            }
-          })
-          .then(room => {
-            if (room) {
-              localStorage.setItem('isHost', false);
-              localStorage.setItem('roomId', room.id);
-              history.push('/listen');
-            }
-          })
-          .catch(err => console.log(err));
+        } catch (err) {
+          console.log(err);
+        }
       } else {
         alert('유저를 입력해 주세요.');
       }
@@ -54,38 +41,24 @@ class SearchUser extends Component {
     }
   }
 
-  listenRandom() {
+  async listenRandom() {
     const { isSignIn, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (isSignIn) {
-      fetch(
-        'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/randomlist',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: authorization,
-          },
-          credentials: 'include',
+      try {
+        const { status, data } = await api.listenRandom(authorization);
+
+        if (status === 200) {
+          localStorage.setItem('isHost', false);
+          localStorage.setItem('roomId', data.room_id);
+          history.push('/listen');
+        } else {
+          alert('열려있는 방이 없습니다.');
         }
-      )
-        .then(res => {
-          console.dir(res);
-          if (res.status === 200) {
-            return res.json();
-          } else {
-            alert('열려있는 방이 없습니다.');
-          }
-        })
-        .then(room => {
-          if (room) {
-            localStorage.setItem('isHost', false);
-            localStorage.setItem('roomId', room.room_id);
-            this.props.history.push('/listen');
-          }
-        })
-        .catch(err => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       alert('로그인이 필요한 서비스입니다.');
     }

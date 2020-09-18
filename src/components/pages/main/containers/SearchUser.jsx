@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleNickname: nickname => {
-      return dispatch(setNickname(nickname));
+      return dispatch(setNickname({ nickname }));
     },
   };
 };

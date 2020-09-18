@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import searchYoutube from './SearchYoutube';
 import SearchMusicEntry from '../containers/SearchMusicEntry';
+import * as api from '../../../../api/youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SearchMusic extends Component {
-  searchMusic() {
+  async searchMusic() {
     const { searchInfo, handleMusic } = this.props;
-    searchYoutube(searchInfo, data => {
-      handleMusic(data);
-    });
+
+    try {
+      const { data } = await api.searchYouTube(searchInfo);
+      handleMusic(data.items);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   handlePressEnter(key) {

@@ -7,7 +7,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => {
   return {
     handleListTitle: list_title => {
-      return dispatch(setListTitle(list_title));
+      return dispatch(setListTitle({ list_title }));
     },
   };
 };

@@ -94,6 +94,12 @@ body {
   text-align: center;
 }
 
+.isReady_loading {
+  position: relative;
+  top: 1em;
+  font-size: 2em;
+}
+
 .renderListMain_entry {
   position: relative;
   display: inline-block;

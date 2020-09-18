@@ -41,6 +41,13 @@
   transform: translate(-50%);
 }
 
+.myPlayList_notice {
+  position: relative;
+  color: rgba(255, 255, 255, 255);
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .myPlayList_entry {
   position: relative;
   display: inline-block;

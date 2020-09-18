@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as api from '../../../../api/playList';
 
 class MyPlayListEntry extends Component {
   state = {
@@ -20,9 +21,7 @@ class MyPlayListEntry extends Component {
   }
 
   hideEditButton() {
-    const {
-      listEntry: { id },
-    } = this.props;
+    const { listEntry } = this.props;
     const { title } = this.state;
 
     let saveTitle = title;
@@ -30,7 +29,7 @@ class MyPlayListEntry extends Component {
     root.addEventListener('click', e => {
       const { classList, nodeName, className } = e.target;
       if (
-        classList[1] !== `number${id}` &&
+        classList[1] !== `number${listEntry.id}` &&
         classList[0] !== 'myPlayList_entry-deleteButton' &&
         classList[3] !== 'times-circle' &&
         nodeName !== 'path' &&
@@ -43,69 +42,59 @@ class MyPlayListEntry extends Component {
     });
   }
 
-  completeButton(e) {
+  async completeButton(e) {
     const authorization = localStorage.getItem('authorization') || '';
-    const { id, title } = this.props.listEntry;
+    const { listEntry } = this.props;
+    const { title } = this.state;
+
     if (e.key === 'Enter') {
-      fetch(
-        `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist?id=${id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: authorization,
-          },
-          body: JSON.stringify({
-            title: this.state.title,
-          }),
-          credentials: 'include',
+      try {
+        const { status } = await api.editPlayListTitle(
+          listEntry.id,
+          title,
+          authorization
+        );
+
+        if (status === 200) {
+          this.handleState('title', title);
+          this.hideEditButton();
+          this.handleState('buttonDisplay', false);
         }
-      )
-        .then(res => {
-          if (res.status === 200) {
-            this.handleState('title', this.state.title);
-            this.hideEditButton();
-            this.handleState('buttonDisplay', false);
-          }
-        })
-        .catch(err => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
-  deleteRoom() {
+  async deleteRoom() {
     const authorization = localStorage.getItem('authorization') || '';
-    const { id } = this.props.listEntry;
-    fetch(
-      `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist?id=${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: authorization,
-        },
-        credentials: 'include',
+    const { listEntry, deleteList } = this.props;
+
+    try {
+      const { status } = await api.deletePlayList(listEntry.id, authorization);
+
+      if (status === 204) {
+        deleteList(listEntry.id);
       }
-    )
-      .then(res => {
-        console.log(id, res);
-        if (res.status === 204) {
-          this.props.deleteList(id);
-        }
-      })
-      .catch(err => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   createRoom() {
+    const { listEntry, history } = this.props;
+
     if (window.confirm('방을 생성 하시겠습니까?')) {
-      const { id } = this.props.listEntry;
       localStorage.setItem('isHost', true);
-      localStorage.setItem('playListId', id);
-      this.props.history.push('/listen');
+      localStorage.setItem('playListId', listEntry.id);
+      history.push('/listen');
     }
   }
 
   componentDidMount() {
-    this.handleState('title', this.props.listEntry.title);
+    const { listEntry } = this.props;
+
+    this.handleState('title', listEntry.title);
   }
 
   render() {

@@ -347,37 +347,27 @@ export const updateDescription = description => {
   };
 };
 
+//.. singin 유지
 const SET_MAINTAIN_SIGNIN = 'user/SET_MAINTAIN_SIGNIN';
 const SET_ISREADY = 'user/SET_ISREADY';
 const SET_USERINFO = 'user/SET_USERINFO';
 
-export const maintainSignIn = isSignIn => ({
-  type: SET_MAINTAIN_SIGNIN,
-  isSignIn,
-});
-
-export const setReady = isReady => ({
-  type: SET_ISREADY,
-  isReady,
-});
-
-export const setUserInfo = info => ({
-  type: SET_USERINFO,
-  info,
-});
+export const maintainSignIn = createAction(SET_MAINTAIN_SIGNIN);
+export const setReady = createAction(SET_ISREADY);
+export const setUserInfo = createAction(SET_USERINFO, info => info);
 
 // reducer
 const userReducer = handleActions(
   //.. signin 유지
   {
-    [SET_MAINTAIN_SIGNIN]: (prevState, action) => ({
+    [SET_MAINTAIN_SIGNIN]: prevState => ({
       ...prevState,
       status: {
         ...prevState.status,
         isSignIn: true,
       },
     }),
-    [SET_ISREADY]: (prevState, action) => ({
+    [SET_ISREADY]: prevState => ({
       ...prevState,
       status: {
         ...prevState.status,
@@ -388,10 +378,10 @@ const userReducer = handleActions(
       ...prevState,
       info: {
         ...prevState.info,
-        email: action.info.email,
-        nickname: action.info.nickname,
-        profileURL: action.info.profileURL,
-        description: action.info.profileDescription,
+        email: action.payload.info.email,
+        nickname: action.payload.info.nickname,
+        profileURL: action.payload.info.profileURL,
+        description: action.payload.info.profileDescription,
       },
     }),
     //.. signin
