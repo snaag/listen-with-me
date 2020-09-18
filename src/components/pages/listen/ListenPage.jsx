@@ -23,7 +23,6 @@ const ListenPage = ({
   history,
 }) => {
   const authorization = localStorage.getItem('authorization');
-  // const [rId, setRId] = useState(localStorage.getItem('roomId'));
   let socket = io.connect(BASE_URL);
 
   const getMusics = async playListId => {
@@ -41,7 +40,6 @@ const ListenPage = ({
       if (status === 200) {
         console.log('getMusics 성공');
 
-        // updateMusics([...data]);
         return data;
       }
     } catch (error) {
@@ -136,6 +134,14 @@ const ListenPage = ({
   };
 
   useEffect(() => {
+    console.log('>> ListePage에서 메시지를 받았습니다');
+
+    socket.on('closeRoom', ({ playlist_id }) => {
+      console.log(`${playlist_id} 가 닫겼습니다! 더 들으실건가요?`);
+    });
+  });
+
+  useEffect(() => {
     const isHost = localStorage.getItem('isHost');
     console.log('isHost:', isHost);
 
@@ -171,13 +177,12 @@ const ListenPage = ({
 
     const finalizeRoom = async () => {
       if (isHost === 'true') {
-        console.log('>제가 만든 방을 삭제합니다<');
-
-        // 1. 다른 게스트들에게 메시지 보냄
-        socket.emit('closeRoom', { playlist_id: rId });
-        // 2. 방을 삭제함
         const roomId = localStorage.getItem('roomId');
-        // setRId(roomId);
+        console.log(`>제가 만든 방(${roomId})을 삭제합니다<`);
+
+        // 1. 다른 게스트들에게 메시지 보낸다
+        socket.emit('closeRoom', { playlist_id: roomId });
+        // 2. 방을 삭제함
         destroyRoom(roomId);
       } else {
         console.log('>게스트가 방을 나갑니다<');
@@ -186,8 +191,7 @@ const ListenPage = ({
     initialzeRoom();
 
     return () => {
-      finalizeRoom();
-      setRoomId(-1);
+      finalizeRoom().then(() => setRoomId(-1));
       // localStorage.removeItem('roomId');
       // localStorage.removeItem('playListId');
       // localStorage.removeItem('isHost');
