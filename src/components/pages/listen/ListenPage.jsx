@@ -20,6 +20,7 @@ const ListenPage = ({
   history,
 }) => {
   const authorization = localStorage.getItem('authorization');
+  const [rId, setRId] = useState();
 
   const getMusics = async playListId => {
     try {
@@ -166,6 +167,7 @@ const ListenPage = ({
         console.log('>제가 만든 방을 삭제합니다<');
 
         const roomId = localStorage.getItem('roomId');
+        setRId(roomId);
         destroyRoom(roomId);
       } else {
         console.log('>게스트가 방을 나갑니다<');
@@ -192,7 +194,11 @@ const ListenPage = ({
         <div className="col-4 interaction">
           {isAlong && <ChatContainer />}
           {!isAlong && (
-            <PlayList musics={musics} updateCurrentMusic={updateCurrentMusic} />
+            <PlayList
+              musics={musics}
+              updateCurrentMusic={updateCurrentMusic}
+              roomId={rId}
+            />
           )}
         </div>
       </div>
