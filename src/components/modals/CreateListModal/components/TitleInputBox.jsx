@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class TitleInputBox extends Component {
   render() {
     const { handleListTitle } = this.props;
+
     return (
       <div className="createListModal_content_titleInputBox">
         <input

@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import MyPlayListEntry from './MyPlayListEntry';
+import * as api from '../../../../api/playList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class MyPlayList extends Component {
+  state = {
+    isReady: false,
+  };
+
+  handleState(key, value) {
+    this.setState({
+      [key]: value,
+    });
+  }
+
   deleteList(id) {
     const { myPlayList, handleMyPlayList } = this.props;
 
@@ -13,38 +25,47 @@ class MyPlayList extends Component {
     handleMyPlayList(newPlayList);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { handleMyPlayList } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
-    fetch(
-      'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/user',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: authorization,
-        },
-        credentials: 'include',
-      }
-    )
-      .then(res => res.json())
-      .then(myPlayList => handleMyPlayList(myPlayList))
-      .catch(err => console.log(err));
+
+    try {
+      const { data } = await api.getPlayList(authorization);
+      handleMyPlayList(data);
+      this.handleState('isReady', true);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
     const { myPlayList } = this.props;
+    const { isReady } = this.state;
 
     return (
       <div className="myPlayList">
-        <div className="myPlayList_content">
-          {myPlayList.map(listEntry => (
-            <MyPlayListEntry
-              key={listEntry.id}
-              listEntry={listEntry}
-              deleteList={this.deleteList.bind(this)}
+        <div
+          className={
+            myPlayList.length ? 'myPlayList_content' : 'myPlayList_notice'
+          }
+        >
+          {myPlayList.length ? (
+            myPlayList.map(listEntry => (
+              <MyPlayListEntry
+                key={listEntry.id}
+                listEntry={listEntry}
+                deleteList={this.deleteList.bind(this)}
+              />
+            ))
+          ) : !isReady ? (
+            <FontAwesomeIcon
+              className="isReady_loading"
+              icon={['fa', 'spinner']}
+              pulse
             />
-          ))}
+          ) : (
+            '작성한 플레이 리스트가 없습니다.'
+          )}
         </div>
       </div>
     );

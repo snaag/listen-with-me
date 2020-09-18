@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleMyPlayList: myPlayList => {
-      return dispatch(setMyPlayList(myPlayList));
+      return dispatch(setMyPlayList({ myPlayList }));
     },
   };
 };

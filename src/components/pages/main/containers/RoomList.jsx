@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleLikedList: likedList => {
-      return dispatch(setLikedList(likedList));
+      return dispatch(setLikedList({ likedList }));
     },
   };
 };

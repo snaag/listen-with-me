@@ -9,14 +9,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSignIn: isSignIn => {
-      return dispatch(maintainSignIn(isSignIn));
+    handleSignIn: () => {
+      return dispatch(maintainSignIn());
     },
-    handleReady: isReady => {
-      return dispatch(setReady(isReady));
+    handleReady: () => {
+      return dispatch(setReady());
     },
     handleUserInfo: info => {
-      return dispatch(setUserInfo(info));
+      return dispatch(setUserInfo({ info }));
     },
   };
 };

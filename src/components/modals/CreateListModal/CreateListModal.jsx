@@ -4,6 +4,7 @@ import TitleInputBox from './containers/TitleInputBox';
 import MusicStackBox from './containers/MusicStackBox';
 import SearchMusic from './containers/SearchMusic';
 import Modal from 'react-bootstrap/Modal';
+import * as api from '../../../api/playList';
 
 class CreateListModal extends Component {
   closeModal() {
@@ -33,7 +34,7 @@ class CreateListModal extends Component {
     }
   }
 
-  createList() {
+  async createList() {
     const authorization = localStorage.getItem('authorization') || '';
     const {
       isModalOpen,
@@ -46,52 +47,35 @@ class CreateListModal extends Component {
       handleListTitle,
       handleMyPlayList,
     } = this.props;
+
     if (!list_title) {
       alert('제목을 입력해주세요.');
     } else if (!entries.length) {
       alert('음악을 추가해주세요.');
     } else {
-      fetch(
-        'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: authorization,
-          },
-          body: JSON.stringify({
-            list_title: list_title,
-            entries: entries,
-          }),
-          credentials: 'include',
-        }
-      )
-        .then(res => {
-          if (res.status === 201) {
-            alert('play list가 생성 되었습니다.');
-            handleEntries([]);
-            handleMusic('');
-            handleQuery('');
-            handleListTitle('');
-            handleModalOpen(!isModalOpen);
-            // api요청
-            fetch(
-              'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist/user',
-              {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                  authorization: authorization,
-                },
-                credentials: 'include',
-              }
-            )
-              .then(res => res.json())
-              .then(myPlayList => handleMyPlayList(myPlayList))
-              .catch(err => console.log(err));
+      try {
+        const { status } = await api.createPlayList(
+          list_title,
+          entries,
+          authorization
+        );
+        if (status === 201) {
+          alert('play list가 생성 되었습니다.');
+          handleEntries([]);
+          handleMusic('');
+          handleQuery('');
+          handleListTitle('');
+          handleModalOpen(!isModalOpen);
+          try {
+            const { data } = await api.getPlayList(authorization);
+            handleMyPlayList(data);
+          } catch (err) {
+            console.log(err);
           }
-        })
-        .catch(err => console.log(err));
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 

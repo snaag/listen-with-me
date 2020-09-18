@@ -64,6 +64,11 @@
   margin-bottom: 3em;
 }
 
+.musicLikedList_loading {
+  position: relative;
+  font-size: 1.2em;
+}
+
 .recentAndLikedEntry_content,
 .recentUserEntry_content {
   position: relative;

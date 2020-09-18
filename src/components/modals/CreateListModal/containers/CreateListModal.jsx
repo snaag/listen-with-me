@@ -18,25 +18,22 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleModalOpen: isModalOpen => {
-      return dispatch(setIsModalOpen(isModalOpen));
+      return dispatch(setIsModalOpen({ isModalOpen }));
     },
     handleListTitle: list_title => {
-      return dispatch(setListTitle(list_title));
+      return dispatch(setListTitle({ list_title }));
     },
     handleEntries: entries => {
-      return dispatch(setEntries(entries));
+      return dispatch(setEntries({ entries }));
     },
     handleMusic: music => {
-      return dispatch(setMusic(music));
+      return dispatch(setMusic({ music }));
     },
     handleQuery: query => {
-      return dispatch(setQuery(query));
-    },
-    handleListTitle: list_title => {
-      return dispatch(setListTitle(list_title));
+      return dispatch(setQuery({ query }));
     },
     handleMyPlayList: myPlayList => {
-      return dispatch(setMyPlayList(myPlayList));
+      return dispatch(setMyPlayList({ myPlayList }));
     },
   };
 };

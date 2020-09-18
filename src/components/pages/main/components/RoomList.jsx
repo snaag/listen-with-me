@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import RoomListEntry from './RoomListEntry';
+import * as api from '../../../../api/main';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomList extends Component {
-  componentDidMount() {
+  state = {
+    isReady: false,
+  };
+
+  handleState(key, value) {
+    this.setState({
+      [key]: value,
+    });
+  }
+
+  async componentDidMount() {
     const { handleLikedList } = this.props;
 
-    fetch(
-      `http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000/playlist`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      }
-    )
-      .then(res => res.json())
-      .then(likedList => {
-        handleLikedList(likedList);
-      })
-      .catch(err => console.log(err));
+    try {
+      const { data } = await api.getOpenRoom();
+      handleLikedList(data);
+      this.handleState('isReady', true);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
     const { isSignIn, likedList } = this.props;
+    const { isReady } = this.state;
 
     return (
       <div className="renderListMain">
@@ -34,15 +39,23 @@ class RoomList extends Component {
               : 'renderListMain_notice'
           }
         >
-          {likedList.length
-            ? likedList.map(listEntry => (
-                <RoomListEntry
-                  key={listEntry.id}
-                  isSignIn={isSignIn}
-                  listEntry={listEntry}
-                />
-              ))
-            : '열려있는 방이 없습니다.'}
+          {likedList.length ? (
+            likedList.map(listEntry => (
+              <RoomListEntry
+                key={listEntry.id}
+                isSignIn={isSignIn}
+                listEntry={listEntry}
+              />
+            ))
+          ) : !isReady ? (
+            <FontAwesomeIcon
+              className="isReady_loading"
+              icon={['fa', 'spinner']}
+              pulse
+            />
+          ) : (
+            '열려있는 방이 없습니다.'
+          )}
         </div>
       </div>
     );

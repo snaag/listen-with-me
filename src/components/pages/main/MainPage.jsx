@@ -6,8 +6,18 @@ import '../../../css/Main.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class MainPage extends Component {
+  modalOpen() {
+    const { isSignIn, isModalOpen, handleModalOpen } = this.props;
+
+    if (isSignIn) {
+      handleModalOpen(!isModalOpen);
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
+  }
+
   render() {
-    const { isModalOpen, handleModalOpen } = this.props;
+    const { isModalOpen } = this.props;
 
     return (
       <div className="mainPage">
@@ -15,7 +25,7 @@ class MainPage extends Component {
         <RoomList />
         <button
           className="playListPage_modalButton"
-          onClick={() => handleModalOpen(!isModalOpen)}
+          onClick={() => this.modalOpen()}
         >
           <FontAwesomeIcon icon={['fas', 'plus']} />
         </button>

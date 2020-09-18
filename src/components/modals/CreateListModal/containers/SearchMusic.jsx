@@ -10,10 +10,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     handleMusic: music => {
-      return dispatch(setMusic(music));
+      return dispatch(setMusic({ music }));
     },
     handleQuery: query => {
-      return dispatch(setQuery(query));
+      return dispatch(setQuery({ query }));
     },
   };
 };
