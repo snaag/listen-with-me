@@ -6,14 +6,14 @@ import AlongContainer from '../containers/AlongContainer';
 
 import '../../../../css/ListenMenu.css';
 
-const Menu = () => {
+const Menu = ({ playlistId }) => {
   return (
     <div className="container-fluid menu">
       <div className="row">
         <div className="col">
           <div className="row">
             <Audience />
-            <Like />
+            <Like playlistId={playlistId} />
           </div>
         </div>
         <div className="col">

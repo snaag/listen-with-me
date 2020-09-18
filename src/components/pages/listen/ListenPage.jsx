@@ -235,7 +235,10 @@ const ListenPage = ({
     <div className="container-fluid listen-page">
       <div className="row">
         <div className="col-8">
-          <Menu audienceAmount={audienceAmount} />
+          <Menu
+            audienceAmount={audienceAmount}
+            playlistId={localStorage.getItem('playListId')}
+          />
           {currentMusicId > -1 && (
             <VideoView
               isAlong={isAlong}

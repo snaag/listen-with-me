@@ -54,3 +54,37 @@ export const getMusics = async (playListId, authorization) =>
       id: playListId,
     },
   });
+
+export const getLikeStatus = async (playlist_id, authorization) =>
+  axios.get(`${BASE_URL}/likedlist`, {
+    headers: {
+      authorization,
+    },
+    params: {
+      id: playlist_id,
+    },
+  });
+
+export const setLikeStatus = async (playlist_id, authorization) =>
+  axios({
+    url: `${BASE_URL}/likelist`,
+    method: 'PATCH',
+    params: {
+      id: playlist_id,
+    },
+    headers: {
+      authorization,
+    },
+  });
+
+export const removeLikeStatus = async (playlist_id, authorization) =>
+  axios({
+    url: `${BASE_URL}/unlikelist`,
+    method: 'PATCH',
+    params: {
+      id: playlist_id,
+    },
+    headers: {
+      authorization,
+    },
+  });
