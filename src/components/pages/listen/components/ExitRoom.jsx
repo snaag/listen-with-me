@@ -8,7 +8,7 @@ const ExitRoom = ({ finalizeRoom, history }) => {
     if (result) {
       finalizeRoom();
       localStorage.removeItem('isHost');
-      history.push('/playlist');
+      history.push('/');
     }
   };
   return (

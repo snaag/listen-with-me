@@ -225,9 +225,10 @@ const ListenPage = ({
     socket.emit('joinRoom', { playlist_id: roomId, user_nickname: name });
 
     return () => {
-      finalizeRoom();
+      // finalizeRoom();
       // localStorage.removeItem('roomId');
       // localStorage.removeItem('playListId');
+      console.log('방이 닫겨있는가?', isClosed);
       localStorage.removeItem('isHost');
     };
     // eslint-disable-next-line
