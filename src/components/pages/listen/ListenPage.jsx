@@ -138,6 +138,7 @@ const ListenPage = ({
 
     socket.on('closeRoom', ({ playlist_id }) => {
       console.log(`${playlist_id} 가 닫겼습니다! 더 들으실건가요?`);
+      // yes or no alert 띄우기
     });
   });
 
