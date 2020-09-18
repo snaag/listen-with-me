@@ -109,6 +109,23 @@ const ListenPage = ({
     }
   };
 
+  const finalizeRoom = async () => {
+    if (isHost) {
+      const roomId = localStorage.getItem('roomId');
+      console.log(`>제가 만든 방(${roomId})을 삭제합니다<`);
+
+      // 1. 다른 게스트들에게 메시지 보낸다
+      socket.emit('closeRoom', { playlist_id: roomId });
+      // 2. 방을 삭제함
+      destroyRoom(roomId);
+    } else {
+      console.log('>게스트가 방을 나갑니다<');
+    }
+    // 정보 초기화
+    setRoomId(-1);
+    updateCurrentMusicId(-1);
+  };
+
   useEffect(() => {
     socket.on('closeRoom', ({ playlist_id }) => {
       console.log(
@@ -188,6 +205,7 @@ const ListenPage = ({
         localStorage.setItem('playListId', playlist_id);
 
         /*
+        // 현재 청취자 수 가져오는 API
         const result = await room.getCurrentListener(
           playlist_id,
           authorization
@@ -202,22 +220,6 @@ const ListenPage = ({
       }
     };
 
-    const finalizeRoom = async () => {
-      if (isHost) {
-        const roomId = localStorage.getItem('roomId');
-        console.log(`>제가 만든 방(${roomId})을 삭제합니다<`);
-
-        // 1. 다른 게스트들에게 메시지 보낸다
-        socket.emit('closeRoom', { playlist_id: roomId });
-        // 2. 방을 삭제함
-        destroyRoom(roomId);
-      } else {
-        console.log('>게스트가 방을 나갑니다<');
-      }
-      // 정보 초기화
-      setRoomId(-1);
-      updateCurrentMusicId(-1);
-    };
     initialzeRoom();
     const roomId = localStorage.getItem('roomId');
     socket.emit('joinRoom', { playlist_id: roomId, user_nickname: name });
@@ -226,7 +228,7 @@ const ListenPage = ({
       finalizeRoom();
       // localStorage.removeItem('roomId');
       // localStorage.removeItem('playListId');
-      // localStorage.removeItem('isHost');
+      localStorage.removeItem('isHost');
     };
     // eslint-disable-next-line
   }, []);
@@ -236,6 +238,7 @@ const ListenPage = ({
       <div className="row">
         <div className="col-8">
           <Menu
+            finalizeRoom={finalizeRoom}
             audienceAmount={audienceAmount}
             playlistId={localStorage.getItem('playListId')}
           />
