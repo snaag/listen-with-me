@@ -2,14 +2,23 @@ import React from 'react';
 
 import PlayListEntry from './PlayListEntry';
 
-const PlayList = ({ musics, updateCurrentMusic }) => {
+const PlayList = ({
+  musics,
+  updateCurrentMusicId,
+  isAlong,
+  roomId,
+  isHost,
+}) => {
   return (
     <div className="play-list">
-      {musics.map(music => (
+      {Object.keys(musics).map(key => (
         <PlayListEntry
-          key={music.id}
-          music={music}
-          updateCurrentMusic={updateCurrentMusic}
+          key={musics[key].id}
+          music={musics[key]}
+          updateCurrentMusicId={updateCurrentMusicId}
+          isAlong={isAlong}
+          roomId={roomId}
+          isHost={isHost}
         />
       ))}
     </div>

@@ -14,7 +14,6 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    console.log('chatScrollRef', chatScrollRef);
     // const playlist_id = localStorage.getItem('roomId');
     const playlist_id = roomId;
     console.log(`방에 입장 시 roomId: ${roomId}`);
@@ -29,7 +28,6 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
 
   useEffect(() => {
     // 메시지를 받아서 화면에 띄워주는 부분
-    console.log('메시지를 받았습니다!');
 
     socket.on(
       'chatMessage',
@@ -37,6 +35,13 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
         addChat({ user_nickname, message, time });
       }
     );
+
+    socket.on('closeRoom', ({ playlist_id }) => {
+      console.log(
+        `!!![Chat.jsx] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?`
+      );
+      // yes or no alert 띄우기
+    });
 
     chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
   });
@@ -114,41 +119,24 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
   );
 
   const renderChat = () =>
-    chats.map(
-      ({ user_nickname, message, time }, index) =>
-        user_nickname === 'Bot' ? (
-          <ChatFromBot message={message} />
-        ) : user_nickname === name ? (
-          <ChatFromMe
-            key={index}
-            user_nickname={user_nickname}
-            message={message}
-            time={time}
-          />
-        ) : (
-          <ChatFromOther
-            key={index}
-            user_nickname={user_nickname}
-            message={message}
-            time={time}
-          />
-        )
-
-      // user_nickname === name ? (
-      // <ChatFromMe
-      //   key={index}
-      //   user_nickname={user_nickname}
-      //   message={message}
-      //   time={time}
-      // />
-      // ) : (
-      // <ChatFromOther
-      //   key={index}
-      //   user_nickname={user_nickname}
-      //   message={message}
-      //   time={time}
-      // />
-      // )
+    chats.map(({ user_nickname, message, time }, index) =>
+      user_nickname === 'Bot' ? (
+        <ChatFromBot message={message} />
+      ) : user_nickname === name ? (
+        <ChatFromMe
+          key={index}
+          user_nickname={user_nickname}
+          message={message}
+          time={time}
+        />
+      ) : (
+        <ChatFromOther
+          key={index}
+          user_nickname={user_nickname}
+          message={message}
+          time={time}
+        />
+      )
     );
 
   return (

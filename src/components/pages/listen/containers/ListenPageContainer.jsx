@@ -3,16 +3,25 @@ import { useSelector } from 'react-redux';
 import useActions from '../../../../lib/useActions';
 
 import ListenPage from '../ListenPage';
-import { updateCurrentMusic, updateMusics } from '../../../../modules/music';
+import {
+  updateCurrentMusicId,
+  updateMusics,
+  playNextMusic,
+} from '../../../../modules/music';
 import { setRoomId } from '../../../../modules/room';
 
 const ListenPageContainer = () => {
   const { isAlong } = useSelector(({ along }) => along);
   const { roomId } = useSelector(({ room }) => room);
-  const { currentMusic, musics } = useSelector(({ music }) => music);
+  const { musics, currentMusicId } = useSelector(({ music }) => music);
 
-  const [onUpdateCurrentMusic, onUpdateMusics, onSetRoomId] = useActions(
-    [updateCurrentMusic, updateMusics, setRoomId],
+  const [
+    onUpdateCurrentMusicId,
+    onUpdateMusics,
+    onSetRoomId,
+    onPlayNextMusic,
+  ] = useActions(
+    [updateCurrentMusicId, updateMusics, setRoomId, playNextMusic],
     []
   );
 
@@ -20,11 +29,12 @@ const ListenPageContainer = () => {
     <ListenPage
       isAlong={isAlong}
       rId={roomId}
-      currentMusic={currentMusic}
+      currentMusicId={currentMusicId}
       musics={musics}
-      updateCurrentMusic={onUpdateCurrentMusic}
       updateMusics={onUpdateMusics}
       setRoomId={onSetRoomId}
+      playNextMusic={onPlayNextMusic}
+      updateCurrentMusicId={onUpdateCurrentMusicId}
     />
   );
 };
