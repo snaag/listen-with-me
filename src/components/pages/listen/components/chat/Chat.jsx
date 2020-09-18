@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
 import '../../../../../css/Chat.css';
@@ -10,20 +10,24 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
   let socket = io.connect(BASE_URL);
 
+  const chatScrollRef = useRef(null);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     // const playlist_id = localStorage.getItem('roomId');
     const playlist_id = roomId;
+    console.log(`방에 입장 시 roomId: ${roomId}`);
+
     socket.emit('joinRoom', { playlist_id, user_nickname: name });
     // eslint-disable-next-line
   }, []);
 
+  // useEffect(() => {
+  //   console.log('roomId가 업데이트 되었습니다', roomId);
+  // }, [roomId]);
+
   useEffect(() => {
     // 메시지를 받아서 화면에 띄워주는 부분
-    // const playlist_id = localStorage.getItem('roomId');
-    // const playlist_id = roomId;
-    console.log('메시지를 받았습니다!');
 
     socket.on(
       'chatMessage',
@@ -31,6 +35,15 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
         addChat({ user_nickname, message, time });
       }
     );
+
+    socket.on('closeRoom', ({ playlist_id }) => {
+      console.log(
+        `!!![Chat.jsx] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?`
+      );
+      // yes or no alert 띄우기
+    });
+
+    chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
   });
 
   useEffect(() => {
@@ -79,24 +92,57 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
     setMessage('');
   };
 
-  const renderChat = () =>
-    chats.map(({ name, message }, index) => (
-      <div key={index}>
-        <h3>
-          {name}: <span>{message}</span>
-        </h3>
+  const ChatFromOther = ({ user_nickname, message, time }) => (
+    <div className="chat__content chat__other">
+      <h1 className="chat__sender">{user_nickname}</h1>
+      <div className="chat__text">
+        <div className="chat__message">{message}</div>
+        <span className="chat__time">{time}</span>
       </div>
-    ));
+    </div>
+  );
+
+  const ChatFromMe = ({ user_nickname, message, time }) => (
+    <div className="chat__content chat__me">
+      <h1 className="chat__sender">{user_nickname}</h1>
+      <div className="chat__text">
+        <span className="chat__message">{message}</span>
+        <div className="chat__time">{time}</div>
+      </div>
+    </div>
+  );
+
+  const ChatFromBot = ({ message }) => (
+    <div className="chat__content chat__bot">
+      <span className="chat__message">{message}</span>
+    </div>
+  );
+
+  const renderChat = () =>
+    chats.map(({ user_nickname, message, time }, index) =>
+      user_nickname === 'Bot' ? (
+        <ChatFromBot message={message} />
+      ) : user_nickname === name ? (
+        <ChatFromMe
+          key={index}
+          user_nickname={user_nickname}
+          message={message}
+          time={time}
+        />
+      ) : (
+        <ChatFromOther
+          key={index}
+          user_nickname={user_nickname}
+          message={message}
+          time={time}
+        />
+      )
+    );
 
   return (
     <div className="chat">
-      {/* <div className="render-chat">{renderChat()}</div> */}
-      <div className="chat__list">
-        <ul>
-          {chats.map(chat => (
-            <li>{`${chat.user_nickname}: ${chat.message}`}</li>
-          ))}
-        </ul>
+      <div className="chat__list" ref={chatScrollRef}>
+        {renderChat()}
       </div>
       <form onSubmit={onMessageSubmit}>
         <div className="chat__inner">

@@ -3,24 +3,57 @@ import { useSelector } from 'react-redux';
 import useActions from '../../../../lib/useActions';
 
 import ListenPage from '../ListenPage';
-import { updateCurrentMusic, updateMusics } from '../../../../modules/music';
+import {
+  updateCurrentMusicId,
+  updateMusics,
+  playNextMusic,
+} from '../../../../modules/music';
+import {
+  setRoomId,
+  setIsClosed,
+  setWantToStay,
+} from '../../../../modules/room';
 
 const ListenPageContainer = () => {
+  const { info } = useSelector(({ user }) => user);
   const { isAlong } = useSelector(({ along }) => along);
-  const { currentMusic, musics } = useSelector(({ music }) => music);
+  const { roomId, isClosed, wantToStay } = useSelector(({ room }) => room);
+  const { musics, currentMusicId } = useSelector(({ music }) => music);
 
-  const [onUpdateCurrentMusic, onUpdateMusics] = useActions(
-    [updateCurrentMusic, updateMusics],
+  const [
+    onUpdateCurrentMusicId,
+    onUpdateMusics,
+    onSetRoomId,
+    onPlayNextMusic,
+    onSetIsClosed,
+    onSetWantToStay,
+  ] = useActions(
+    [
+      updateCurrentMusicId,
+      updateMusics,
+      setRoomId,
+      playNextMusic,
+      setIsClosed,
+      setWantToStay,
+    ],
     []
   );
 
   return (
     <ListenPage
+      name={info.nickname}
       isAlong={isAlong}
-      currentMusic={currentMusic}
+      rId={roomId}
+      isClosed={isClosed}
+      wantToStay={wantToStay}
+      currentMusicId={currentMusicId}
       musics={musics}
-      updateCurrentMusic={onUpdateCurrentMusic}
       updateMusics={onUpdateMusics}
+      setRoomId={onSetRoomId}
+      playNextMusic={onPlayNextMusic}
+      updateCurrentMusicId={onUpdateCurrentMusicId}
+      setIsClosed={onSetIsClosed}
+      setWantToStay={onSetWantToStay}
     />
   );
 };

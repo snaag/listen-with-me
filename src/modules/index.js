@@ -6,6 +6,7 @@ import mainReducer from './main';
 import playListReducer from './playList';
 import chatReducer from './chat';
 import musicReducer from './music';
+import roomReducer from './room';
 
 export default combineReducers({
   user: userReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   playList: playListReducer,
   chat: chatReducer,
   music: musicReducer,
+  room: roomReducer,
 });
