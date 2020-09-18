@@ -107,23 +107,48 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
     </div>
   );
 
+  const ChatFromBot = ({ message }) => (
+    <div className="chat__content chat__bot">
+      <span className="chat__message">{message}</span>
+    </div>
+  );
+
   const renderChat = () =>
-    chats.map(({ user_nickname, message, time }, index) =>
-      user_nickname === name ? (
-        <ChatFromMe
-          key={index}
-          user_nickname={user_nickname}
-          message={message}
-          time={time}
-        />
-      ) : (
-        <ChatFromOther
-          key={index}
-          user_nickname={user_nickname}
-          message={message}
-          time={time}
-        />
-      )
+    chats.map(
+      ({ user_nickname, message, time }, index) =>
+        user_nickname === 'Bot' ? (
+          <ChatFromBot message={message} />
+        ) : user_nickname === name ? (
+          <ChatFromMe
+            key={index}
+            user_nickname={user_nickname}
+            message={message}
+            time={time}
+          />
+        ) : (
+          <ChatFromOther
+            key={index}
+            user_nickname={user_nickname}
+            message={message}
+            time={time}
+          />
+        )
+
+      // user_nickname === name ? (
+      // <ChatFromMe
+      //   key={index}
+      //   user_nickname={user_nickname}
+      //   message={message}
+      //   time={time}
+      // />
+      // ) : (
+      // <ChatFromOther
+      //   key={index}
+      //   user_nickname={user_nickname}
+      //   message={message}
+      //   time={time}
+      // />
+      // )
     );
 
   return (
