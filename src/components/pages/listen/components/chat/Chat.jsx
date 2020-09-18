@@ -15,14 +15,18 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
   useEffect(() => {
     // const playlist_id = localStorage.getItem('roomId');
     const playlist_id = roomId;
+    console.log(`방에 입장 시 roomId: ${roomId}`);
+
     socket.emit('joinRoom', { playlist_id, user_nickname: name });
     // eslint-disable-next-line
   }, []);
 
+  // useEffect(() => {
+  //   console.log('roomId가 업데이트 되었습니다', roomId);
+  // }, [roomId]);
+
   useEffect(() => {
     // 메시지를 받아서 화면에 띄워주는 부분
-    // const playlist_id = localStorage.getItem('roomId');
-    // const playlist_id = roomId;
     console.log('메시지를 받았습니다!');
 
     socket.on(

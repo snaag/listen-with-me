@@ -158,6 +158,7 @@ const ListenPage = ({
         // 1. 방의 음악 정보를 불러온다
         console.log('>제가 만든 방이 아닙니다<');
         const roomId = localStorage.getItem('roomId');
+        setRoomId(roomId);
         console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
         const { playlist_id } = await getRoomStatus(roomId);
         const list = await getMusics(playlist_id);
@@ -186,6 +187,7 @@ const ListenPage = ({
 
     return () => {
       finalizeRoom();
+      setRoomId(-1);
       // localStorage.removeItem('roomId');
       // localStorage.removeItem('playListId');
       // localStorage.removeItem('isHost');
@@ -201,7 +203,7 @@ const ListenPage = ({
           <VideoView music={currentMusic} />
         </div>
         <div className="col-4 interaction">
-          {isAlong && <ChatContainer />}
+          {isAlong && rId > -1 && <ChatContainer />}
           {!isAlong && (
             <PlayList
               musics={musics}
