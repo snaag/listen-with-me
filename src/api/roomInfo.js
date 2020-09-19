@@ -2,10 +2,11 @@ import axios from 'axios';
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
+// add, remove 모두 주소 바뀜
 export const getCurrentListener = async (playlist_id, authorization) =>
-  axios.get(`${BASE_URL}/room/listener`, {
-    data: {
-      playlist_id,
+  axios.get(`${BASE_URL}/room/listener/playlist`, {
+    params: {
+      id: playlist_id,
     },
     headers: {
       authorization,
@@ -22,6 +23,7 @@ export const getRoomStatus = async (roomId, authorization) =>
     },
   });
 
+// 1.
 export const createRoom = async (playlist_id, authorization) =>
   axios.post(
     `${BASE_URL}/room`,
@@ -45,6 +47,7 @@ export const destroyRoom = async (roomId, authorization) =>
     },
   });
 
+// 2.
 export const getMusics = async (playListId, authorization) =>
   axios.get(`${BASE_URL}/music`, {
     headers: {

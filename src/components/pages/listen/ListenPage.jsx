@@ -32,18 +32,24 @@ const ListenPage = ({
   const authorization = localStorage.getItem('authorization');
   let socket = io.connect(BASE_URL);
   const isHost = JSON.parse(localStorage.getItem('isHost'));
-  const [audienceAmount, setAudienceAmount] = useState();
+  const [listenerAmount, setListenerAmount] = useState();
 
   const getMusics = async playListId => {
+    const reducer = (acc, curr) => {
+      const id = curr.id;
+      acc[id] = curr;
+      return acc;
+    };
+
     try {
       console.log('getMusics 시작... playListId:', playListId);
 
       const { data, status } = await room.getMusics(playListId, authorization);
-      if (status === 200) {
-        console.log('getMusics 성공');
 
-        return data;
-      }
+      console.log('getMusics 성공, data:', data, data.length);
+      console.log('가장 첫번째 곡의 id', data[0].id);
+
+      return { list: data.reduce(reducer, {}), fisrtMusicId: data[0].id };
     } catch (error) {
       console.log(
         `해당 플레이리스트(${playListId})에 대한 음악들 불러오기 실패`
@@ -84,7 +90,7 @@ const ListenPage = ({
       // return result;
     } catch (error) {
       console.log('destroyRoom 실패');
-      console.log(error.response);
+      console.log(error);
       return false;
     }
   };
@@ -97,14 +103,12 @@ const ListenPage = ({
       if (status === 201) {
         console.log('createRoom 성공');
         return data.id;
-      } else {
-        console.log(status, data);
-        console.log('createRoom 실패');
       }
     } catch (error) {
       console.log('createRoom 실패');
       const { response } = error;
       const { status } = response;
+      console.log(response);
       if (status === 409) throw error;
     }
   };
@@ -155,12 +159,6 @@ const ListenPage = ({
       }
     };
 
-    const reducer = (acc, curr) => {
-      const id = curr.id;
-      acc[id] = curr;
-      return acc;
-    };
-
     const initialzeRoom = async () => {
       if (isHost) {
         console.log('>제가 만든 방 입니다<');
@@ -175,22 +173,30 @@ const ListenPage = ({
           setRoomId(roomId);
           localStorage.setItem('roomId', roomId);
           // 2. 방의 음악 정보를 불러온다
-          const list = await getMusics(playListId);
+          const { list, fisrtMusicId } = await getMusics(playListId);
+          console.log(`얻어오는 list입니다: ${list}`);
 
-          updateMusics(list.reduce(reducer, {}));
-          getCurrentListener(playListId);
-          updateCurrentMusicId(list[0].id);
+          updateMusics(list);
+          updateCurrentMusicId(fisrtMusicId);
+          // getCurrentListener(playListId);
         } catch (error) {
-          console.log('방 생성 중 문제가 발생했습니다');
-          console.log(error.response);
-          const { status } = error.response;
+          console.log('>>>>>', error);
+          const { response } = error;
+          const { status } = response;
           if (status === 409) {
-            console.log('이미 중복된 방입니다. 방을 삭제하려 합니다...');
-            // confilict시 방 id 받아오기
-            // 그리고 받아온 방 아이디로, 그 방 삭제하기
-            // >>ERR
-            alert('문제가 발생했습니다. 다시 시도해주세요.');
-            history.push('/playlist');
+            const { room_id } = error.response.data;
+            console.log(
+              `---이미 ${room_id}번으로 열려있는 방입니다. 방을 삭제하려 합니다...---`
+            );
+            const destroyResult = await destroyRoom(room_id);
+            console.log('destroyResult:', destroyResult);
+            const roomId = await createRoom(playListId);
+            setRoomId(roomId);
+            console.log('roomId:', roomId);
+            const { list, fisrtMusicId } = await getMusics(playListId);
+            console.log('list:', list);
+            updateMusics(list);
+            updateCurrentMusicId(fisrtMusicId);
           }
         }
       } else {
@@ -201,22 +207,13 @@ const ListenPage = ({
         setRoomId(roomId);
         console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
         const { playlist_id } = await getRoomStatus(roomId);
-        const list = await getMusics(playlist_id);
+        const { list, fisrtMusicId } = await getMusics(playlist_id);
         localStorage.setItem('playListId', playlist_id);
 
-        /*
-        // 현재 청취자 수 가져오는 API
-        const result = await room.getCurrentListener(
-          playlist_id,
-          authorization
-        );
-        console.log('getCurrentListener:', result);
-        */
-        // >>ERR pending
-
-        updateMusics(list.reduce(reducer, {}));
-        getCurrentListener(playlist_id);
-        updateCurrentMusicId(list[0].id);
+        updateMusics(list);
+        const result = await getCurrentListener(playlist_id);
+        setListenerAmount(result);
+        updateCurrentMusicId(fisrtMusicId);
       }
     };
 
@@ -228,8 +225,8 @@ const ListenPage = ({
       // finalizeRoom();
       // localStorage.removeItem('roomId');
       // localStorage.removeItem('playListId');
-      console.log('방이 닫겨있는가?', isClosed);
-      localStorage.removeItem('isHost');
+      // localStorage.removeItem('isHost');
+      updateCurrentMusicId(-1);
     };
     // eslint-disable-next-line
   }, []);
@@ -240,14 +237,14 @@ const ListenPage = ({
         <div className="col-8">
           <Menu
             finalizeRoom={finalizeRoom}
-            audienceAmount={audienceAmount}
+            listenerAmount={listenerAmount}
             playlistId={localStorage.getItem('playListId')}
           />
           {currentMusicId > -1 && (
             <VideoView
               isAlong={isAlong}
               isHost={isHost}
-              music={musics[currentMusicId]}
+              currentMusicId={currentMusicId}
               playNextMusic={playNextMusic}
               roomId={rId}
             />

@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
 
-const VideoView = ({ music, roomId, isAlong, isHost, playNextMusic }) => {
+const VideoView = ({
+  currentMusicId,
+  roomId,
+  isAlong,
+  isHost,
+  playNextMusic,
+}) => {
+  const { musics } = useSelector(({ music }) => music);
+  const music = musics[currentMusicId];
   console.log('video view에 넘어온 music의 정보:', music);
   console.log('video view에 넘어온 roomId의 정보:', roomId);
   const { artist, musicURL, thumbnails, title } = music;
