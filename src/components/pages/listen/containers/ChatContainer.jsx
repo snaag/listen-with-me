@@ -5,7 +5,7 @@ import useActions from '../../../../lib/useActions';
 import Chat from '../components/chat/Chat';
 import { addChat, setChat } from '../../../../modules/chat';
 
-const ChatContainer = () => {
+const ChatContainer = ({ sendChat }) => {
   const { nickname, profileURL } = useSelector(({ user }) => user.info);
   const { chats } = useSelector(({ chat }) => chat);
   const { roomId } = useSelector(({ room }) => room);
@@ -20,6 +20,7 @@ const ChatContainer = () => {
       addChat={onAddChat}
       setChat={onSetChat}
       roomId={roomId}
+      sendChat={sendChat}
     />
   );
 };

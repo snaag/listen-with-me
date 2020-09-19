@@ -1,68 +1,63 @@
 import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
 
 import '../../../../../css/Chat.css';
 // 유저의 아이디로, 어떤 유저가 말 한 것인지에 따라 말풍선 다르게 해주기
 
-const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
+const Chat = ({
+  // socket,
+  name,
+  profileURL,
+  roomId,
+  chats,
+  addChat,
+  setChat,
+  sendChat,
+}) => {
   // const playlist_id = localStorage.getItem('roomId');
-  const BASE_URL =
-    'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
-  let socket = io.connect(BASE_URL);
+  console.log('chat 에 넘어온 roomId: ', roomId);
+  // const BASE_URL =
+  //   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
+  // let socket = io.connect(BASE_URL);
 
   const chatScrollRef = useRef(null);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    console.log('joined는?', localStorage.getItem('joined'));
     // const playlist_id = localStorage.getItem('roomId');
     const playlist_id = roomId;
     console.log(`방에 입장 시 roomId: ${roomId}`);
 
-    socket.emit('joinRoom', { playlist_id, user_nickname: name });
+    // socket.emit('joinChatRoom', { playlist_id, user_nickname: name });
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   console.log('roomId가 업데이트 되었습니다', roomId);
-  // }, [roomId]);
+  /*
 
   useEffect(() => {
     // 메시지를 받아서 화면에 띄워주는 부분
-
-    socket.on(
-      'chatMessage',
-      ({ playlist_id, user_nickname, message, time }) => {
-        addChat({ user_nickname, message, time });
-      }
-    );
-
-    socket.on('closeRoom', ({ playlist_id }) => {
-      console.log(
-        `!!![Chat.jsx] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?`
-      );
-      // yes or no alert 띄우기
+    socket.on('chatMessage', response => {
+      const { playlist_id, user_nickname, message, time } = response;
+      console.log('새로운 메시지를 받았습니다!');
+      addChat({ user_nickname, message, time });
+      // chatScrollRef.current.scrollTop =
+      //   chatScrollRef.current.scrollHeight - 300;
     });
-
-    chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
-  });
+    // eslint-disable-next-line
+  }, []);
+  */
 
   useEffect(() => {
     //
     console.log('>>', chats);
+    chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
   }, [chats]);
 
   useEffect(() => {
+    // setChat([]);
     return () => {
       // 채팅방을 나갔을 때
-      // [LIFECYCLE] component will unmount
-      // const playlist_id = localStorage.getItem('roomId');
-      const playlist_id = roomId;
-
       setChat([]);
-      socket.emit('disconnectChat', { user_nickname: name, playlist_id });
-      socket.close();
-
-      // socket.disconnect({ user_nickname: name, playlist_id });
     };
     // eslint-disable-next-line
   }, []);
@@ -83,7 +78,12 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
     e.preventDefault();
     console.log('메시지를 보낼 때');
 
-    socket.emit('chatMessage', {
+    // socket.emit('chatMessage', {
+    // user_nickname: name,
+    // message,
+    // playlist_id,
+    // });
+    sendChat({
       user_nickname: name,
       message,
       playlist_id,
