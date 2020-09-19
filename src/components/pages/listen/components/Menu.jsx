@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Audience from './Audience';
 import Like from './Like';
 import AlongContainer from '../containers/AlongContainer';
 import ExitRoom from './ExitRoom';
@@ -13,7 +12,6 @@ const Menu = ({ playlistId, listenerAmount, finalizeRoom }) => {
         <div className="col">
           <div className="row">
             <ExitRoom finalizeRoom={finalizeRoom} />
-            <Audience listenerAmount={listenerAmount} />
             <Like playlistId={playlistId} />
           </div>
         </div>
