@@ -30,6 +30,10 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
 
       /*
       try {
+        console.log('currentMusic 시작...');
+        console.log(
+          `currentMusic으로 보낼 데이터: id: ${roomId}, music_id: ${id}`
+        );
         const result = await axios({
           url: `${BASE_URL}/room`,
           method: 'PATCH',
@@ -44,11 +48,14 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
           },
         });
         console.log(result);
+        console.log('currentMusic 성공');
       } catch (error) {
         console.log(error);
+        console.log('currentMusic 실패');
       }
-      >>ERR currentMusicListener set을 할 수 없다 (현재 참여자 수)
       */
+      // >>ERR currentMusic set을 할 수 없다 (현재 참여자 수)
+
       updateCurrentMusicId(id);
     } else {
       console.log('>>Guest가 음악을 바꿉니다<<');
