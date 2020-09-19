@@ -5,20 +5,24 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import AppContainer from './AppContainer';
+import dotenv from 'dotenv';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
-import rootReducer from './modules/index';
+import createSagaMiddleware from 'redux-saga';
 
-import dotenv from 'dotenv';
+import rootReducer, { rootSaga } from './modules/index';
+
+const sagaMiddleware = createSagaMiddleware();
 dotenv.config();
 
 library.add(fab, fas, far);
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(reduxThunk))
+  composeWithDevTools(applyMiddleware(reduxThunk, sagaMiddleware))
 );
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
