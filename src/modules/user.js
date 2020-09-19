@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
+import { put, call, takeLatest, takeEvery, delay } from 'redux-saga/effects';
 
 import * as api from '../api/user';
+import { setSignInInactive } from './modal';
 
 const authorization = localStorage.getItem('authorization');
 
@@ -22,26 +24,31 @@ const initialState = {
 
 // action type
 //.. signin
+const SIGNIN_START = 'user/SIGNIN_START';
 const SIGNIN_REQUEST = 'user/SIGNIN_REQUEST';
 const SIGNIN_SUCCESS = 'user/SIGNIN_SUCCESS';
 const SIGNIN_FAILURE = 'user/SIGNIN_FAILURE';
 
 //.. signup
+const SIGNUP_START = 'user/SIGNUP_START';
 const SIGNUP_REQUEST = 'user/SIGNUP_REQUEST';
 const SIGNUP_SUCCESS = 'user/SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'user/SIGNUP_FAILURE';
 
 //.. signout
+const SIGNOUT_START = 'user/SIGNOUT_START';
 const SIGNOUT_REQUEST = 'user/SIGNOUT_REQUEST';
 const SIGNOUT_SUCCESS = 'user/SIGNOUT_SUCCESS';
 const SIGNOUT_FAILURE = 'user/SIGNOUT_FAILURE';
 
 //.. audience
+const AUDIENCE_AMOUNT_START = 'user/info/AUDIENCE_AMOUNT_START';
 const AUDIENCE_AMOUNT_REQUEST = 'user/info/AUDIENCE_AMOUNT_REQUEST';
 const AUDIENCE_AMOUNT_SUCCESS = 'user/info/AUDIENCE_AMOUNT_SUCCESS';
 const AUDIENCE_AMOUNT_FAILURE = 'user/info/AUDIENCE_AMOUNT_FAILURE';
 
 //.. like amount
+const LIKE_AMOUNT_START = 'user/info/LIKE_AMOUNT_START';
 const LIKE_AMOUNT_REQUEST = 'user/info/LIKE_AMOUNT_REQUEST';
 const LIKE_AMOUNT_SUCCESS = 'user/info/LIKE_AMOUNT_SUCCESS';
 const LIKE_AMOUNT_FAILURE = 'user/info/LIKE_AMOUNT_FAILURE';
@@ -71,9 +78,9 @@ const signInSuccess = createAction(SIGNIN_SUCCESS, data => data);
 const signInFailure = createAction(SIGNIN_FAILURE);
 
 //.. signup
-export const signUpRequest = createAction(SIGNUP_REQUEST);
-export const signUpSuccess = createAction(SIGNUP_SUCCESS, data => data);
-export const signUpFailure = createAction(SIGNUP_FAILURE);
+const signUpRequest = createAction(SIGNUP_REQUEST);
+const signUpSuccess = createAction(SIGNUP_SUCCESS, data => data);
+const signUpFailure = createAction(SIGNUP_FAILURE);
 
 //.. signout
 const signOutRequest = createAction(SIGNOUT_REQUEST);
@@ -123,6 +130,8 @@ const updateDescriptionFailure = createAction(UPDATE_DESCRIPTION_FAILURE);
 
 // action creator (async)
 //.. signin
+export const signIn = createAction(SIGNIN_START);
+/*
 export const signIn = signInData => {
   return async (dispatch, getState) => {
     dispatch(signInRequest());
@@ -141,17 +150,56 @@ export const signIn = signInData => {
           })
         );
         localStorage.setItem('authorization', authorization);
+        return true;
       } else {
         dispatch(signInFailure());
+        return false;
       }
     } catch (error) {
       console.log(error);
       dispatch(signInFailure());
+      return false;
     }
   };
 };
+*/
+
+function* signInSaga(action) {
+  yield put(signInRequest());
+  console.log('signInSaga 시작');
+  try {
+    const { headers, data, status } = yield call(api.signIn, action.payload);
+    console.log('signInSaga 진행 중');
+
+    const { email, nickname, profileDescription, profileURL } = data;
+    const { authorization } = headers;
+    yield put(
+      signInSuccess({
+        email,
+        nickname,
+        description: profileDescription,
+        profileURL,
+      })
+    );
+    localStorage.setItem('authorization', authorization);
+    yield put(setSignInInactive());
+  } catch (error) {
+    if (!!error.response) console.log(error.response);
+    else console.log(error);
+    alert('올바른 회원정보를 입력해주세요');
+
+    yield put(signInFailure());
+  }
+}
+
+// export function* userSaga() {
+//   yield takeLatest(SIGNIN_START, signInSaga);
+//   yield takeLatest(SIGNUP_START, signUpSaga);
+//   yield takeLatest(SIGNOUT_START, signOutSaga);
+// }
 
 //.. signup
+/*
 export const signUp = signUpData => {
   return async (dispatch, getState) => {
     dispatch(signUpRequest());
@@ -171,6 +219,31 @@ export const signUp = signUpData => {
     }
   };
 };
+*/
+
+export const signUp = createAction(SIGNUP_START, data => data);
+
+function* signUpSaga(action) {
+  yield put(signUpRequest());
+  try {
+    const { status, data } = yield call(api.signUp, action.payload);
+
+    if (status === 200) {
+      yield put(signUpSuccess());
+      // yield true;
+      // return true;
+    } else {
+      yield put(signUpFailure());
+      // yield false;
+      // return false;
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(signUpFailure());
+    // yield false;
+    // return false;
+  }
+}
 
 export const signUpOauth = (body, accessToken) => {
   return async (dispatch, getState) => {
@@ -228,6 +301,9 @@ export const signInOauth = (body, accessToken) => {
 };
 
 //.. signout
+export const signOut = createAction(SIGNOUT_START);
+
+/*
 export const signOut = () => {
   return (dispatch, getState) => {
     dispatch(signOutRequest());
@@ -246,7 +322,33 @@ export const signOut = () => {
     }, 500);
   };
 };
+*/
 
+function* signOutSaga() {
+  yield put(signOutRequest());
+  yield delay(500);
+
+  try {
+    const { status } = yield call(api.signOut, authorization);
+    if (status === 204) {
+      yield put(signOutSuccess());
+      localStorage.removeItem('authorization');
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(signOutFailure());
+  }
+}
+
+export function* userSaga() {
+  yield takeLatest(SIGNIN_START, signInSaga);
+  yield takeLatest(SIGNUP_START, signUpSaga);
+  yield takeLatest(SIGNOUT_START, signOutSaga);
+}
+
+export const getLikeAmount = createAction(LIKE_AMOUNT_START);
+export const getAudienceAmount = createAction(AUDIENCE_AMOUNT_START);
+/*
 export const getLikeAmount = () => {
   return async (dispatch, getState) => {
     dispatch(likeAmountRequest());
@@ -265,7 +367,27 @@ export const getLikeAmount = () => {
     }
   };
 };
+*/
 
+function* getLikeAmountSaga() {
+  yield put(likeAmountRequest());
+  try {
+    const { status, data } = yield call(api.getLikeAmount, authorization);
+    if (status === 200) {
+      const { likeAmount } = data;
+      yield put(likeAmountSuccess(likeAmount));
+      console.log('like amount:', likeAmount);
+    } else {
+      yield put(likeAmountFailure());
+    }
+  } catch (error) {
+    console.log(error);
+
+    yield put(likeAmountFailure());
+  }
+}
+
+/*
 export const getAudienceAmount = () => {
   return async (dispatch, getState) => {
     dispatch(audienceAmountRequest());
@@ -283,6 +405,29 @@ export const getAudienceAmount = () => {
     }
   };
 };
+*/
+
+function* getAudienceAmountSaga() {
+  yield put(audienceAmountRequest());
+  try {
+    const { status, data } = call(api.getAudienceAmount, authorization);
+    if (status === 200) {
+      const { audienceAmount } = data;
+      yield put(audienceAmountSuccess(audienceAmount));
+      console.log('audience amount:', audienceAmount);
+    } else {
+      yield put(audienceAmountFailure());
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(audienceAmountFailure());
+  }
+}
+
+export function* amountSaga() {
+  yield takeEvery(LIKE_AMOUNT_START, getLikeAmountSaga);
+  yield takeEvery(AUDIENCE_AMOUNT_START, getAudienceAmountSaga);
+}
 
 export const updateNickname = nickname => {
   return async (dispatch, getState) => {

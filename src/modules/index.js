@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
+import { all } from 'redux-saga/effects';
+
 import alongReducer from './along';
-import userReducer from './user';
+import userReducer, { userSaga, amountSaga } from './user';
 import modalReducer from './modal';
 import mainReducer from './main';
 import playListReducer from './playList';
@@ -18,3 +20,7 @@ export default combineReducers({
   music: musicReducer,
   room: roomReducer,
 });
+
+export function* rootSaga() {
+  yield all([userSaga(), amountSaga()]);
+}

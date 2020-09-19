@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../../modules/user';
 
 import '../../../css/Sign.css';
 
 const SignIn = ({ isActive, signIn, signInOauth, handleClose }) => {
+  const dispatch = useDispatch();
   const [info, setInfo] = useState({
     email: '',
     password: '',
@@ -16,10 +19,13 @@ const SignIn = ({ isActive, signIn, signInOauth, handleClose }) => {
       [e.target.id]: e.target.value,
     });
   };
-  const onSignInSubmit = e => {
+  const onSignInSubmit = async e => {
     e.preventDefault();
-    signIn(info);
-    handleClose();
+    dispatch(signIn(info));
+    // const result = dispatch(signIn(info));
+    // console.log(result);
+    // if (result) handleClose();
+    // else alert('올바를 회원정보를 입력해주세요');
   };
 
   const responseGoogle = async res => {

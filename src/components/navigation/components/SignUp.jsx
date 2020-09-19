@@ -118,14 +118,21 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   const onSignUpSubmit = async e => {
     const { email, password, nickname } = info;
     e.preventDefault();
-    const isSuccess = await signUp({
-      email,
-      password,
-      nickname,
-    });
 
-    if (isSuccess) handleClose();
-    else alert('회원가입에 실패하였습니다');
+    try {
+      const isSuccess = await signUp({
+        email,
+        password,
+        nickname,
+      });
+      console.log('sign-up-submit result:', isSuccess);
+
+      if (isSuccess) handleClose();
+      // else alert('회원가입에 실패하였습니다');
+    } catch (error) {
+      console.log('>error', error);
+      alert('회원가입에 실패하였습니다');
+    }
   };
 
   return (
