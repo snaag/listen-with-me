@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const BASE_URL =
@@ -14,8 +15,10 @@ const VideoView = ({
   isHost,
   playNextMusic,
 }) => {
+  const history = useHistory();
   let socket = io.connect(BASE_URL);
   const { musics } = useSelector(({ music }) => music);
+  const { isClosed, wantToStay } = useSelector(({ room }) => room);
   const music = musics[currentMusicId];
   // console.log('video view에 넘어온 music의 정보:', music);
   // console.log('video view에 넘어온 roomId의 정보:', roomId);
@@ -52,6 +55,11 @@ const VideoView = ({
       console.log('>>Host가 현재 곡을 다 들어서, 방의 다음 곡을 세팅합니다<<');
     } else {
       console.log('>>Guest가 현재 곡을 다 들어서, 다음 곡으로 넘어갑니다<<');
+      if (isClosed) {
+        console.log('방이 닫겼습니다');
+        alert('방이 닫겼습니다');
+        history.push('/');
+      }
     }
     playNextMusic();
   };

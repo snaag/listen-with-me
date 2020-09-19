@@ -210,13 +210,14 @@ const ListenPage = ({
       console.log(
         `!!![ListenPage] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?`
       );
-      const result = window.confirm(
-        '호스트가 방을 종료했습니다. \n듣던 곡 까지 들으시려면 [확인]을, 바로 나가시려면 [취소]를 눌러주세요.'
-      ); // true: 확인, false: 취소
-      setIsClosed(true);
-      setWantToStay(result);
-
-      if (!result) history.push('/playlist');
+      if (!isHost) {
+        const result = window.confirm(
+          '호스트가 방을 종료했습니다. \n듣던 곡 까지 들으시려면 [확인]을, 바로 나가시려면 [취소]를 눌러주세요.'
+        ); // true: 확인, false: 취소
+        setIsClosed(true);
+        setWantToStay(result);
+        if (!result) history.push('/playlist');
+      }
     });
 
     socket.on('chatMessage', response => {
