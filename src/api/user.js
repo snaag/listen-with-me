@@ -32,7 +32,7 @@ export const oauthSignIn = async (body, accessToken) =>
 // 유저의 정보와 관련한 api
 export const getLikeAmount = async authorization =>
   axios.get(`${BASE_URL}/user/profile/like`, {
-    headers: authorization,
+    headers: { authorization },
   });
 
 export const getAudienceAmount = async authorization =>
