@@ -115,7 +115,7 @@ const ListenPage = ({
 
   const finalizeRoom = async () => {
     if (isHost) {
-      const roomId = localStorage.getItem('roomId');
+      const roomId = rId;
       console.log(`>제가 만든 방(${roomId})을 삭제합니다<`);
 
       // 1. 다른 게스트들에게 메시지 보낸다
