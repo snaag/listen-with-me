@@ -8,11 +8,13 @@ const ExitRoom = ({ finalizeRoom, history }) => {
     if (isHost) {
       const result = window.confirm('방을 삭제하시겠습니까?');
       if (result) {
+        localStorage.setItem('joined', false);
         finalizeRoom();
         localStorage.removeItem('isHost');
         history.push('/');
       }
     } else {
+      localStorage.setItem('joined', false);
       finalizeRoom();
       history.push('/');
     }
