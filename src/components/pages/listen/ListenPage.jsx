@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import io from 'socket.io-client';
@@ -9,6 +10,7 @@ import ChatContainer from './containers/ChatContainer';
 import PlayList from './components/playlist/PlayList';
 import '../../../css/Listen.css';
 import * as room from '../../../api/roomInfo';
+import { setChat, addChat } from '../../../modules/chat';
 
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
@@ -30,8 +32,9 @@ const ListenPage = ({
   updateCurrentMusicId,
   history,
 }) => {
+  const dispatch = useDispatch();
   const authorization = localStorage.getItem('authorization');
-  let socket = io.connect(BASE_URL);
+  let socket = io.connect(BASE_URL, { forceNew: true });
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
 
@@ -165,7 +168,17 @@ const ListenPage = ({
     }
   };
 
+  const sendChat = data => {
+    socket.emit('chatMessage', data);
+  };
+
+  // ?? 다른 방에 있는 호스트가 방을 닫으면, 상관이 없는 게스트도
+  // 메시지를 받는 경우가 있지 않을까??
   const finalizeRoom = async () => {
+    dispatch(setChat([]));
+
+    // socket.close(); // log는 찍히지만, 클라이언트의 소켓이 끊어지지는 않는 듯
+    // socket.disconnect({ user_nickname: name, playlist_id: rId }); // disconnect message는 나오지만, 데이터는 안가ㅡㄴ듯
     localStorage.setItem('joined', false);
 
     if (isHost) {
@@ -182,6 +195,11 @@ const ListenPage = ({
       const playlist_id = localStorage.getItem('playListId');
       removeCurrentListener(playlist_id, authorization);
     }
+    socket.emit('leaveRoom', { user_nickname: name, playlist_id: rId });
+    socket.disconnect();
+    socket.close();
+    socket = null;
+
     // 정보 초기화
     setRoomId(-1);
     updateCurrentMusicId(-1);
@@ -200,6 +218,27 @@ const ListenPage = ({
 
       if (!result) history.push('/playlist');
     });
+
+    socket.on('chatMessage', response => {
+      const { playlist_id, user_nickname, message, time } = response;
+      console.log('새로운 메시지를 받았습니다!');
+      dispatch(addChat({ user_nickname, message, time }));
+      // chatScrollRef.current.scrollTop =
+      //   chatScrollRef.current.scrollHeight - 300;
+    });
+
+    socket.on('changeMusic', ({ playlist_id, music_info }) => {
+      if (!isHost) {
+        const { id, title } = music_info;
+        console.log(
+          `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악의 id는 ${id}, title은 ${title} / playlist_id는: ${playlist_id}`
+        );
+        updateCurrentMusicId(id);
+      }
+    });
+
+    // 추가한건데 잘 되나??
+    // eslint-disable-next-line
   });
 
   useEffect(() => {
@@ -218,6 +257,7 @@ const ListenPage = ({
     };
 
     const initialzeRoom = async () => {
+      dispatch(setChat([]));
       if (isHost) {
         console.log('>제가 만든 방 입니다<');
 
@@ -320,7 +360,7 @@ const ListenPage = ({
           )}
         </div>
         <div className="col-4 interaction">
-          {isAlong && rId > -1 && <ChatContainer />}
+          {isAlong && rId > -1 && <ChatContainer sendChat={sendChat} />}
           {!isAlong && (
             <PlayList
               musics={musics}
