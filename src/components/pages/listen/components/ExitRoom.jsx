@@ -3,11 +3,17 @@ import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ExitRoom = ({ finalizeRoom, history }) => {
+  const isHost = JSON.parse(localStorage.getItem('isHost'));
   const outFromRoom = () => {
-    const result = window.confirm('방을 삭제하시겠습니까?');
-    if (result) {
+    if (isHost) {
+      const result = window.confirm('방을 삭제하시겠습니까?');
+      if (result) {
+        finalizeRoom();
+        localStorage.removeItem('isHost');
+        history.push('/');
+      }
+    } else {
       finalizeRoom();
-      localStorage.removeItem('isHost');
       history.push('/');
     }
   };

@@ -34,6 +34,10 @@ const ListenPage = ({
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
 
+  const socketJoin = roomId => {
+    socket.emit('joinRoom', { playlist_id: roomId, user_nickname: name });
+  };
+
   const getMusics = async playListId => {
     const reducer = (acc, curr) => {
       const id = curr.id;
@@ -95,13 +99,40 @@ const ListenPage = ({
     }
   };
 
+  const addCurrentListener = async playlist_id => {
+    try {
+      console.log(
+        `청취자 수 증가(addCurrentListener) 시작, 보낼 데이터 playlist_id: ${playlist_id}`
+      );
+      const result = await room.addCurrentListener(playlist_id, authorization);
+      console.log('청취자 수 증가(addCurrentListener) 성공: ', result);
+    } catch (error) {
+      console.log(error);
+      console.log('청취자 수 증가(addCurrentListener) 실패');
+    }
+  };
+
+  const removeCurrentListener = async playlist_id => {
+    try {
+      console.log('청취자 수 감소(addCurrentListener) 시작');
+      const result = await room.removeCurrentListener(
+        playlist_id,
+        authorization
+      );
+      console.log('청취자 수 감소(addCurrentListener) 성공: ', result);
+    } catch (error) {
+      console.log(error);
+      console.log('청취자 수 감소(addCurrentListener) 실패');
+    }
+  };
+
   const createRoom = async playListId => {
     try {
       console.log('createRoom 시작... playListId:', playListId);
       const { data, status } = await room.createRoom(playListId, authorization);
 
       if (status === 201) {
-        console.log('createRoom 성공');
+        console.log('createRoom 성공, RoomId:', data.id);
         return data.id;
       }
     } catch (error) {
@@ -124,6 +155,9 @@ const ListenPage = ({
       destroyRoom(roomId);
     } else {
       console.log('>게스트가 방을 나갑니다<');
+      // 청취자 수를 감소시킨다
+      const playlist_id = localStorage.getItem('playListId');
+      removeCurrentListener(playlist_id, authorization);
     }
     // 정보 초기화
     setRoomId(-1);
@@ -149,11 +183,12 @@ const ListenPage = ({
     const getCurrentListener = async playlist_id => {
       console.log('getCurrentListener 시작');
       try {
-        const result = await room.getCurrentListener(
+        const { data } = await room.getCurrentListener(
           playlist_id,
           authorization
         );
-        console.log('getCurrentListener 성공:', result);
+        console.log('getCurrentListener 성공:', data);
+        return data.listeners;
       } catch (error) {
         console.log('getCurrentListener 실패:', error);
       }
@@ -171,14 +206,17 @@ const ListenPage = ({
           const roomId = await createRoom(playListId); // 이미 열려있던 방일 경우, 여기서 에러 발생해서 아래의 catch로 감
           console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
           setRoomId(roomId);
-          localStorage.setItem('roomId', roomId);
+          // localStorage.setItem('roomId', roomId);
           // 2. 방의 음악 정보를 불러온다
           const { list, fisrtMusicId } = await getMusics(playListId);
           console.log(`얻어오는 list입니다: ${list}`);
 
           updateMusics(list);
           updateCurrentMusicId(fisrtMusicId);
-          // getCurrentListener(playListId);
+          const result = await getCurrentListener(playListId);
+          setListenerAmount(result);
+          // socket join
+          socketJoin(roomId);
         } catch (error) {
           console.log('>>>>>', error);
           const { response } = error;
@@ -197,6 +235,10 @@ const ListenPage = ({
             console.log('list:', list);
             updateMusics(list);
             updateCurrentMusicId(fisrtMusicId);
+            const result = await getCurrentListener(playListId);
+            setListenerAmount(result);
+            // socket join
+            socketJoin(roomId);
           }
         }
       } else {
@@ -214,13 +256,14 @@ const ListenPage = ({
         const result = await getCurrentListener(playlist_id);
         setListenerAmount(result);
         updateCurrentMusicId(fisrtMusicId);
+        socketJoin(roomId);
+
+        // 2. 청취자 수를 증가시킨다
+        addCurrentListener(playlist_id, authorization);
       }
     };
 
     initialzeRoom();
-    const roomId = localStorage.getItem('roomId');
-    socket.emit('joinRoom', { playlist_id: roomId, user_nickname: name });
-
     return () => {
       // finalizeRoom();
       // localStorage.removeItem('roomId');
@@ -235,11 +278,14 @@ const ListenPage = ({
     <div className="container-fluid listen-page">
       <div className="row">
         <div className="col-8">
-          <Menu
-            finalizeRoom={finalizeRoom}
-            listenerAmount={listenerAmount}
-            playlistId={localStorage.getItem('playListId')}
-          />
+          {listenerAmount !== undefined && (
+            <Menu
+              finalizeRoom={finalizeRoom}
+              listenerAmount={listenerAmount}
+              playlistId={localStorage.getItem('playListId')}
+            />
+          )}
+
           {currentMusicId > -1 && (
             <VideoView
               isAlong={isAlong}

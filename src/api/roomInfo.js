@@ -13,6 +13,29 @@ export const getCurrentListener = async (playlist_id, authorization) =>
     },
   });
 
+export const addCurrentListener = async (playlist_id, authorization) =>
+  axios.post(
+    `${BASE_URL}/room/listener/playlist`,
+    {
+      id: playlist_id,
+    },
+    {
+      headers: {
+        authorization,
+      },
+    }
+  );
+
+export const removeCurrentListener = async (playlist_id, authorization) =>
+  axios.delete(`${BASE_URL}/room/listener/playlist`, {
+    headers: {
+      authorization,
+    },
+    params: {
+      id: playlist_id,
+    },
+  });
+
 export const getRoomStatus = async (roomId, authorization) =>
   axios.get(`${BASE_URL}/room`, {
     params: {

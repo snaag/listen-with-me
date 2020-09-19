@@ -46,9 +46,9 @@ const VideoView = ({
     };
     if (!isHost && isAlong) {
       // 따라듣고 있다면, 호스트의 현재 곡을 가져와서 재생합니다
-      console.log(
-        '>>Guest가 Host를 따라듣습니다. Guest는 Host의 현재 곡을 재생합니다<<'
-      );
+      // console.log(
+      //   '>>Guest가 Host를 따라듣습니다. Guest는 Host의 현재 곡을 재생합니다<<'
+      // );
       initializeView();
     }
   }, [isAlong, isHost, roomId]);

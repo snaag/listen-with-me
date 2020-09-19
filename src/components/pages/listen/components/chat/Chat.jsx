@@ -6,6 +6,7 @@ import '../../../../../css/Chat.css';
 
 const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
   // const playlist_id = localStorage.getItem('roomId');
+  console.log('chat 에 넘어온 roomId: ', roomId);
   const BASE_URL =
     'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
   let socket = io.connect(BASE_URL);
