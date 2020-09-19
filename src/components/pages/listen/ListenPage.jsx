@@ -345,7 +345,6 @@ const ListenPage = ({
           {listenerAmount !== undefined && (
             <Menu
               finalizeRoom={finalizeRoom}
-              listenerAmount={listenerAmount}
               playlistId={localStorage.getItem('playListId')}
             />
           )}

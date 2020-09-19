@@ -27,35 +27,6 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
     );
     if (isHost) {
       console.log('>>Host가 방의 음악을 바꿉니다<<');
-
-      /*
-      try {
-        console.log('currentMusic 시작...');
-        console.log(
-          `currentMusic으로 보낼 데이터: id: ${roomId}, music_id: ${id}`
-        );
-        const result = await axios({
-          url: `${BASE_URL}/room`,
-          method: 'PATCH',
-          params: {
-            id: roomId,
-          },
-          data: {
-            music_id: id,
-          },
-          headers: {
-            authorization,
-          },
-        });
-        console.log(result);
-        console.log('currentMusic 성공');
-      } catch (error) {
-        console.log(error);
-        console.log('currentMusic 실패');
-      }
-      */
-      // >>ERR currentMusic set을 할 수 없다 (현재 참여자 수)
-
       updateCurrentMusicId(id);
     } else {
       console.log('>>Guest가 음악을 바꿉니다<<');
@@ -63,14 +34,12 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
     }
   };
   return (
-    <div onClick={() => changeCurrentMusic()}>
-      <img
-        style={{ width: '50px', height: '50px' }}
-        src={thumbnails}
-        alt={title}
-      />
-      <span>{title}</span>
-      <span>{artist}</span>
+    <div className="play-list__inner" onClick={() => changeCurrentMusic()}>
+      <img src={thumbnails} alt={title} className="list-item__image" />
+      <div className="list-item__detail">
+        <span className="list-item__title">{title}</span>
+        <span className="list-item__artist">{artist}</span>
+      </div>
     </div>
   );
 };

@@ -6,5 +6,44 @@
 /* playlist */
 .play-list {
   margin-top: 0.5rem;
-  background-color: rgb(170, 170, 170);
+  /* background-color: rgb(170, 170, 170); */
+  height: 77.3vh;
+  overflow-y: scroll;
+  background: black;
+}
+
+.play-list__inner {
+  display: flex;
+  padding: 1rem 0.8rem;
+  border-bottom: 0.01rem solid rgb(46, 46, 46);
+}
+
+.play-list__inner:hover {
+  background: rgb(46, 46, 46);
+  cursor: pointer;
+}
+
+.play-list__inner .list-item__image {
+  display: block;
+  width: 7vw;
+  height: auto;
+}
+
+.play-list__inner .list-item__detail {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.list-item__detail .list-item__title {
+  font-weight: 800;
+  color: white;
+}
+
+.list-item__detail .list-item__artist {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgb(170, 170, 170);
 }
