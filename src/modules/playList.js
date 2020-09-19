@@ -7,7 +7,7 @@ const initialState = {
   entries: [],
   music: '',
   searchInfo: {
-    key: 'AIzaSyDnWENLbOv2iXF3sZHse_MjnRVrq-g-PBE',
+    key: process.env.REACT_APP_YOUTUBE_API_KEY,
     query: '',
     max: 3,
   },

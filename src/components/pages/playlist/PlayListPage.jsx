@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class PlayListPage extends Component {
   render() {
     const { isModalOpen, handleModalOpen } = this.props;
-    console.log(isModalOpen);
 
     return (
       <div className="playListPage">

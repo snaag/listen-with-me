@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MyPlayListEntry from './MyPlayListEntry';
+import MyPlayListEntry from '../containers/MyPlayListEntry';
 import * as api from '../../../../api/playList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

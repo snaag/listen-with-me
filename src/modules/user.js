@@ -352,7 +352,10 @@ const SET_MAINTAIN_SIGNIN = 'user/SET_MAINTAIN_SIGNIN';
 const SET_ISREADY = 'user/SET_ISREADY';
 const SET_USERINFO = 'user/SET_USERINFO';
 
-export const maintainSignIn = createAction(SET_MAINTAIN_SIGNIN);
+export const maintainSignIn = createAction(
+  SET_MAINTAIN_SIGNIN,
+  boolean => boolean
+);
 export const setReady = createAction(SET_ISREADY);
 export const setUserInfo = createAction(SET_USERINFO, info => info);
 
@@ -360,11 +363,11 @@ export const setUserInfo = createAction(SET_USERINFO, info => info);
 const userReducer = handleActions(
   //.. signin 유지
   {
-    [SET_MAINTAIN_SIGNIN]: prevState => ({
+    [SET_MAINTAIN_SIGNIN]: (prevState, action) => ({
       ...prevState,
       status: {
         ...prevState.status,
-        isSignIn: true,
+        isSignIn: action.payload.boolean,
       },
     }),
     [SET_ISREADY]: prevState => ({

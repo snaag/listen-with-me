@@ -22,21 +22,17 @@ class App extends Component {
     const { handleSignIn, handleReady, handleUserInfo } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
-    if (authorization) {
-      try {
-        const { status, data } = await api.maintainSignIn(authorization);
-        if (status === 200 && data.email) {
-          handleUserInfo(data);
-          handleSignIn();
-          handleReady();
-        }
-      } catch (err) {
-        localStorage.removeItem('authorization');
+    try {
+      const { status, data } = await api.maintainSignIn(authorization);
+      if (status === 200 && data.email) {
+        handleUserInfo(data);
+        handleSignIn(true);
         handleReady();
-        console.log(err);
       }
-    } else {
+    } catch (err) {
+      localStorage.removeItem('authorization');
       handleReady();
+      console.log(err);
     }
   }
 

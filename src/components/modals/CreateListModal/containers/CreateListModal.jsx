@@ -7,6 +7,7 @@ import {
   setQuery,
   setMyPlayList,
 } from '../../../../modules/playList';
+import { maintainSignIn } from '../../../../modules/user';
 import CreateListModal from '../CreateListModal';
 
 const mapStateToProps = state => ({
@@ -34,6 +35,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleMyPlayList: myPlayList => {
       return dispatch(setMyPlayList({ myPlayList }));
+    },
+    handleSignIn: boolean => {
+      return dispatch(maintainSignIn({ boolean }));
     },
   };
 };

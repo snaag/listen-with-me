@@ -46,6 +46,8 @@ class CreateListModal extends Component {
       handleQuery,
       handleListTitle,
       handleMyPlayList,
+      handleSignIn,
+      history,
     } = this.props;
 
     if (!list_title) {
@@ -74,6 +76,10 @@ class CreateListModal extends Component {
           }
         }
       } catch (err) {
+        alert('로그아웃 되었습니다.');
+        handleModalOpen(!isModalOpen);
+        handleSignIn(false);
+        history.push('/');
         console.log(err);
       }
     }

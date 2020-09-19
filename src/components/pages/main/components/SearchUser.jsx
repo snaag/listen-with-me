@@ -10,7 +10,7 @@ class SearchUser extends Component {
   }
 
   async listenAlong() {
-    const { isSignIn, nickname, history } = this.props;
+    const { isSignIn, nickname, handleSignIn, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (isSignIn) {
@@ -31,6 +31,8 @@ class SearchUser extends Component {
             alert('해당 유저를 찾을 수 없습니다.');
           }
         } catch (err) {
+          alert('로그아웃 되었습니다.');
+          handleSignIn(false);
           console.log(err);
         }
       } else {
@@ -42,7 +44,7 @@ class SearchUser extends Component {
   }
 
   async listenRandom() {
-    const { isSignIn, history } = this.props;
+    const { isSignIn, handleSignIn, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (isSignIn) {
@@ -57,6 +59,8 @@ class SearchUser extends Component {
           alert('열려있는 방이 없습니다.');
         }
       } catch (err) {
+        alert('로그아웃 되었습니다.');
+        handleSignIn(false);
         console.log(err);
       }
     } else {
