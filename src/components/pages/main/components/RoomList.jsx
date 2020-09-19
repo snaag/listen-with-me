@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RoomListEntry from './RoomListEntry';
+import RoomListEntry from '../containers/RoomListEntry';
 import * as api from '../../../../api/main';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,7 +14,7 @@ class RoomList extends Component {
     });
   }
 
-  async componentDidMount() {
+  async getOpenRoom() {
     const { handleLikedList } = this.props;
 
     try {
@@ -24,6 +24,15 @@ class RoomList extends Component {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  componentDidMount() {
+    this.getOpenRoom();
+    this.intervalOpenRoom = setInterval(this.getOpenRoom.bind(this), 600000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalOpenRoom);
   }
 
   render() {

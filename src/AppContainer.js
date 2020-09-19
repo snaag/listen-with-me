@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSignIn: () => {
-      return dispatch(maintainSignIn());
+    handleSignIn: boolean => {
+      return dispatch(maintainSignIn({ boolean }));
     },
     handleReady: () => {
       return dispatch(setReady());

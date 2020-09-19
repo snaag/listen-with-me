@@ -81,13 +81,21 @@ class MyPlayListEntry extends Component {
     }
   }
 
-  createRoom() {
-    const { listEntry, history } = this.props;
+  async createRoom() {
+    const { listEntry, history, handleSignIn } = this.props;
+    const authorization = localStorage.getItem('authorization') || '';
 
     if (window.confirm('방을 생성 하시겠습니까?')) {
-      localStorage.setItem('isHost', true);
-      localStorage.setItem('playListId', listEntry.id);
-      history.push('/listen');
+      try {
+        await api.getPlayList(authorization);
+        localStorage.setItem('isHost', true);
+        localStorage.setItem('playListId', listEntry.id);
+        history.push('/listen');
+      } catch (err) {
+        handleSignIn(false);
+        history.push('/');
+        console.log(err);
+      }
     }
   }
 

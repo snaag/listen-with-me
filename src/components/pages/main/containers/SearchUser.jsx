@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { setNickname } from '../../../../modules/main';
+import { maintainSignIn } from '../../../../modules/user';
 
 import SearchUser from '../components/SearchUser';
 
@@ -12,6 +13,9 @@ const mapDispatchToProps = dispatch => {
   return {
     handleNickname: nickname => {
       return dispatch(setNickname({ nickname }));
+    },
+    handleSignIn: boolean => {
+      return dispatch(maintainSignIn({ boolean }));
     },
   };
 };
