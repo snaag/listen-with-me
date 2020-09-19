@@ -19,7 +19,7 @@ const Chat = ({ name, profileURL, roomId, chats, addChat, setChat }) => {
     const playlist_id = roomId;
     console.log(`방에 입장 시 roomId: ${roomId}`);
 
-    socket.emit('joinRoom', { playlist_id, user_nickname: name });
+    socket.emit('joinChatRoom', { playlist_id, user_nickname: name });
     // eslint-disable-next-line
   }, []);
 

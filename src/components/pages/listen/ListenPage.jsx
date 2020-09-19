@@ -12,6 +12,7 @@ import * as room from '../../../api/roomInfo';
 
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
+localStorage.setItem('joined', false);
 
 const ListenPage = ({
   name,
@@ -34,9 +35,26 @@ const ListenPage = ({
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
 
-  const socketJoin = roomId => {
-    socket.emit('joinRoom', { playlist_id: roomId, user_nickname: name });
-  };
+  // const socketJoin = roomId => {
+  //   console.log('socket에 입장 메시지를 보냅니다...>>');
+  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
+  // };
+
+  // 문제점: joinRoom 메시지가 너무 많이 전송되었음
+  // 해결방법: useEffect 안에 구분자(joined) 를 두어, 이미 방에 참석했는지 여부에 따라 메시지 보내도록 함
+  useEffect(() => {
+    console.log('socket에 입장 메시지를 보냅니다...>');
+    const joined = JSON.parse(localStorage.getItem('joined'));
+    if (rId > 0 && !joined) {
+      localStorage.setItem('joined', true);
+      socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
+    }
+  }, [name, rId, socket]);
+
+  // useEffect(() => {
+  //   console.log('socket에 입장 메시지를 보냅니다...>');
+  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
+  // });
 
   const getMusics = async playListId => {
     const reducer = (acc, curr) => {
@@ -145,6 +163,8 @@ const ListenPage = ({
   };
 
   const finalizeRoom = async () => {
+    localStorage.setItem('joined', false);
+
     if (isHost) {
       const roomId = rId;
       console.log(`>제가 만든 방(${roomId})을 삭제합니다<`);
@@ -216,7 +236,7 @@ const ListenPage = ({
           const result = await getCurrentListener(playListId);
           setListenerAmount(result);
           // socket join
-          socketJoin(roomId);
+          // socketJoin(roomId);
         } catch (error) {
           console.log('>>>>>', error);
           const { response } = error;
@@ -238,7 +258,7 @@ const ListenPage = ({
             const result = await getCurrentListener(playListId);
             setListenerAmount(result);
             // socket join
-            socketJoin(roomId);
+            // socketJoin(roomId);
           }
         }
       } else {
@@ -256,7 +276,7 @@ const ListenPage = ({
         const result = await getCurrentListener(playlist_id);
         setListenerAmount(result);
         updateCurrentMusicId(fisrtMusicId);
-        socketJoin(roomId);
+        // socketJoin(roomId);
 
         // 2. 청취자 수를 증가시킨다
         addCurrentListener(playlist_id, authorization);
