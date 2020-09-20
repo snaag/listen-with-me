@@ -25,7 +25,8 @@ export const oauthSignUp = async (body, accessToken) =>
   });
 
 export const oauthSignIn = async (body, accessToken) =>
-  axios.post(`${BASE_URL}/user/oauth/google`, body, {
+  // axios.post(`${BASE_URL}/user/oauth/google`, body, {
+  axios.post(`${BASE_URL}/user/oauth/google-signin`, body, {
     headers: { accessToken },
   });
 

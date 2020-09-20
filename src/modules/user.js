@@ -158,7 +158,7 @@ export const signUp = signUpData => {
     try {
       const { status, data } = await api.signUp(signUpData);
 
-      if (status === 200) {
+      if (status === 201) {
         dispatch(signUpSuccess());
         return true;
       } else {
@@ -180,7 +180,7 @@ export const signUpOauth = (body, accessToken) => {
         body,
         accessToken
       );
-      if (status === 200) {
+      if (status === 201) {
         dispatch(signUpSuccess());
         return true;
       } else {
