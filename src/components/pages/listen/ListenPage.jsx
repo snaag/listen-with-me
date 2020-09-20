@@ -360,6 +360,7 @@ const ListenPage = ({
               currentMusicId={currentMusicId}
               playNextMusic={playNextMusic}
               roomId={rId}
+              finalizeRoom={finalizeRoom}
             />
           )}
         </div>

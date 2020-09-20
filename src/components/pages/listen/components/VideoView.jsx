@@ -19,10 +19,9 @@ const VideoView = ({
   let socket = io.connect(BASE_URL);
   const { musics } = useSelector(({ music }) => music);
   const { isClosed, wantToStay } = useSelector(({ room }) => room);
-  const music = musics[currentMusicId];
-  // console.log('video view에 넘어온 music의 정보:', music);
-  // console.log('video view에 넘어온 roomId의 정보:', roomId);
-  const { id, artist, musicURL, thumbnails, title } = music;
+  // music: id, artist, musicURL, thumbnails, title
+  const music = musics[currentMusicId] || musics[Object.keys(musics)[0]];
+  const { musicURL } = music;
 
   useEffect(() => {
     // 음악이 바뀌었다는 메시지 보내주기
