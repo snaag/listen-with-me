@@ -36,7 +36,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         info.password === info.checkPassword
       ) {
         // info에 내용이 있고, 모두 올바른 경우
-
         setIsSignUpAble(true);
       } else {
         // info에 내용이 올바르지 않은 경우
