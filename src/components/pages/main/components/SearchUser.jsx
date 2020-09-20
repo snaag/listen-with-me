@@ -16,30 +16,43 @@ class SearchUser extends Component {
   }
 
   async listenAlong() {
-    const { isSignIn, nickname, handleSignIn, history } = this.props;
+    const {
+      isSignIn,
+      nickname,
+      myNickname,
+      handleSignIn,
+      history,
+    } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
 
     if (isSignIn) {
       if (nickname) {
-        try {
-          const { status, data } = await api.listenAlong(
-            nickname,
-            authorization
-          );
+        if (nickname !== myNickname) {
+          try {
+            const { status, data } = await api.listenAlong(
+              nickname,
+              authorization
+            );
 
-          if (status === 200) {
-            localStorage.setItem('isHost', false);
-            localStorage.setItem('roomId', data.id);
-            history.push('/listen');
-          } else if (status === 202) {
-            alert('해당 유저가 방을 열지 않았습니다.');
-          } else {
-            alert('해당 유저를 찾을 수 없습니다.');
+            if (status === 200) {
+              localStorage.setItem('isHost', false);
+              localStorage.setItem('roomId', data.id);
+              history.push('/listen');
+            } else if (status === 202) {
+              alert('해당 유저가 방을 열지 않았습니다.');
+            }
+          } catch (err) {
+            const { status } = err.response;
+            if (status === 404) {
+              alert('해당 유저를 찾을 수 없습니다.');
+            } else {
+              alert('로그아웃 되었습니다.');
+              handleSignIn(false);
+            }
+            console.log(err);
           }
-        } catch (err) {
-          alert('로그아웃 되었습니다.');
-          handleSignIn(false);
-          console.log(err);
+        } else {
+          alert('본인 닉네임은 검색이 불가능합니다.');
         }
       } else {
         alert('유저를 입력해 주세요.');
