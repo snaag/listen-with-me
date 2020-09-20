@@ -16,6 +16,11 @@ class MainPage extends Component {
     }
   }
 
+  componentDidMount() {
+    localStorage.removeItem('playListId');
+    localStorage.removeItem('roomId');
+  }
+
   render() {
     const { isModalOpen } = this.props;
 
