@@ -8,7 +8,7 @@ const Along = ({ isAlong, updateIsAlong }) => {
   return (
     <>
       <div className="along">
-        <span className="along__title">채팅 하기</span>
+        <span className="along__title">같이 듣기</span>
         <div className="along__inner">
           <input
             type="checkbox"
