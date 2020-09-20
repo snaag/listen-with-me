@@ -153,7 +153,7 @@ const Chat = ({
             value={message}
             onChange={onTextChange}
           />
-          <button className="chat__send-button">전송</button>
+          {/* <button className="chat__send-button">전송</button> */}
         </div>
       </form>
     </div>
