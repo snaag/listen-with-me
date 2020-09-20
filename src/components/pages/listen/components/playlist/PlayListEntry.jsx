@@ -17,7 +17,7 @@ const PlayListEntry = ({ music, updateCurrentMusicId, isHost, roomId }) => {
   title: "K. - Cigarettes After Sex"
   updatedAt: "2020-09-16T08:12:51.000Z"
   */
-  console.log(music);
+  // console.log(music);
 
   const changeCurrentMusic = async () => {
     const authorization = localStorage.getItem('authorization');

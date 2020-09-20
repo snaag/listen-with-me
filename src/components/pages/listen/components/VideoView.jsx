@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import io from 'socket.io-client';
+
+import { updateCurrentMusicId } from '../../../../modules/music';
 
 const BASE_URL =
   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
@@ -11,14 +12,15 @@ const BASE_URL =
 const VideoView = ({
   currentMusicId,
   roomId,
-  isAlong,
   isHost,
   playNextMusic,
+  socket,
 }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
-  let socket = io.connect(BASE_URL);
   const { musics } = useSelector(({ music }) => music);
   const { isClosed, wantToStay } = useSelector(({ room }) => room);
+  const { isAlong } = useSelector(({ along }) => along);
   // music: id, artist, musicURL, thumbnails, title
   const music = musics[currentMusicId] || musics[Object.keys(musics)[0]];
   const { musicURL } = music;
@@ -38,16 +40,22 @@ const VideoView = ({
     // eslint-disable-next-line
   }, [currentMusicId]);
 
-  /*
-  useEffect(() => {
-    socket.on('changeMusic', ({ playlist_id, music_info }) => {
-      console.log(
-        `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악은: 
-        ${music_info}, playlist_id는: ${playlist_id}`
-      );
-    });
+  socket.on('changeMusic', ({ playlist_id, music_info }) => {
+    const isAlong = JSON.parse(localStorage.getItem('isAlong'));
+    console.log('isAlong', isAlong);
+    if (!isHost && isAlong) {
+      if (music_info === undefined) {
+        console.log('허허', musics[Object.keys(musics)[0]]);
+        dispatch(updateCurrentMusicId(musics[Object.keys(musics)[0]].id));
+      } else {
+        const { id, title } = music_info;
+        console.log(
+          `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악의 id는 ${id}, title은 ${title}, ${musics[id]}`
+        );
+        dispatch(updateCurrentMusicId(id));
+      }
+    }
   });
-  */
 
   const playNextSong = () => {
     if (isHost) {

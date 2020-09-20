@@ -44,13 +44,13 @@ class App extends Component {
         <>
           <NavigationContainer />
         </>
-        <>
+        {/* <>
           <Link to="/">MainPage</Link>
           <Link to="/listen">ListenPage</Link>
           <Link to="/music">MusicPage</Link>
           <Link to="/playlist">PlayListPage</Link>
           <Link to="/profile">ProfilePage</Link>
-        </>
+        </> */}
         {isReady && (
           <Switch>
             <Route

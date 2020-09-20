@@ -212,9 +212,10 @@ const ListenPage = ({
       //   chatScrollRef.current.scrollHeight - 300;
     });
 
+    /*
     socket.on('changeMusic', ({ playlist_id, music_info }) => {
       console.log('isAlong', isAlong);
-      if (!isHost && !isAlong) {
+      if (!isHost && isAlong) {
         const { id, title } = music_info;
         console.log(
           `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악의 id는 ${id}, title은 ${title} / playlist_id는: ${playlist_id}`
@@ -222,7 +223,7 @@ const ListenPage = ({
         updateCurrentMusicId(id);
       }
     });
-
+    */
     // 추가한건데 잘 되나??
     // eslint-disable-next-line
   });
@@ -322,6 +323,7 @@ const ListenPage = ({
     };
 
     initializeRoom();
+    localStorage.setItem('isAlong', true);
     return () => {
       updateCurrentMusicId(-1);
     };
@@ -341,7 +343,7 @@ const ListenPage = ({
 
           {currentMusicId > -1 && (
             <VideoView
-              isAlong={isAlong}
+              socket={socket}
               isHost={isHost}
               currentMusicId={currentMusicId}
               playNextMusic={playNextMusic}
