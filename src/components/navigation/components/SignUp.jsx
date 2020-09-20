@@ -51,20 +51,12 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   }, [invalidText, info, checkSignUpAble]);
 
   const responseGoogle = async res => {
-    // 구글 로그인을 통해 받아온 데이터
-    // console.log('>>TOTAL: ', res);
     const { accessToken } = res;
     const { profileObj, tokenObj } = res;
-
     const { id_token } = tokenObj;
-
     const { email, googleId, imageUrl, name } = profileObj;
-    // console.log('client accessToken:', accessToken);
-    // console.log('client data:', email, googleId, imageUrl, name);
 
     const body = { email, googleId, imageUrl, name, id_token };
-    // console.log('>> client will send this BODY', body);
-
     try {
       const status = await signUpOauth(body, accessToken);
       if (status === 201) {
@@ -132,7 +124,7 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
           // 서버 에러
           setInvalidText({
             ...invalidText,
-            [type]: '서버 에러가 발생했습니다',
+            [type]: '잠시 후에 다시 시도해주세요',
           });
         }
       }
@@ -168,7 +160,7 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
       });
 
       if (isSuccess) {
-        alert('회원가입을 성공적으로 하였습니다.\n로그인해주세요!');
+        alert('회원가입이 성공했습니다');
         handleClose();
       } else alert('회원가입에 실패하였습니다');
     } else {
