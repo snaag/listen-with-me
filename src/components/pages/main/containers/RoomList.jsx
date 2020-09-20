@@ -5,6 +5,7 @@ import RoomList from '../components/RoomList';
 const mapStateToProps = state => ({
   likedList: state.main.likedList,
   isSignIn: state.user.status.isSignIn,
+  nickname: state.user.info.nickname,
 });
 
 const mapDispatchToProps = dispatch => {
@@ -15,4 +16,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomList);

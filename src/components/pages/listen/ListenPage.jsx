@@ -49,12 +49,15 @@ const ListenPage = ({
   // 예상1: 뷰를 새로 그리니까 괜찮지않을까??
   // 해결방법: useEffect 안에 구분자(joined) 를 두어, 이미 방에 참석했는지 여부에 따라 메시지 보내도록 함
   useEffect(() => {
+    socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
+    /*
     console.log('socket에 입장 메시지를 보냅니다...>');
     const joined = JSON.parse(localStorage.getItem('joined'));
     if (rId > 0 && !joined) {
       localStorage.setItem('joined', true);
       socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
     }
+    */
   }, [name, rId, socket]);
 
   // useEffect(() => {
@@ -264,82 +267,84 @@ const ListenPage = ({
         console.log('>제가 만든 방 입니다<');
 
         const playListId = localStorage.getItem('playListId');
-        console.log('playListId가 잘 얻어와지나요?  ', playListId);
-        if (!playListId) {
-          alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-          history.push('/');
-        }
+        // if (!playListId) {
+        //   alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
+        //   history.push('/');
+        // }
         // 만약 playListId가 없는 경우라면, 메인 페이지로 보내버리기
-        else {
-          try {
-            // 내가 방을 연 호스트인 경우,
-            // 1. 방을 생성한다
-            const roomId = await createRoom(playListId); // 이미 열려있던 방일 경우, 여기서 에러 발생해서 아래의 catch로 감
-            console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
-            setRoomId(roomId);
-            // localStorage.setItem('roomId', roomId);
-            // 2. 방의 음악 정보를 불러온다
-            const { list, fisrtMusicId } = await getMusics(playListId);
-            console.log(`얻어오는 list입니다: ${list}`);
+        // else {
+        try {
+          // 내가 방을 연 호스트인 경우,
+          // 1. 방을 생성한다
+          const roomId = await createRoom(playListId); // 이미 열려있던 방일 경우, 여기서 에러 발생해서 아래의 catch로 감
+          console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
+          setRoomId(roomId);
+          // localStorage.setItem('roomId', roomId);
+          // 2. 방의 음악 정보를 불러온다
+          const { list, fisrtMusicId } = await getMusics(playListId);
+          console.log(`얻어오는 list입니다: ${list}`);
 
+          updateMusics(list);
+          updateCurrentMusicId(fisrtMusicId);
+          const result = await getCurrentListener(playListId);
+          setListenerAmount(result);
+          // socket join
+          // socketJoin(roomId);
+        } catch (error) {
+          console.log('>>>>>', error);
+          const { response } = error;
+          const { status } = response;
+          if (status === 409) {
+            const { room_id } = error.response.data;
+            console.log(
+              `---이미 ${room_id}번으로 열려있는 방입니다. 방을 삭제하려 합니다...---`
+            );
+            alert(
+              '이 플레이리스트로 방이 제대로 삭제되지 않았었습니다. \n이전의 방을 삭제하고 새로운 방을 생성합니다.'
+            );
+            const destroyResult = await destroyRoom(room_id);
+            console.log('destroyResult:', destroyResult);
+            const roomId = await createRoom(playListId);
+            setRoomId(roomId);
+            console.log('roomId:', roomId);
+            const { list, fisrtMusicId } = await getMusics(playListId);
+            console.log('list:', list);
             updateMusics(list);
             updateCurrentMusicId(fisrtMusicId);
             const result = await getCurrentListener(playListId);
             setListenerAmount(result);
             // socket join
             // socketJoin(roomId);
-          } catch (error) {
-            console.log('>>>>>', error);
-            const { response } = error;
-            const { status } = response;
-            if (status === 409) {
-              const { room_id } = error.response.data;
-              console.log(
-                `---이미 ${room_id}번으로 열려있는 방입니다. 방을 삭제하려 합니다...---`
-              );
-              const destroyResult = await destroyRoom(room_id);
-              console.log('destroyResult:', destroyResult);
-              const roomId = await createRoom(playListId);
-              setRoomId(roomId);
-              console.log('roomId:', roomId);
-              const { list, fisrtMusicId } = await getMusics(playListId);
-              console.log('list:', list);
-              updateMusics(list);
-              updateCurrentMusicId(fisrtMusicId);
-              const result = await getCurrentListener(playListId);
-              setListenerAmount(result);
-              // socket join
-              // socketJoin(roomId);
-            }
           }
         }
+        // }
       } else {
         // 내가 방에 게스트로 입장한 경우,
         // 1. 방의 음악 정보를 불러온다
         console.log('>제가 만든 방이 아닙니다<');
         const roomId = localStorage.getItem('roomId');
-        if (!roomId) {
-          alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-          history.push('/');
-        } else {
-          setRoomId(roomId);
-          console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
-          const { playlist_id } = await getRoomStatus(roomId);
-          const { list, fisrtMusicId } = await getMusics(playlist_id);
-          localStorage.setItem('playListId', playlist_id);
+        // if (!roomId) {
+        //   alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
+        //   history.push('/');
+        // } else {
+        setRoomId(roomId);
+        console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
+        const { playlist_id } = await getRoomStatus(roomId);
+        const { list, fisrtMusicId } = await getMusics(playlist_id);
+        localStorage.setItem('playListId', playlist_id);
 
-          updateMusics(list);
-          const result = await getCurrentListener(playlist_id);
-          setListenerAmount(result);
-          updateCurrentMusicId(fisrtMusicId);
-          // socketJoin(roomId)
+        updateMusics(list);
+        const result = await getCurrentListener(playlist_id);
+        setListenerAmount(result);
+        updateCurrentMusicId(fisrtMusicId);
+        // socketJoin(roomId)
 
-          // playlist 정보를 넣어주자
-          // localStorage에
+        // playlist 정보를 넣어주자
+        // localStorage에
 
-          // 2. 청취자 수를 증가시킨다
-          addCurrentListener(playlist_id, authorization);
-        }
+        // 2. 청취자 수를 증가시킨다
+        addCurrentListener(playlist_id, authorization);
+        // }
       }
     };
 
