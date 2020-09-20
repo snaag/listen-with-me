@@ -13,19 +13,23 @@ class RoomListEntry extends Component {
   async clickListEntry() {
     const {
       isSignIn,
-      listEntry: { room_id, title, thumbnails, likeAmount },
+      listEntry: { room_id, title, thumbnails, likeAmount, nickname },
       history,
       handleSignIn,
+      myNickname,
     } = this.props;
 
     if (isSignIn) {
       const authorization = localStorage.getItem('authorization') || '';
       try {
         await api.maintainSignIn(authorization);
-        localStorage.setItem('isHost', false);
+        if (nickname === myNickname) {
+          localStorage.setItem('isHost', true);
+        } else {
+          localStorage.setItem('isHost', false);
+          this.appendToRecentList(title, thumbnails, likeAmount);
+        }
         localStorage.setItem('roomId', room_id);
-        this.appendToRecentList(title, thumbnails, likeAmount);
-
         history.push('/listen');
       } catch (err) {
         alert('로그아웃 되었습니다.');

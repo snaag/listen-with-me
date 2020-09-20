@@ -7,6 +7,7 @@ import SearchUser from '../components/SearchUser';
 const mapStateToProps = state => ({
   nickname: state.main.nickname,
   isSignIn: state.user.status.isSignIn,
+  myNickname: state.user.info.nickname,
 });
 
 const mapDispatchToProps = dispatch => {
