@@ -4,10 +4,16 @@ import * as api from '../../../../api/app';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RoomListEntry extends Component {
+  appendToRecentList(title, thumbnail, likeAmount) {
+    const recentList = JSON.parse(localStorage.getItem('recentList')) || [];
+    recentList.push({ thumbnail, title, likeAmount });
+    localStorage.setItem('recentList', JSON.stringify(recentList));
+  }
+
   async clickListEntry() {
     const {
       isSignIn,
-      listEntry: { room_id },
+      listEntry: { room_id, title, thumbnails, likeAmount },
       history,
       handleSignIn,
     } = this.props;
@@ -18,6 +24,8 @@ class RoomListEntry extends Component {
         await api.maintainSignIn(authorization);
         localStorage.setItem('isHost', false);
         localStorage.setItem('roomId', room_id);
+        this.appendToRecentList(title, thumbnails, likeAmount);
+
         history.push('/listen');
       } catch (err) {
         alert('로그아웃 되었습니다.');

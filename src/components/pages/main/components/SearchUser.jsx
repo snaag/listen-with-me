@@ -9,6 +9,12 @@ class SearchUser extends Component {
     }
   }
 
+  appendToRecentList(title, thumbnail, likeAmount) {
+    const recentList = JSON.parse(localStorage.getItem('recentList')) || [];
+    recentList.push({ thumbnail, title, likeAmount });
+    localStorage.setItem('recentList', JSON.stringify(recentList));
+  }
+
   async listenAlong() {
     const { isSignIn, nickname, handleSignIn, history } = this.props;
     const authorization = localStorage.getItem('authorization') || '';
@@ -50,7 +56,9 @@ class SearchUser extends Component {
     if (isSignIn) {
       try {
         const { status, data } = await api.listenRandom(authorization);
-
+        console.log('랜덤듣기 데이터...', data);
+        const { title, thumbnails, likeAmount } = data;
+        this.appendToRecentList(title, thumbnails, likeAmount);
         if (status === 200) {
           localStorage.setItem('isHost', false);
           localStorage.setItem('roomId', data.room_id);
