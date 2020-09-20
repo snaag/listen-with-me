@@ -37,30 +37,14 @@ const ListenPage = ({
   let socket = io.connect(BASE_URL, { forceNew: true });
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
+  const [isCreateRoomSuccess, setIsCreateRoomSuccess] = useState(false);
 
-  // const socketJoin = roomId => {
-  //   console.log('socket에 입장 메시지를 보냅니다...>>');
-  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-  // };
-
-  // 문제점: joinRoom 메시지가 너무 많이 전송되었음
-  // 원인: rId가 데이터를 얻어올 때마다 바뀌면서
-  // ??: 방을 비정상적으로 종료한 다음이라면 어떻게 되는걸까?
-  // 예상1: 뷰를 새로 그리니까 괜찮지않을까??
-  // 해결방법: useEffect 안에 구분자(joined) 를 두어, 이미 방에 참석했는지 여부에 따라 메시지 보내도록 함
   useEffect(() => {
-    console.log('socket에 입장 메시지를 보냅니다...>');
-    const joined = JSON.parse(localStorage.getItem('joined'));
-    if (rId > 0 && !joined) {
-      localStorage.setItem('joined', true);
+    console.log('join join');
+    if (isCreateRoomSuccess)
       socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-    }
-  }, [name, rId, socket]);
-
-  // useEffect(() => {
-  //   console.log('socket에 입장 메시지를 보냅니다...>');
-  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-  // });
+    // eslint-disable-next-line
+  }, [isCreateRoomSuccess, rId]);
 
   const getMusics = async playListId => {
     const reducer = (acc, curr) => {
@@ -228,9 +212,10 @@ const ListenPage = ({
       //   chatScrollRef.current.scrollHeight - 300;
     });
 
+    /*
     socket.on('changeMusic', ({ playlist_id, music_info }) => {
       console.log('isAlong', isAlong);
-      if (!isHost && !isAlong) {
+      if (!isHost && isAlong) {
         const { id, title } = music_info;
         console.log(
           `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악의 id는 ${id}, title은 ${title} / playlist_id는: ${playlist_id}`
@@ -238,7 +223,7 @@ const ListenPage = ({
         updateCurrentMusicId(id);
       }
     });
-
+    */
     // 추가한건데 잘 되나??
     // eslint-disable-next-line
   });
@@ -260,95 +245,86 @@ const ListenPage = ({
 
     const initializeRoom = async () => {
       dispatch(setChat([]));
+      if (isHost === null) {
+        alert('잘못된 접근입니다.\n메인 페이지로 돌아갑니다.');
+        history.push('/');
+      }
       if (isHost) {
         console.log('>제가 만든 방 입니다<');
 
         const playListId = localStorage.getItem('playListId');
-        console.log('playListId가 잘 얻어와지나요?  ', playListId);
-        if (!playListId) {
-          alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-          history.push('/');
-        }
-        // 만약 playListId가 없는 경우라면, 메인 페이지로 보내버리기
-        else {
-          try {
-            // 내가 방을 연 호스트인 경우,
-            // 1. 방을 생성한다
-            const roomId = await createRoom(playListId); // 이미 열려있던 방일 경우, 여기서 에러 발생해서 아래의 catch로 감
-            console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
-            setRoomId(roomId);
-            // localStorage.setItem('roomId', roomId);
-            // 2. 방의 음악 정보를 불러온다
-            const { list, fisrtMusicId } = await getMusics(playListId);
-            console.log(`얻어오는 list입니다: ${list}`);
+        try {
+          // 내가 방을 연 호스트인 경우,
+          // 1. 방을 생성한다
+          const roomId = await createRoom(playListId); // 이미 열려있던 방일 경우, 여기서 에러 발생해서 아래의 catch로 감
+          console.log(`방이 생성되었고, 방의 id는 ${roomId} 입니다`);
+          setRoomId(roomId);
+          // localStorage.setItem('roomId', roomId);
+          // 2. 방의 음악 정보를 불러온다
+          const { list, fisrtMusicId } = await getMusics(playListId);
+          console.log(`얻어오는 list입니다: ${list}`);
 
+          updateMusics(list);
+          updateCurrentMusicId(fisrtMusicId);
+          const result = await getCurrentListener(playListId);
+          setListenerAmount(result);
+          setIsCreateRoomSuccess(true);
+        } catch (error) {
+          console.log('>>>>>', error);
+          const { response } = error;
+          const { status } = response;
+          if (status === 409) {
+            const { room_id } = error.response.data;
+            console.log(
+              `---이미 ${room_id}번으로 열려있는 방입니다. 방을 삭제하려 합니다...---`
+            );
+            alert(
+              '이 플레이리스트로 방이 제대로 삭제되지 않았었습니다. \n이전의 방을 삭제하고 새로운 방을 생성합니다.'
+            );
+            const destroyResult = await destroyRoom(room_id);
+            console.log('destroyResult:', destroyResult);
+            const roomId = await createRoom(playListId);
+            setRoomId(roomId);
+            console.log('roomId:', roomId);
+            const { list, fisrtMusicId } = await getMusics(playListId);
+            console.log('list:', list);
             updateMusics(list);
             updateCurrentMusicId(fisrtMusicId);
             const result = await getCurrentListener(playListId);
             setListenerAmount(result);
-            // socket join
-            // socketJoin(roomId);
-          } catch (error) {
-            console.log('>>>>>', error);
-            const { response } = error;
-            const { status } = response;
-            if (status === 409) {
-              const { room_id } = error.response.data;
-              console.log(
-                `---이미 ${room_id}번으로 열려있는 방입니다. 방을 삭제하려 합니다...---`
-              );
-              const destroyResult = await destroyRoom(room_id);
-              console.log('destroyResult:', destroyResult);
-              const roomId = await createRoom(playListId);
-              setRoomId(roomId);
-              console.log('roomId:', roomId);
-              const { list, fisrtMusicId } = await getMusics(playListId);
-              console.log('list:', list);
-              updateMusics(list);
-              updateCurrentMusicId(fisrtMusicId);
-              const result = await getCurrentListener(playListId);
-              setListenerAmount(result);
-              // socket join
-              // socketJoin(roomId);
-            }
+            setIsCreateRoomSuccess(true);
           }
         }
+        // }
       } else {
         // 내가 방에 게스트로 입장한 경우,
         // 1. 방의 음악 정보를 불러온다
         console.log('>제가 만든 방이 아닙니다<');
         const roomId = localStorage.getItem('roomId');
-        if (!roomId) {
-          alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-          history.push('/');
-        } else {
-          setRoomId(roomId);
-          console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
-          const { playlist_id } = await getRoomStatus(roomId);
-          const { list, fisrtMusicId } = await getMusics(playlist_id);
-          localStorage.setItem('playListId', playlist_id);
+        setRoomId(roomId);
+        console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
+        const { playlist_id } = await getRoomStatus(roomId);
+        const { list, fisrtMusicId } = await getMusics(playlist_id);
+        localStorage.setItem('playListId', playlist_id);
 
-          updateMusics(list);
-          const result = await getCurrentListener(playlist_id);
-          setListenerAmount(result);
-          updateCurrentMusicId(fisrtMusicId);
-          // socketJoin(roomId)
+        updateMusics(list);
+        const result = await getCurrentListener(playlist_id);
+        setListenerAmount(result);
+        updateCurrentMusicId(fisrtMusicId);
+        setIsCreateRoomSuccess(true);
 
-          // playlist 정보를 넣어주자
-          // localStorage에
+        // socketJoin(roomId)
 
-          // 2. 청취자 수를 증가시킨다
-          addCurrentListener(playlist_id, authorization);
-        }
+        // playlist 정보를 넣어주자
+        // localStorage에
+
+        // 2. 청취자 수를 증가시킨다
       }
     };
 
     initializeRoom();
+    localStorage.setItem('isAlong', true);
     return () => {
-      // finalizeRoom();
-      // localStorage.removeItem('roomId');
-      // localStorage.removeItem('playListId');
-      // localStorage.removeItem('isHost');
       updateCurrentMusicId(-1);
     };
     // eslint-disable-next-line
@@ -367,7 +343,7 @@ const ListenPage = ({
 
           {currentMusicId > -1 && (
             <VideoView
-              isAlong={isAlong}
+              socket={socket}
               isHost={isHost}
               currentMusicId={currentMusicId}
               playNextMusic={playNextMusic}

@@ -15,11 +15,11 @@ class RoomList extends Component {
   }
 
   async getOpenRoom() {
-    const { handleLikedList } = this.props;
+    const { nickname, handleLikedList } = this.props;
 
     try {
       const { data } = await api.getOpenRoom();
-      handleLikedList(data);
+      handleLikedList(data.filter(item => item.nickname !== nickname));
       this.handleState('isReady', true);
     } catch (err) {
       console.log(err);

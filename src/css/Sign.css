@@ -26,6 +26,8 @@
 /* oauth */
 .oauth {
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .oauth__button {
@@ -43,28 +45,6 @@
 
 .oauth__button:active {
   background: white;
-}
-
-.oauth__google {
-  background: #4285f4;
-  border: 0.1rem solid #3e6cb6;
-}
-
-.oauth__google:hover {
-  background: #86ace9;
-  transition: 0.5s;
-  box-shadow: 0px 0px 5px gray;
-}
-
-.oauth__kakao {
-  background: #ffe812;
-  border: 0.1rem solid #c7bb55;
-}
-
-.oauth__kakao:hover {
-  background: #fdf186;
-  transition: 0.5s;
-  box-shadow: 0px 0px 5px gray;
 }
 
 /* 직접 정보 입력 */

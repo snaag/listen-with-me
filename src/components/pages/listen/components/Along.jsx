@@ -3,6 +3,7 @@ import React from 'react';
 const Along = ({ isAlong, updateIsAlong }) => {
   const updateIsAlongStatus = () => {
     updateIsAlong(!isAlong);
+    localStorage.setItem('isAlong', !isAlong);
   };
 
   return (

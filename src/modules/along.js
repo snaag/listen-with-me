@@ -9,11 +9,7 @@ const initialState = {
 const UPDATE_IS_ALONG = 'along/UPDATE_IS_ALONG';
 
 // action creator
-const updateIsAlong = createAction(UPDATE_IS_ALONG, status => status);
-// const updateIsAlong = (status) => ({
-//   type: UPDATE_IS_ALONG,
-//   status
-// })
+const updateIsAlong = createAction(UPDATE_IS_ALONG);
 
 export { updateIsAlong };
 
@@ -27,17 +23,5 @@ const alongReducer = handleActions(
   },
   initialState
 );
-// const alongReducer = (prevState = initialState, action) => {
-//   switch (action.type) {
-//     case UPDATE_IS_ALONG:
-//       return {
-//         ...prevState,
-//         isAlong: action.status,
-//       };
-
-//     default:
-//       return initialState;
-//   }
-// };
 
 export default alongReducer;

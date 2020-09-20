@@ -74,7 +74,7 @@
 }
 
 .chat__input {
-  width: 70%;
+  width: 30vw;
   height: 1.9rem;
   margin-top: 0.5rem;
   padding: 0 0.5rem;
@@ -86,7 +86,7 @@
 .chat__input:focus {
   outline: 0;
 }
-
+/* 
 .chat__send-button {
   width: 20%;
   margin-left: 1rem;
@@ -110,4 +110,4 @@
 
 .chat__send-button:focus {
   outline: 0;
-}
+} */

@@ -14,7 +14,7 @@ const Chat = ({
   sendChat,
 }) => {
   // const playlist_id = localStorage.getItem('roomId');
-  console.log('chat 에 넘어온 roomId: ', roomId);
+  // console.log('chat 에 넘어온 roomId: ', roomId);
   // const BASE_URL =
   //   'http://ec2-15-164-52-99.ap-northeast-2.compute.amazonaws.com:4000';
   // let socket = io.connect(BASE_URL);
@@ -23,33 +23,6 @@ const Chat = ({
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    console.log('joined는?', localStorage.getItem('joined'));
-    // const playlist_id = localStorage.getItem('roomId');
-    const playlist_id = roomId;
-    console.log(`방에 입장 시 roomId: ${roomId}`);
-
-    // socket.emit('joinChatRoom', { playlist_id, user_nickname: name });
-    // eslint-disable-next-line
-  }, []);
-
-  /*
-
-  useEffect(() => {
-    // 메시지를 받아서 화면에 띄워주는 부분
-    socket.on('chatMessage', response => {
-      const { playlist_id, user_nickname, message, time } = response;
-      console.log('새로운 메시지를 받았습니다!');
-      addChat({ user_nickname, message, time });
-      // chatScrollRef.current.scrollTop =
-      //   chatScrollRef.current.scrollHeight - 300;
-    });
-    // eslint-disable-next-line
-  }, []);
-  */
-
-  useEffect(() => {
-    //
-    console.log('>>', chats);
     chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
   }, [chats]);
 
@@ -57,7 +30,7 @@ const Chat = ({
     // setChat([]);
     return () => {
       // 채팅방을 나갔을 때
-      setChat([]);
+      // setChat([]);
     };
     // eslint-disable-next-line
   }, []);
@@ -67,22 +40,10 @@ const Chat = ({
   };
 
   const onMessageSubmit = e => {
-    // const playlist_id = localStorage.getItem('roomId');
     const playlist_id = roomId;
-    console.log('메시지 전송', {
-      user_nickname: name,
-      message,
-      playlist_id,
-    });
 
     e.preventDefault();
-    console.log('메시지를 보낼 때');
 
-    // socket.emit('chatMessage', {
-    // user_nickname: name,
-    // message,
-    // playlist_id,
-    // });
     sendChat({
       user_nickname: name,
       message,
@@ -153,7 +114,6 @@ const Chat = ({
             value={message}
             onChange={onTextChange}
           />
-          <button className="chat__send-button">전송</button>
         </div>
       </form>
     </div>

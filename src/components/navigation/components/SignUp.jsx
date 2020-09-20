@@ -28,7 +28,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
       invalidText.password.trim().length === 0
     ) {
       // invaild text가 모두 ''인 경우
-      console.log('checkSignUpAble, [invalidText] 통과]');
       if (
         info.nickname.trim().length > 0 &&
         info.email.trim().length > 0 &&
@@ -37,16 +36,12 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         info.password === info.checkPassword
       ) {
         // info에 내용이 있고, 모두 올바른 경우
-        console.log('checkSignUpAble, [모두] 통과');
-
         setIsSignUpAble(true);
       } else {
         // info에 내용이 올바르지 않은 경우
-        console.log('checkSignUpAble, [info] 실패!!');
       }
     } else {
       // invalid text에 뭐가 있는 경우
-      console.log('checkSignUpAble, [invalidText] 실패!!');
     }
   }, [info, invalidText]);
 
@@ -55,23 +50,22 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   }, [invalidText, info, checkSignUpAble]);
 
   const responseGoogle = async res => {
-    // 구글 로그인을 통해 받아온 데이터
-    // console.log('>>TOTAL: ', res);
     const { accessToken } = res;
     const { profileObj, tokenObj } = res;
-
     const { id_token } = tokenObj;
-
     const { email, googleId, imageUrl, name } = profileObj;
-    // console.log('client accessToken:', accessToken);
-    // console.log('client data:', email, googleId, imageUrl, name);
 
     const body = { email, googleId, imageUrl, name, id_token };
-    // console.log('>> client will send this BODY', body);
-
     try {
-      const isSuccess = await signUpOauth(body, accessToken);
-      if (isSuccess) handleClose();
+      const status = await signUpOauth(body, accessToken);
+      if (status === 201) {
+        alert('회원가입이 성공했습니다');
+        handleClose();
+      } else {
+        if (status === 400) alert('잘못된 정보입니다.\n다시 시도해주세요.');
+        if (status === 409) alert('이미 있는 계정입니다.');
+        if (status === 500) alert('잠시 후에 다시 시도해주세요.');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -89,10 +83,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     });
     validationCheck(e.target.id, e.target.value);
   };
-
-  useState(() => {
-    console.log('회원가입이 가능한가요? ', isSignUpAble ? '네' : '아니오');
-  }, [isSignUpAble]);
 
   const validationCheck = async (type, value) => {
     const createRequest = async () => {
@@ -133,7 +123,7 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
           // 서버 에러
           setInvalidText({
             ...invalidText,
-            [type]: '서버 에러가 발생했습니다',
+            [type]: '잠시 후에 다시 시도해주세요',
           });
         }
       }
@@ -161,7 +151,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     e.preventDefault();
     // 만약 데이터가 없다면 회원가입 시도 안되도록 함
     if (isSignUpAble) {
-      console.log('signup 가능합니다, isSignUpAble:', isSignUpAble);
       const isSuccess = await signUp({
         email,
         password,
@@ -169,10 +158,11 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         nickname,
       });
 
-      if (isSuccess) handleClose();
-      else alert('회원가입에 실패하였습니다');
+      if (isSuccess) {
+        alert('회원가입이 성공했습니다');
+        handleClose();
+      } else alert('회원가입에 실패하였습니다');
     } else {
-      console.log('signup 안됩니다, isSignUpAble:', isSignUpAble);
       alert('이메일과 닉네임과 비밀번호를 모두 입력해주세요');
     }
   };
@@ -186,15 +176,13 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         <div className="signup">
           <div className="oauth">
             <GoogleLogin
+              className="oauth__google oauth__button"
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
               buttonText="구글 계정으로 회원가입 하기"
               onSuccess={responseGoogle}
               onFailure={responseFailGoogle}
               cookiePolicy={'single_host_origin'}
             />
-            <button className="oauth__kakao oauth__button">
-              Kakao 회원가입
-            </button>
           </div>
 
           <hr />
