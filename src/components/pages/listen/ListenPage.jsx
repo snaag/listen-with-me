@@ -38,32 +38,9 @@ const ListenPage = ({
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
 
-  // const socketJoin = roomId => {
-  //   console.log('socket에 입장 메시지를 보냅니다...>>');
-  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-  // };
-
-  // 문제점: joinRoom 메시지가 너무 많이 전송되었음
-  // 원인: rId가 데이터를 얻어올 때마다 바뀌면서
-  // ??: 방을 비정상적으로 종료한 다음이라면 어떻게 되는걸까?
-  // 예상1: 뷰를 새로 그리니까 괜찮지않을까??
-  // 해결방법: useEffect 안에 구분자(joined) 를 두어, 이미 방에 참석했는지 여부에 따라 메시지 보내도록 함
   useEffect(() => {
     socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-    /*
-    console.log('socket에 입장 메시지를 보냅니다...>');
-    const joined = JSON.parse(localStorage.getItem('joined'));
-    if (rId > 0 && !joined) {
-      localStorage.setItem('joined', true);
-      socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-    }
-    */
   }, [name, rId, socket]);
-
-  // useEffect(() => {
-  //   console.log('socket에 입장 메시지를 보냅니다...>');
-  //   socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-  // });
 
   const getMusics = async playListId => {
     const reducer = (acc, curr) => {
@@ -263,16 +240,14 @@ const ListenPage = ({
 
     const initializeRoom = async () => {
       dispatch(setChat([]));
+      if (isHost === null) {
+        alert('잘못된 접근입니다.\n메인 페이지로 돌아갑니다.');
+        history.push('/');
+      }
       if (isHost) {
         console.log('>제가 만든 방 입니다<');
 
         const playListId = localStorage.getItem('playListId');
-        // if (!playListId) {
-        //   alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-        //   history.push('/');
-        // }
-        // 만약 playListId가 없는 경우라면, 메인 페이지로 보내버리기
-        // else {
         try {
           // 내가 방을 연 호스트인 경우,
           // 1. 방을 생성한다
@@ -288,8 +263,6 @@ const ListenPage = ({
           updateCurrentMusicId(fisrtMusicId);
           const result = await getCurrentListener(playListId);
           setListenerAmount(result);
-          // socket join
-          // socketJoin(roomId);
         } catch (error) {
           console.log('>>>>>', error);
           const { response } = error;
@@ -313,8 +286,6 @@ const ListenPage = ({
             updateCurrentMusicId(fisrtMusicId);
             const result = await getCurrentListener(playListId);
             setListenerAmount(result);
-            // socket join
-            // socketJoin(roomId);
           }
         }
         // }
@@ -323,10 +294,6 @@ const ListenPage = ({
         // 1. 방의 음악 정보를 불러온다
         console.log('>제가 만든 방이 아닙니다<');
         const roomId = localStorage.getItem('roomId');
-        // if (!roomId) {
-        //   alert('잘못된 접근입니다. 메인 페이지로 돌아갑니다.');
-        //   history.push('/');
-        // } else {
         setRoomId(roomId);
         console.log(`roomId의 정보 -> 값: ${roomId}, 타입: ${typeof roomId}`);
         const { playlist_id } = await getRoomStatus(roomId);
@@ -343,17 +310,11 @@ const ListenPage = ({
         // localStorage에
 
         // 2. 청취자 수를 증가시킨다
-        addCurrentListener(playlist_id, authorization);
-        // }
       }
     };
 
     initializeRoom();
     return () => {
-      // finalizeRoom();
-      // localStorage.removeItem('roomId');
-      // localStorage.removeItem('playListId');
-      // localStorage.removeItem('isHost');
       updateCurrentMusicId(-1);
     };
     // eslint-disable-next-line

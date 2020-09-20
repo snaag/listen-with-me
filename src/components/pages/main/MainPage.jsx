@@ -17,9 +17,6 @@ class MainPage extends Component {
   }
 
   componentDidMount() {
-    console.log('isHost 삭제하였습니다');
-    // localStorage.removeItem('playListId');
-    // localStorage.removeItem('roomId');
     localStorage.removeItem('isHost');
   }
 
