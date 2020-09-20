@@ -17,7 +17,7 @@ export const addChatEnd = createAction(ADD_CHAT_END);
 export const setChat = createAction(SET_CHAT);
 
 function* addChatSaga(action) {
-  yield delay(100);
+  yield delay(200);
   yield put(addChatEnd(action.payload));
 }
 
