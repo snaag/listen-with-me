@@ -141,12 +141,12 @@ export const signIn = signInData => {
           })
         );
         localStorage.setItem('authorization', authorization);
-      } else {
-        dispatch(signInFailure());
+        return true;
       }
     } catch (error) {
       console.log(error);
       dispatch(signInFailure());
+      return false;
     }
   };
 };
