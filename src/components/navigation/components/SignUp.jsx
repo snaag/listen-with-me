@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Modal from 'react-bootstrap/Modal';
 
@@ -18,6 +18,41 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     email: '',
     password: '',
   });
+
+  const [isSignUpAble, setIsSignUpAble] = useState(false);
+
+  const checkSignUpAble = useCallback(() => {
+    if (
+      invalidText.nickname.trim().length === 0 &&
+      invalidText.email.trim().length === 0 &&
+      invalidText.password.trim().length === 0
+    ) {
+      // invaild text가 모두 ''인 경우
+      console.log('checkSignUpAble, [invalidText] 통과]');
+      if (
+        info.nickname.trim().length > 0 &&
+        info.email.trim().length > 0 &&
+        info.password.length > 0 &&
+        info.checkPassword.length > 0 &&
+        info.password === info.checkPassword
+      ) {
+        // info에 내용이 있고, 모두 올바른 경우
+        console.log('checkSignUpAble, [모두] 통과');
+
+        setIsSignUpAble(true);
+      } else {
+        // info에 내용이 올바르지 않은 경우
+        console.log('checkSignUpAble, [info] 실패!!');
+      }
+    } else {
+      // invalid text에 뭐가 있는 경우
+      console.log('checkSignUpAble, [invalidText] 실패!!');
+    }
+  }, [info, invalidText]);
+
+  useEffect(() => {
+    checkSignUpAble();
+  }, [invalidText, info, checkSignUpAble]);
 
   const responseGoogle = async res => {
     // 구글 로그인을 통해 받아온 데이터
@@ -47,14 +82,17 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     console.log(err);
   };
 
-  const changeInfo = e => {
+  const changeInfo = async e => {
     setInfo({
       ...info,
       [e.target.id]: e.target.value,
     });
-
     validationCheck(e.target.id, e.target.value);
   };
+
+  useState(() => {
+    console.log('회원가입이 가능한가요? ', isSignUpAble ? '네' : '아니오');
+  }, [isSignUpAble]);
 
   const validationCheck = async (type, value) => {
     const createRequest = async () => {
@@ -62,20 +100,21 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         const { status, data } = await validation.something(type, value);
         return status;
       } catch (error) {
-        return error.response.status;
+        throw error;
       }
     };
 
-    // 비밀번호는 여기서 체크 X
     if (type === 'nickname' || type === 'email') {
       const status = await createRequest();
       if (status === 200 || value.length === 0) {
+        setIsSignUpAble(true);
         // OK
         setInvalidText({
           ...invalidText,
           [type]: '',
         });
       } else {
+        setIsSignUpAble(false);
         if (status === 202) {
           // 중복
           setInvalidText({
@@ -102,30 +141,40 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
   };
 
   useEffect(() => {
-    if (info.password === info.checkPassword)
+    if (info.password === info.checkPassword) {
       setInvalidText({
         ...invalidText,
         password: '',
       });
-    else
+    } else {
       setInvalidText({
         ...invalidText,
         password: '비밀번호를 똑같이 작성해주세요',
       });
+    }
+
     // eslint-disable-next-line
   }, [info.password, info.checkPassword]);
 
   const onSignUpSubmit = async e => {
-    const { email, password, nickname } = info;
+    const { email, checkPassword, password, nickname } = info;
     e.preventDefault();
-    const isSuccess = await signUp({
-      email,
-      password,
-      nickname,
-    });
+    // 만약 데이터가 없다면 회원가입 시도 안되도록 함
+    if (isSignUpAble) {
+      console.log('signup 가능합니다, isSignUpAble:', isSignUpAble);
+      const isSuccess = await signUp({
+        email,
+        password,
+        checkPassword,
+        nickname,
+      });
 
-    if (isSuccess) handleClose();
-    else alert('회원가입에 실패하였습니다');
+      if (isSuccess) handleClose();
+      else alert('회원가입에 실패하였습니다');
+    } else {
+      console.log('signup 안됩니다, isSignUpAble:', isSignUpAble);
+      alert('이메일과 닉네임과 비밀번호를 모두 입력해주세요');
+    }
   };
 
   return (
@@ -209,7 +258,12 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
               </span>
             </div>
 
-            <button className="signup__button sign__button">회원가입</button>
+            <button
+              disabled={!isSignUpAble}
+              className="signup__button sign__button"
+            >
+              회원가입
+            </button>
           </form>
         </div>
       </Modal.Body>

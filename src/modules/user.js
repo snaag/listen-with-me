@@ -152,8 +152,12 @@ export const signIn = signInData => {
 };
 
 //.. signup
-export const signUp = signUpData => {
+export const signUp = getData => {
+  const { email, password, checkPassword, nickname } = getData;
+  const signUpData = { email, password, nickname };
   return async (dispatch, getState) => {
+    if (password !== checkPassword) return false;
+
     dispatch(signUpRequest());
     try {
       const { status, data } = await api.signUp(signUpData);

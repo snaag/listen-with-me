@@ -18,8 +18,14 @@ const SignIn = ({ isActive, signIn, signInOauth, handleClose }) => {
   };
   const onSignInSubmit = e => {
     e.preventDefault();
-    signIn(info);
-    handleClose();
+    // 만약 데이터가 없다면 로그인 시도 안되도록 함
+    const { email, password } = info;
+    if (email.trim().length === 0 || password.length === 0)
+      alert('이메일과 비밀번호를 모두 입력해주세요');
+    else {
+      signIn({ email: email.trim(), password });
+      handleClose();
+    }
   };
 
   const responseGoogle = async res => {
