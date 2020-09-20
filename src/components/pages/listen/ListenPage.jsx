@@ -37,10 +37,14 @@ const ListenPage = ({
   let socket = io.connect(BASE_URL, { forceNew: true });
   const isHost = JSON.parse(localStorage.getItem('isHost'));
   const [listenerAmount, setListenerAmount] = useState();
+  const [isCreateRoomSuccess, setIsCreateRoomSuccess] = useState(false);
 
   useEffect(() => {
-    socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
-  }, [name, rId, socket]);
+    console.log('join join');
+    if (isCreateRoomSuccess)
+      socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
+    // eslint-disable-next-line
+  }, [isCreateRoomSuccess, rId]);
 
   const getMusics = async playListId => {
     const reducer = (acc, curr) => {
@@ -263,6 +267,7 @@ const ListenPage = ({
           updateCurrentMusicId(fisrtMusicId);
           const result = await getCurrentListener(playListId);
           setListenerAmount(result);
+          setIsCreateRoomSuccess(true);
         } catch (error) {
           console.log('>>>>>', error);
           const { response } = error;
@@ -286,6 +291,7 @@ const ListenPage = ({
             updateCurrentMusicId(fisrtMusicId);
             const result = await getCurrentListener(playListId);
             setListenerAmount(result);
+            setIsCreateRoomSuccess(true);
           }
         }
         // }
@@ -304,6 +310,8 @@ const ListenPage = ({
         const result = await getCurrentListener(playlist_id);
         setListenerAmount(result);
         updateCurrentMusicId(fisrtMusicId);
+        setIsCreateRoomSuccess(true);
+
         // socketJoin(roomId)
 
         // playlist 정보를 넣어주자

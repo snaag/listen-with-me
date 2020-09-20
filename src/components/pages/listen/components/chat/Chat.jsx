@@ -23,14 +23,6 @@ const Chat = ({
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // console.log('joined는?', localStorage.getItem('joined'));
-    // const playlist_id = localStorage.getItem('roomId');
-    // const playlist_id = roomId;
-    // console.log(`방에 입장 시 roomId: ${roomId}`);
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
     chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight - 300;
   }, [chats]);
 
@@ -38,7 +30,7 @@ const Chat = ({
     // setChat([]);
     return () => {
       // 채팅방을 나갔을 때
-      setChat([]);
+      // setChat([]);
     };
     // eslint-disable-next-line
   }, []);
