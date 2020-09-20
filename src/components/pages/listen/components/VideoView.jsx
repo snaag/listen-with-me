@@ -99,7 +99,7 @@ const VideoView = ({
         height="100%"
         controls
         url={musicURL}
-        playing={false}
+        playing={true}
         // onReady={() => console.log('onReady')}
         // onStart={}
         // onPause={() => console.log('onPause')}

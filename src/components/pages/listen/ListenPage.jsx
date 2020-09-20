@@ -229,7 +229,8 @@ const ListenPage = ({
     });
 
     socket.on('changeMusic', ({ playlist_id, music_info }) => {
-      if (!isHost) {
+      console.log('isAlong', isAlong);
+      if (!isHost && !isAlong) {
         const { id, title } = music_info;
         console.log(
           `서버로부터 음악이 바뀌었다는 메시지를 받았습니다. 음악의 id는 ${id}, title은 ${title} / playlist_id는: ${playlist_id}`
@@ -257,7 +258,7 @@ const ListenPage = ({
       }
     };
 
-    const initialzeRoom = async () => {
+    const initializeRoom = async () => {
       dispatch(setChat([]));
       if (isHost) {
         console.log('>제가 만든 방 입니다<');
@@ -320,14 +321,17 @@ const ListenPage = ({
         const result = await getCurrentListener(playlist_id);
         setListenerAmount(result);
         updateCurrentMusicId(fisrtMusicId);
-        // socketJoin(roomId);
+        // socketJoin(roomId)
+
+        // playlist 정보를 넣어주자
+        // localStorage에
 
         // 2. 청취자 수를 증가시킨다
         addCurrentListener(playlist_id, authorization);
       }
     };
 
-    initialzeRoom();
+    initializeRoom();
     return () => {
       // finalizeRoom();
       // localStorage.removeItem('roomId');
