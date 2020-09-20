@@ -76,7 +76,6 @@ const SignIn = ({ isActive, signIn, signInOauth, handleClose }) => {
               onFailure={responseFailGoogle}
               cookiePolicy={'single_host_origin'}
             />
-            <button className="oauth__kakao oauth__button">Kakao 로그인</button>
           </div>
           <hr />
           <form onSubmit={onSignInSubmit} className="signin__info">

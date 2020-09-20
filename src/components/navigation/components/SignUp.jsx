@@ -169,8 +169,10 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         nickname,
       });
 
-      if (isSuccess) handleClose();
-      else alert('회원가입에 실패하였습니다');
+      if (isSuccess) {
+        alert('회원가입을 성공적으로 하였습니다.\n로그인해주세요!');
+        handleClose();
+      } else alert('회원가입에 실패하였습니다');
     } else {
       console.log('signup 안됩니다, isSignUpAble:', isSignUpAble);
       alert('이메일과 닉네임과 비밀번호를 모두 입력해주세요');
@@ -186,15 +188,13 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         <div className="signup">
           <div className="oauth">
             <GoogleLogin
+              className="oauth__google oauth__button"
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
               buttonText="구글 계정으로 회원가입 하기"
               onSuccess={responseGoogle}
               onFailure={responseFailGoogle}
               cookiePolicy={'single_host_origin'}
             />
-            <button className="oauth__kakao oauth__button">
-              Kakao 회원가입
-            </button>
           </div>
 
           <hr />
