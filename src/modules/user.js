@@ -186,14 +186,13 @@ export const signUpOauth = (body, accessToken) => {
       );
       if (status === 201) {
         dispatch(signUpSuccess());
-        return true;
-      } else {
-        dispatch(signUpFailure());
-        return false;
+        return 201;
       }
     } catch (error) {
       console.log(error);
+      const { status } = error.response;
       dispatch(signUpFailure());
+      return status;
     }
   };
 };

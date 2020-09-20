@@ -66,8 +66,15 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     // console.log('>> client will send this BODY', body);
 
     try {
-      const isSuccess = await signUpOauth(body, accessToken);
-      if (isSuccess) handleClose();
+      const status = await signUpOauth(body, accessToken);
+      if (status === 201) {
+        alert('회원가입이 성공했습니다');
+        handleClose();
+      } else {
+        if (status === 400) alert('잘못된 정보입니다.\n다시 시도해주세요.');
+        if (status === 409) alert('이미 있는 계정입니다.');
+        if (status === 500) alert('잠시 후에 다시 시도해주세요.');
+      }
     } catch (error) {
       console.log(error);
     }
