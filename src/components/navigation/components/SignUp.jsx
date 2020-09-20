@@ -28,7 +28,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
       invalidText.password.trim().length === 0
     ) {
       // invaild text가 모두 ''인 경우
-      console.log('checkSignUpAble, [invalidText] 통과]');
       if (
         info.nickname.trim().length > 0 &&
         info.email.trim().length > 0 &&
@@ -37,16 +36,13 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         info.password === info.checkPassword
       ) {
         // info에 내용이 있고, 모두 올바른 경우
-        console.log('checkSignUpAble, [모두] 통과');
 
         setIsSignUpAble(true);
       } else {
         // info에 내용이 올바르지 않은 경우
-        console.log('checkSignUpAble, [info] 실패!!');
       }
     } else {
       // invalid text에 뭐가 있는 경우
-      console.log('checkSignUpAble, [invalidText] 실패!!');
     }
   }, [info, invalidText]);
 
@@ -89,10 +85,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     });
     validationCheck(e.target.id, e.target.value);
   };
-
-  useState(() => {
-    console.log('회원가입이 가능한가요? ', isSignUpAble ? '네' : '아니오');
-  }, [isSignUpAble]);
 
   const validationCheck = async (type, value) => {
     const createRequest = async () => {
@@ -161,7 +153,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
     e.preventDefault();
     // 만약 데이터가 없다면 회원가입 시도 안되도록 함
     if (isSignUpAble) {
-      console.log('signup 가능합니다, isSignUpAble:', isSignUpAble);
       const isSuccess = await signUp({
         email,
         password,
@@ -174,7 +165,6 @@ const SignUp = ({ isActive, signUp, signUpOauth, handleClose }) => {
         handleClose();
       } else alert('회원가입에 실패하였습니다');
     } else {
-      console.log('signup 안됩니다, isSignUpAble:', isSignUpAble);
       alert('이메일과 닉네임과 비밀번호를 모두 입력해주세요');
     }
   };
