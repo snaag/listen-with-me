@@ -12,6 +12,11 @@
   border: 0.01rem solid rgb(170, 170, 170);
 }
 
+.profile-picture__content--null {
+  border: 0.1rem solid rgb(170, 170, 170);
+}
+
+
 .profile-picture__filebox label {
   position: absolute;
   background: #fff;
@@ -35,3 +40,4 @@
   color: white;
   transition: 0.2s;
 }
+
