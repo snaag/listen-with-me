@@ -40,7 +40,6 @@ const ListenPage = ({
   const [isCreateRoomSuccess, setIsCreateRoomSuccess] = useState(false);
 
   useEffect(() => {
-    console.log('join join');
     if (isCreateRoomSuccess)
       socket.emit('joinRoom', { playlist_id: rId, user_nickname: name });
     // eslint-disable-next-line
@@ -192,7 +191,7 @@ const ListenPage = ({
   useEffect(() => {
     socket.on('closeRoom', ({ playlist_id }) => {
       console.log(
-        `!!![ListenPage] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?`
+        `!!![ListenPage] ${playlist_id} 가 닫겼습니다! 더 들으실건가요?, isHost: ${isHost}`
       );
       if (!isHost) {
         const result = window.confirm(
@@ -200,13 +199,13 @@ const ListenPage = ({
         ); // true: 확인, false: 취소
         setIsClosed(true);
         setWantToStay(result);
-        if (!result) history.push('/playlist');
+        if (!result) history.push('/main');
       }
     });
 
     socket.on('chatMessage', response => {
       const { playlist_id, user_nickname, message, time } = response;
-      console.log('새로운 메시지를 받았습니다!');
+      // console.log('새로운 메시지를 받았습니다!');
       dispatch(addChat({ user_nickname, message, time }));
       // chatScrollRef.current.scrollTop =
       //   chatScrollRef.current.scrollHeight - 300;
