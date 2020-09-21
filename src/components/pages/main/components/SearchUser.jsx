@@ -76,12 +76,15 @@ class SearchUser extends Component {
           localStorage.setItem('isHost', false);
           localStorage.setItem('roomId', data.room_id);
           history.push('/listen');
-        } else {
-          alert('열려있는 방이 없습니다.');
         }
       } catch (err) {
-        alert('로그아웃 되었습니다.');
-        handleSignIn(false);
+        const { status } = err.response;
+        if (status === 400) {
+          alert('열려있는 방이 없습니다.');
+        } else {
+          alert('로그아웃 되었습니다.');
+          handleSignIn(false);
+        }
         console.log(err);
       }
     } else {
