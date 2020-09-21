@@ -68,6 +68,7 @@ class CreateListModal extends Component {
           handleQuery('');
           handleListTitle('');
           handleModalOpen(!isModalOpen);
+          history.push('/playlist');
           try {
             const { data } = await api.getPlayList(authorization);
             handleMyPlayList(data);
