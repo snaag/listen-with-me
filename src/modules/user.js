@@ -128,9 +128,19 @@ export const signIn = signInData => {
     dispatch(signInRequest());
     try {
       const { headers, data, status } = await api.signIn(signInData);
+      console.log('로그인을 시도할 데이터:', signInData);
+      console.log('받아온 데이터: ', data);
 
       if (status === 200) {
         const { email, nickname, profileDescription, profileURL } = data;
+        console.log(
+          '로그인 성공! 유저 정보를 얻어옵니다',
+          email,
+          nickname,
+          profileDescription,
+          profileURL
+        );
+
         const { authorization } = headers;
         dispatch(
           signInSuccess({
@@ -140,6 +150,7 @@ export const signIn = signInData => {
             profileURL,
           })
         );
+
         localStorage.setItem('authorization', authorization);
         return true;
       }
@@ -161,6 +172,8 @@ export const signUp = getData => {
     dispatch(signUpRequest());
     try {
       const { status, data } = await api.signUp(signUpData);
+      console.log('회원가입을 요청합니다, signUpData: ', signUpData);
+      console.log('회원가입 결과 data:', data);
 
       if (status === 201) {
         dispatch(signUpSuccess());
@@ -191,7 +204,8 @@ export const signUpOauth = (body, accessToken) => {
     } catch (error) {
       console.log(error);
       const { status } = error.response;
-      dispatch(signUpFailure());
+
+      const svg = dispatch(signUpFailure());
       return status;
     }
   };
@@ -215,6 +229,7 @@ export const signInOauth = (body, accessToken) => {
             email,
             nickname,
             description: profileDescription,
+            // profileURL: profileURL || face,
             profileURL,
           })
         );
@@ -324,7 +339,7 @@ export const updateProfilePicture = picture => {
         dispatch(updateProfilePictureSuccess(image_url));
       }
     } catch (error) {
-      console.log(error);
+      console.log('프로필 사진을불러오는데 실패했습니다! svg로 대체합니다.');
       dispatch(updateProfilePictureFailure());
     }
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../css/Picture.css';
 
@@ -20,7 +20,12 @@ const Picture = ({ url, changeProfilePicture }) => {
 
   return (
     <div className="profile-picture float-right">
-      <img className="profile-picture__content" src={url} alt="" />
+      {url === null ? (
+        <img className="profile-picture__content--null" />
+      ) : (
+        <img className="profile-picture__content" src={url} alt="" />
+      )}
+
       <div className="profile-picture__filebox">
         <input
           name="file"

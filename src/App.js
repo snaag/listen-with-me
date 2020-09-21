@@ -25,6 +25,7 @@ class App extends Component {
     try {
       const { status, data } = await api.maintainSignIn(authorization);
       if (status === 200 && data.email) {
+        console.log('maintain signin data:', data);
         handleUserInfo(data);
         handleSignIn(true);
         handleReady();
