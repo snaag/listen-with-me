@@ -76,30 +76,37 @@ http://listen-with-me.s3-website.ap-northeast-2.amazonaws.com/
 #### 일반
 
 - 회원가입
+
   ![일반 회원가입--gif](https://user-images.githubusercontent.com/42943992/93744705-3d46cf00-fc2d-11ea-96ab-25000ac153bb.gif)
 
 - 로그인
+
   ![일반 로그인--gif](https://user-images.githubusercontent.com/42943992/93744700-3b7d0b80-fc2d-11ea-9000-84845464d25e.gif)
 
 - 로그아웃
+
   ![일반 로그아웃--gif](https://user-images.githubusercontent.com/42943992/93744695-391ab180-fc2d-11ea-82aa-603bf8855f82.gif)
 
 #### 구글
 
 - 회원가입
+
   ![구글 회원가입--gif](https://user-images.githubusercontent.com/42943992/93744808-6a937d00-fc2d-11ea-9f4e-958bab73c1e6.gif)
 
 - 로그인
+
   ![구글 로그인--gif](https://user-images.githubusercontent.com/42943992/93744799-68312300-fc2d-11ea-8338-b09d958de84f.gif)
 
 ### 프로필
 
 - 프로필 사진, 닉네임, 소개글 수정하기
+
   ![프로필 정보 변경--gif](https://user-images.githubusercontent.com/42943992/93744976-acbcbe80-fc2d-11ea-9439-6f3fd4b9b2b5.gif)
 
 ### 플레이리스트
 
 - 플레이리스트 생성, 수정, 삭제하기
+
   ![list 생성과 수정--gif](https://user-images.githubusercontent.com/42943992/93744982-b0504580-fc2d-11ea-824e-4ab9cedf1f9e.gif)
 
 ### 방 참여
@@ -110,16 +117,22 @@ http://listen-with-me.s3-website.ap-northeast-2.amazonaws.com/
 ### 호스트와 게스트의 상호작용
 
 - 플레이리스트 좋아요 또는 취소
+
 - 채팅하기
+
 - 따라듣기 또는 따라듣지않기
+
 - 호스트가 나가면 따라 나가거나 이 곡만 듣고 나가기
+
 - 음악 변경
-  | Host | Guest |
-  |-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+
+  | Host                                                                                                        | Guest                                                                                                       |
+  | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
   | ![h1](https://user-images.githubusercontent.com/42943992/93745222-25237f80-fc2e-11ea-94cb-54fac743b540.gif) | ![g1](https://user-images.githubusercontent.com/42943992/93745219-2359bc00-fc2e-11ea-8e1d-6dd7ae765103.gif) |
   | ![h2](https://user-images.githubusercontent.com/42943992/93745264-353b5f00-fc2e-11ea-93ce-25572b64480a.gif) | ![g2](https://user-images.githubusercontent.com/42943992/93745248-2eace780-fc2e-11ea-9186-d71f5b6a22e2.gif) |
 
 ### 기록
 
 - 최근 들은 리스트, 최근 좋아요 한 리스트 보기
+
   ![기록--gif](https://user-images.githubusercontent.com/42943992/93745049-d1b13180-fc2d-11ea-9601-a336c237061a.gif)
