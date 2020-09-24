@@ -12,6 +12,34 @@ http://listen-with-me.s3-website.ap-northeast-2.amazonaws.com/
 | `음악이 좋아요`                                                                                  | `음악이 좋아요`                                                                                                                             | `아이디어가 좋아요`<br/> `음악이 좋아요`                                                                                                   | `내가 쓸거에요`<br/>`아이디어가 좋아요`                                                          |
 | `BE`                                                                                             | `FE`                                                                                                                                        | `BE`                                                                                                                              | `FE`                                                                                             |
 
+### 작업 내역
+#### `이상아`
+* Navigation
+![Navigation](https://user-images.githubusercontent.com/42943992/94174577-75217100-fed0-11ea-8e17-de8a8561c115.png)
+
+* SignIn, SignUp, SignOut
+   ![User](https://user-images.githubusercontent.com/42943992/94174583-76529e00-fed0-11ea-9775-6068058c87cb.png)
+   - 일반 로그인, 회원가입 및 입력 시 유효성 검사
+   - 구글 로그인, 회원가입
+   - 로그아웃
+   
+* ListenPage
+   ![ListenPage](https://user-images.githubusercontent.com/42943992/94174590-76eb3480-fed0-11ea-9af0-0df2701e85df.png)
+   - 방 생성 및 삭제 기능 (이전에 비정상적으로 종료된 방이면, 방에 입장 시 이전 방 삭제 후 다시 생성)
+   - 플레이리스트 좋아요, 좋아요 취소 기능
+   - 실시간 채팅 및 음악 재생하도록 하는 기능
+   - 유저의 선택에 따라 호스트의 음악을 따라듣거나, 혼자 들을 수 있는 기능
+   - 호스트의 퇴장 시 게스트가 듣던 곡만 마저 듣고 나가거나, 아니면 바로 나갈 수 있도록 하는 기능
+   - 음악 끝까지 다 들으면 처음 곡 재생하도록 하는 기능
+
+
+* ProfilePage
+   ![ProfilePage](https://user-images.githubusercontent.com/42943992/94174594-78b4f800-fed0-11ea-8b48-2f094ccf04e6.png)
+   - 프로필 이미지 수정 기능
+   - 닉네임, 인사말 수정 기능
+   - 청취자 수 및 좋아요 수 불러오는 기능
+
+
 ## 기술 스택
 
 ### 프론트엔드
