@@ -4,6 +4,10 @@
 
 http://listen-with-me.s3-website.ap-northeast-2.amazonaws.com/
 
+### 회고
+
+https://bit.ly/2SCFSpz
+
 ## 팀원 소개
 
 | <img src="https://avatars1.githubusercontent.com/u/64449323?s=460&v=4" width="150" height="150"> | <img src="https://avatars1.githubusercontent.com/u/42943992?s=460&u=5f5585b58f81a96a7bfef29b1a28be02708cdb8f&v=4" width="150" height="150"> | <img src="https://avatars2.githubusercontent.com/u/6958819?s=460&u=3f6f5d3c835fc9ed03d169180138537621deddf2&v=4" width="150" height="150"> | <img src="https://avatars0.githubusercontent.com/u/63284310?s=460&v=4" width="150" height="150"> |
